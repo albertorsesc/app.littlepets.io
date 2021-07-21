@@ -1,22 +1,70 @@
 const mix = require('laravel-mix');
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
- | file for the application as well as bundling up all the JS files.
- |
- */
-
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
-    ]);
+        require('autoprefixer'),
+    ]).vue();
+
+mix.extract([
+    'vue',
+    'tailwindcss',
+    'postcss',
+    'laravel-mix',
+    'lodash',
+    'alpine',
+    // 'vue2-dropzone',
+    // '@chenfengyuan/vue-carousel',
+    // 'sweetalert2',
+])
+
+// mix.copy('node_modules/sweetalert2/src/sweetalert2.scss', 'public/css/sweetalert2.css')
+
+mix.webpackConfig({
+    plugins: [
+    ],
+    watchOptions: {
+        ignored: /node_modules/
+    },
+    output: {
+        chunkFilename: 'js/components/[name].js?id=[chunkhash]',
+    },
+    resolve: {
+        /*alias: {
+            '@c': path.resolve('resources/js/components'),
+        }*/
+    }
+    /*resolve: {
+        alias: {
+            'vue$': 'node_modules/vue/dist/vue' // 'vue/dist/vue.common.js' for webpack 1
+        }
+    }*/
+})
+
+mix.webpackConfig({
+    externals: {
+        'vue-server-renderer/basic': 'vue-server-renderer/basic'
+    },
+})
 
 if (mix.inProduction()) {
     mix.version();
 }
+
+if (! mix.inProduction()) {
+    mix.browserSync({
+        proxy: 'http://localhost:8001',
+        open: false,
+        snippetOptions: {
+            rule: {
+                match: /<\/body>/i,
+                fn: function (snippet, match) {
+                    return snippet + match;
+                }
+            }
+        }
+    });
+}
+
+
