@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use Laravel\Jetstream\HasTeams;
+use App\Models\LostPets\LostPet;
+use Laravel\Sanctum\HasApiTokens;
+use App\Models\Adoptions\Adoption;
 use App\Models\Concerns\HasAvatar;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Jetstream\HasTeams;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasTeams;
     use HasAvatar;
     use HasFactory;
     use Notifiable;
@@ -27,7 +29,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password',];
+    protected $fillable = ['first_name', 'last_name', 'email', 'password',];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -49,4 +51,22 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = ['profile_photo_url',];
+
+    /* Relations */
+
+    public function adoptions() : HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Adoption::class,
+            Pet::class,
+        )->latest('updated_at');
+    }
+
+    public function lostPets() : HasManyThrough
+    {
+        return $this->hasManyThrough(
+            LostPet::class,
+            Pet::class,
+        )->latest('updated_at');
+    }
 }

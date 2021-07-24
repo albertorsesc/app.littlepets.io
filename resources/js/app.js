@@ -1,7 +1,35 @@
 require('./bootstrap');
+require('alpinejs');
+// window.Alpine = Alpine;
+// Alpine.start();
+import Vue from 'vue/dist/vue'
+window.Event = new Vue()
+window.baseURL = process.env.MIX_APP_URL
+window.dd = console.log
 
-import Alpine from 'alpinejs';
+Vue.component('adoptions', require('./views/Adoptions/Adoptions').default);
+Vue.component('my-adoptions', require('./views/Adoptions/MyAdoptions').default);
+Vue.component('adoption-profile', require('./views/Adoptions/AdoptionProfile').default);
 
-window.Alpine = Alpine;
+Vue.component('lost-pets', require('./views/LostPets/LostPets').default);
+Vue.component('lost-pet-profile', require('./views/LostPets/LostPetProfile').default);
 
-Alpine.start();
+Vue.component('shelters', require('./views/Shelters/Shelters').default);
+
+Vue.component('profile', require('./views/User/Profile').default);
+
+/**
+ * SweetAlert2
+ * https://sweetalert2.github.io
+ */
+
+/** Mixins */
+import auth from './mixins/auth';
+Vue.mixin(auth)
+
+import mixins from './mixins/mixins';
+Vue.mixin(mixins)
+
+const app = new Vue({
+    el: '#app',
+});

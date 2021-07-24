@@ -54,7 +54,7 @@ if (mix.inProduction()) {
 
 if (! mix.inProduction()) {
     mix.browserSync({
-        proxy: 'http://localhost:8001',
+        proxy: 'http://localhost:8000',
         open: false,
         snippetOptions: {
             rule: {
