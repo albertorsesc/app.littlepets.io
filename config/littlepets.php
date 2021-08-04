@@ -5,7 +5,7 @@
         // Pet Sizes
         'sizes' => [
             'mini' => 'Miniatura',
-            'small' => 'Pequeno',
+            'small' => 'Pequeño',
             'medium' => 'Mediano',
             'large' => 'Grande'
         ],

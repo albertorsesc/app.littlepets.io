@@ -38,13 +38,21 @@
                             <div class="pb-1 sm:pb-6">
                                 <div>
                                     <div class="relative h-40 sm:h-56">
-                                        <img class="absolute h-full w-full object-cover" src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+                                        <custom-carousel
+                                            :images="localAdoption.pet.images"
+                                            :module-name="'adoptions'"
+                                            :size="'medium'"
+                                        ></custom-carousel>
+<!--                                        <img class="absolute h-full w-full object-cover" src="https://images.unsplash.com/photo-1550469434-2e20fe65dad1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80" alt="">-->
                                     </div>
                                     <div class="mt-6 px-4 sm:mt-8 sm:flex sm:items-end sm:px-6">
                                         <div class="sm:flex-1">
                                             <div>
                                                 <div class="flex items-center">
-                                                    <h3 class="font-bold text-xl text-gray-900 sm:text-2xl" v-text="localAdoption.pet.name"></h3>
+                                                    <h3 class="font-bold text-xl text-gray-900 sm:text-2xl">
+                                                        Hola, me soy
+                                                        <span class="text-cyan-500">{{ localAdoption.pet.name }}</span>
+                                                    </h3>
                                                 </div>
                                                 <p class="text-sm text-gray-500" v-text="localAdoption.title"></p>
                                             </div>
@@ -96,12 +104,8 @@
 
                                 <dl class="space-y-8 px-4 sm:px-6 sm:space-y-6">
                                     <div>
-                                        <h3 class="font-medium text-gray-900">Informacion</h3>
+                                        <h3 class="font-medium text-gray-900">Información</h3>
                                         <dl class="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
-                                            <div class="py-3 flex justify-between text-sm font-medium">
-                                                <dt class="text-gray-500">Raza:</dt>
-                                                <dd class="text-gray-900" v-text="localAdoption.pet.breed.name"></dd>
-                                            </div>
                                             <div class="py-3 flex justify-between text-sm font-medium">
                                                 <dt class="text-gray-500">Genero:</dt>
                                                 <dd class="text-gray-900"
@@ -141,11 +145,8 @@
 </template>
 
 <script>
-import Modal from "../Modal";
-
 export default {
     name: 'SlideOver',
-
     data() {
         return {
             localAdoption: {},
@@ -169,6 +170,8 @@ export default {
             this.isOpen = false
         })
     },
-    components: {}
+    components: {
+        CustomCarousel: () => import(/* webpackChunkName: "custom-carousel" */ '../CustomCarousel'),
+    }
 }
 </script>

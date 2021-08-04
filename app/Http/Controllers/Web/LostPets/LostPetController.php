@@ -17,7 +17,12 @@ class LostPetController extends Controller
     {
         return view('lost-pets.show', [
             'lostPet' => new LostPetResource(
-                $lostPet->load(['pet.breed.specie', 'pet.user:id,first_name'])
+                $lostPet->load([
+                    'pet.media',
+                    'pet.specie',
+                    'pet.user:id,first_name,last_name,email',
+                    'comments.user:id,first_name,last_name,email',
+                ])
             )
         ]);
     }

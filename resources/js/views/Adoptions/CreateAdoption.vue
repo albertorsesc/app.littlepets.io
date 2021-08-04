@@ -4,7 +4,7 @@
         <div class="shadow sm:rounded-md sm:overflow-hidden">
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div>
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Registra una Adopcion</h3>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Registra una Adopción</h3>
                     <p class="mt-1 text-sm text-gray-500">
                         Ayudemos a este angelit@ a encontrar un nuevo hogar...
                     </p>
@@ -43,8 +43,7 @@
                     <div class="col-span-6 sm:col-span-2">
                         <label for="specie_id" class="block text-sm font-medium text-gray-700">Especie:</label>
                         <select id="specie_id"
-                                v-model="selectedSpecie"
-                                @change="getBreedsBySpecie"
+                                v-model="adoptionForm.pet.specie"
                                 class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option v-for="specie in species"
                                     :key="specie.id"
@@ -52,24 +51,6 @@
                                     v-text="specie.display_name"
                             ></option>
                         </select>
-                    </div>
-
-                    <div class="col-span-6 sm:col-span-2">
-                        <label for="breed_id" class="block text-sm font-medium text-gray-700">Raza o Tipo:</label>
-                        <select v-model="adoptionForm.pet.breed"
-                                id="breed_id"
-                                class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                :class="errors.breed_id ? 'border-2 border-red-400' : ''">
-                            <option v-for="breed in breeds"
-                                    :key="breed.id"
-                                    :value="breed"
-                                    v-text="breed.name"
-                            ></option>
-                        </select>
-                        <p v-if="errors.breed_id"
-                           v-text="errors.breed_id[0]"
-                           class="text-red-500 font-medium"
-                        ></p>
                     </div>
 
                     <div class="col-span-6 sm:col-span-2">
@@ -125,7 +106,7 @@
                                 class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 :class="errors.size ? 'border-2 border-red-400' : ''">
                             <option value="Miniatura">Miniatura</option>
-                            <option value="Pequeno">Pequeno</option>
+                            <option value="Pequeño">Pequeño</option>
                             <option value="Mediano">Mediano</option>
                             <option value="Grande">Grande</option>
                         </select>
@@ -207,7 +188,6 @@ export default {
     data() {
         return {
             species: [],
-            breeds: [],
 
             adoptionForm: {
                 title: '',
@@ -226,7 +206,7 @@ export default {
             this.isLoading = true
             axios.post('/adoptions', {
                 // Pet
-                breed_id: this.adoptionForm.pet.breed ? this.adoptionForm.pet.breed.id : null,
+                specie_id: this.adoptionForm.pet.specie ? this.adoptionForm.pet.specie.id : null,
                 name: this.adoptionForm.pet.name,
                 gender: this.adoptionForm.pet.gender,
                 size: this.adoptionForm.pet.size,
@@ -256,13 +236,6 @@ export default {
             axios.get('/species')
                 .then(response => {
                     this.species = response.data.data
-                })
-                .catch(error => console.log(error))
-        },
-        getBreedsBySpecie() {
-            axios.get(`/species/${this.selectedSpecie.id}/breeds`)
-                .then(response => {
-                    this.breeds = response.data.data
                 })
                 .catch(error => console.log(error))
         },

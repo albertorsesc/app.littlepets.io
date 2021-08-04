@@ -17,15 +17,16 @@ class AdoptionsTest extends AdoptionTestCase
      * @test
      * @throws \Throwable
     */
-    public function authenticated_user_can_get_all_adoptions()
+    public function authenticated_user_can_get_all_published_adoptions()
     {
         $this->signIn();
 
-        $adoption = $this->create(Adoption::class);
+        $adoption = $this->create(Adoption::class, [], 'published');
+        $this->create(Adoption::class);
 
         $response = $this->getJson(route($this->routePrefix . 'index'));
         $response->assertOk();
-        $response->assertJson([
+        $response->assertJsonFragment([
             'data' => [
                 [
                     'id' => $adoption->id,
@@ -36,13 +37,15 @@ class AdoptionsTest extends AdoptionTestCase
                     'story' => $adoption->story,
                     'meta' => [
                         'profile' => $adoption->profile(),
-                        'publishedAt' => optional($adoption->published_at)->diffForHumans(),
+                        'publishedAt' => optional($adoption->published_at)->format('M j'),
                         'adoptedAt' => optional($adoption->adopted_at)->diffForHumans(),
                         'updatedAt' => $adoption->updated_at->diffForHumans(),
                     ]
                 ]
             ]
         ]);
+
+        $this->assertCount(1, $response->getOriginalContent());
     }
 
     /**

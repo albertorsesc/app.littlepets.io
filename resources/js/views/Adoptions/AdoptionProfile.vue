@@ -11,7 +11,8 @@ export default {
     },
     provide() {
         return {
-            adoption: this.localAdoption
+            adoption: this.localAdoption,
+            pet: this.localAdoption.pet,
         }
     },
     data() {
@@ -19,11 +20,9 @@ export default {
             localAdoption: this.adoption,
 
             species: [],
-            breeds: [],
 
             adoptionForm: { pet: {} },
             selectedSpecie: {},
-            selectedBreed: {},
 
             commentForm: {},
             selectedComment: {},
@@ -44,7 +43,7 @@ export default {
         update() {
             this.isLoading = true
             axios.put(`/adoptions/${this.adoption.id}`, {
-                breed_id: this.selectedBreed.id,
+                specie_id: this.adoptionForm.pet.specie.id,
                 title: this.adoptionForm.title,
                 name: this.adoptionForm.pet.name,
                 gender: this.adoptionForm.pet.gender,
@@ -80,8 +79,8 @@ export default {
         },
         onDelete() {
             SweetAlert.danger(
-                `Eliminar la Adopcion: ${this.localAdoption.title}`,
-                'La Adopcion ha sido eliminada exitosamente!',
+                `Eliminar la Adopción: ${this.localAdoption.title}`,
+                'La Adopción ha sido eliminada exitosamente!',
             )
         },
         comment() {
@@ -140,16 +139,6 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        getBreedsBySpecie(specie) {
-            let selectedSpecie = specie ? specie : this.selectedSpecie
-            this.selectedBreed = {}
-
-            axios.get(`/species/${selectedSpecie.id}/breeds`)
-                .then(response => {
-                    this.breeds = response.data.data
-                })
-                .catch(error => console.log(error))
-        },
         toggle() {
             this.isLoading = true
             axios
@@ -157,7 +146,7 @@ export default {
                 .then(response => {
                     this.localAdoption.meta.publishedAt = response.data
                     let isPublished = this.localAdoption.meta.publishedAt ? 'Publicada' : 'Ocultada'
-                    SweetAlert.success(`Tu Adopcion ha sido ${isPublished} existosamente!`)
+                    SweetAlert.success(`Tu Adopción ha sido ${isPublished} existosamente!`)
                     this.isLoading = false
                 })
                 .catch(error => {
@@ -196,9 +185,7 @@ export default {
             }
 
             if (action === 'put') {
-                this.selectedSpecie = this.localAdoption.pet.breed.specie
-                this.getBreedsBySpecie(this.selectedSpecie)
-                this.adoptionForm.pet.breed = this.selectedBreed = this.localAdoption.pet.breed
+                this.adoptionForm.pet.specie = this.localAdoption.pet.specie
                 this.adoptionForm.title = this.localAdoption.title
                 this.adoptionForm.pet.name = this.localAdoption.pet.name
                 this.adoptionForm.pet.gender = this.localAdoption.pet.gender
@@ -234,7 +221,7 @@ export default {
         Divider: () => import(/* webpackChunkName: "divider" */ '../../components/Divider'),
         AdoptionLocation: () => import(/* webpackChunkName: "adoption-location" */ './AdoptionLocation'),
         CustomCarousel: () => import(/* webpackChunkName: "custom-carousel" */ '../../components/CustomCarousel'),
-        AdoptionImages: () => import(/* webpackChunkName: "adoption-images" */ '../../components/Adoptions/AdoptionImages'),
+        PetImages: () => import(/* webpackChunkName: "pet-images" */ '../../components/Pets/PetImages'),
     }
 }
 </script>

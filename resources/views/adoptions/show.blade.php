@@ -33,7 +33,7 @@
                                     <button @click="toggleAdoption"
                                             type="button"
                                             class="btn btn-primary -mt-1 items-center flex shadow-sm justify-center w-full px-10 py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-600 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                            title="Hacer publico esta Adopcion...">
+                                            title="Hacer publico esta Adopción...">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
                                         </svg>
@@ -49,7 +49,7 @@
 
                                 <button @click="onDelete"
                                         class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
-                                        title="Eliminar Adopcion">
+                                        title="Eliminar Adopción">
                                     <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
                                 {{--Report--}}
@@ -57,11 +57,11 @@
                                     <div>
                                         <button @click="openModal('report')"
                                                 class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
-                                                title="Reportar Adopcion...">
+                                                title="Reportar Adopción...">
                                             <svg class="text-yellow-500 hover:text-yellow-600" width="25" height="25" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                                         </button>
                                         <modal modal-id="reports" max-width="sm:max-w-md">
-                                            <template #title>Reportar Adopcion</template>
+                                            <template #title>Reportar Adopción</template>
                                             <template #content>
                                                 <form @submit.prevent>
                                                     <div class="w-full">
@@ -131,7 +131,7 @@
                                                     :disabled="isLoading"
                                                     type="button"
                                                     class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                                    title="Hacer publico esta Adopcion...">
+                                                    title="Hacer publico esta Adopción...">
                                                 <span class="text-green-300 hover:text-green-400">Publicar</span>
                                             </button>
                                         </span>
@@ -143,7 +143,7 @@
                                             <button @click="openModal('put')"
                                                     type="button"
                                                     class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                                    title="Actualizar Datos de la Propiedad...">
+                                                    title="Actualizar Datos de la Adopción...">
                                                 <span class="text-gray-300">Editar</span>
                                             </button>
                                         </span>
@@ -155,7 +155,7 @@
                                     <div class="card transition hover:transform">
                                         <div class="card-body">
                                             <custom-carousel
-                                                :images="localAdoption.images"
+                                                :images="localAdoption.pet.images"
                                                 :module-name="'adoptions'"
                                                 :size="'medium'"
                                             ></custom-carousel>
@@ -173,7 +173,7 @@
                                                         type="button"
                                                         :class="[status.btnClass]"
                                                         class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                                        :title="localAdoption.meta.publishedAt ? 'Ocultar esta Adopcion del publico...' : 'Hacer publico esta Adopcion...'">
+                                                        :title="localAdoption.meta.publishedAt ? 'Ocultar esta Adopción del publico...' : 'Hacer publico esta Adopción...'">
                                                         <span v-if="! localAdoption.meta.publishedAt" class="text-green-300 hover:text-green-400">Publicar</span>
                                                         <span v-if="localAdoption.meta.publishedAt" class="text-gray-300 hover:text-gray-400">Ocultar</span>
                                                     </button>
@@ -186,7 +186,7 @@
                                     <button @click="openModal('put')"
                                             type="button"
                                             class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                            title="Actualizar Datos de la Propiedad...">
+                                            title="Actualizar Datos de la Adopción...">
                                         <span class="text-gray-300">Editar</span>
                                     </button>
                                 </span>
@@ -197,12 +197,12 @@
                                     <div class="md:flex md:justify-between mb-2">
                                         <div class="w-full bg-white shadow-sm overflow-hidden sm:rounded-md h-auto">
                                             <ul>
-                                                <li class="mt-2" title="Estatus de la Publicacion">
+                                                <li class="mt-2" title="Estatus de la Publicación">
                                                     <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                                                         <div class="px-4 py-2 sm:px-6">
                                                             <div class="flex items-center justify-between">
                                                                 <div class="text-base leading-5 font-medium text-gray-600 truncate">
-                                                                    Estatus de Publicacion
+                                                                    Estatus de Publicación
                                                                 </div>
                                                                 <div v-if="localAdoption.meta.publishedAt"
                                                                      class="ml-2 flex-shrink-0 flex">
@@ -234,22 +234,6 @@
                                                                           class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500">
                                                                         Sin Adoptadar
                                                                     </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="mt-1">
-                                                    <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                                                        <div class="px-4 py-2 sm:px-6">
-                                                            <div class="flex items-center justify-between">
-                                                                <div class="text-base leading-5 font-medium text-gray-600 truncate">
-                                                                    Raza
-                                                                </div>
-                                                                <div class="ml-2 flex-shrink-0 flex">
-                                                                <span class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500"
-                                                                      v-text="localAdoption.pet.breed.name"
-                                                                ></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -372,7 +356,7 @@
                                 <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                                     <div v-if="localAdoption.bio" class="sm:col-span-2">
                                         <dt class="text-sm font-medium text-gray-500">
-                                            Soy un @{{ adoption.pet.breed.specie.display_name }} que le gusta...
+                                            Soy un @{{ adoption.pet.specie.display_name }} que le gusta...
                                         </dt>
                                         <dd class="mt-1 text-sm text-gray-900" v-text="localAdoption.bio"></dd>
                                     </div>
@@ -387,14 +371,14 @@
                         </div>
 
                         <div>
-                            <adoption-images></adoption-images>
+                            <pet-images></pet-images>
                         </div>
 
                         <adoption-location></adoption-location>
 
                         {{--Comments--}}
                         <divider title="Comentarios"></divider>
-                        <section aria-labelledby="notes-title" class="mt-6">
+                        {{--<section aria-labelledby="notes-title" class="mt-6">
                             <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
                                 <div class="bg-gray-50 px-4 py-4 sm:px-6">
                                     <div class="flex space-x-3">
@@ -418,9 +402,9 @@
                                                 </div>
                                                 <div class="mt-3 flex items-center justify-between">
                                                     <a href="#" class="md:-mt-8 group inline-flex items-start text-sm space-x-2 text-gray-500 hover:text-gray-900">
-                                                        {{--<svg class="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                        --}}{{--<svg class="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                                                        </svg>--}}
+                                                        </svg>--}}{{--
                                                         <span>
                                                             Seamos respetuosos con los demas, todos queremos lo mejor para estos angelitos.
                                                         </span>
@@ -486,14 +470,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </section>--}}
 
                     </div>
                 </div>
             </main>
 
             <modal modal-id="update-adoption" max-width="sm:max-w-5xl">
-                <template #title>Actualizar Datos de la Adopcion</template>
+                <template #title>Actualizar Datos de la Adopción</template>
                 <template #content>
                     <form @submit.prevent>
 
@@ -502,7 +486,7 @@
                                 <div class="form-group">
                                     <label for="title">
                                         <strong class="required">*</strong>
-                                        Titulo de la Publicacion
+                                        Titulo de la Publicación
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
                                     <div class="mt-2">
@@ -533,11 +517,9 @@
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
                                     <div class="mt-2">
-                                        <select v-model="selectedSpecie"
-                                                @change="getBreedsBySpecie(selectedSpecie)"
+                                        <select v-model="adoptionForm.pet.specie"
                                                 id="specie_id"
                                                 class="lp-select">
-                                            <option v-text="selectedSpecie.display_name" selected disabled></option>
                                             <option v-for="specie in species"
                                                     :key="specie.id"
                                                     :value="specie"
@@ -547,31 +529,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
-                                <div class="form-group">
-                                    <label for="breed_id">
-                                        <strong class="required">*</strong>
-                                        Raza
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
-                                    </label>
-                                    <div class="mt-2">
-                                        <select v-model="selectedBreed" id="breed_id" class="lp-select">
-                                            <option v-text="selectedBreed.name"
-                                                    :value="selectedBreed"
-                                                    selected disabled
-                                            ></option>
-                                            <option v-for="breed in breeds"
-                                                    :key="breed.id"
-                                                    :value="breed"
-                                                    v-text="breed.name"
-                                            ></option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="w-full md:flex md:-mx-2 mt-4">
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
                                     <label for="gender">
@@ -591,6 +548,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="w-full md:flex md:-mx-2 mt-4">
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
                                     <label for="size">
@@ -602,7 +562,7 @@
                                         <select v-model="adoptionForm.pet.size" id="size" class="lp-select">
                                             <option v-text="localAdoption.pet.size" selected disabled></option>
                                             <option value="Miniatura">Miniatura</option>
-                                            <option value="Pequeno">Pequeno</option>
+                                            <option value="Pequeño">Pequeño</option>
                                             <option value="Mediano">Mediano</option>
                                             <option value="Grande">Grande</option>
                                         </select>
@@ -641,6 +601,7 @@
                                     ></p>
                                 </div>
                             </div>
+                            <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0 mb-4"></div>
                         </div>
 
                         <div class="w-full my-6 md:-mx-2 md:mt-0">

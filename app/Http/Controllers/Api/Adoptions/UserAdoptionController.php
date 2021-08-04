@@ -16,7 +16,8 @@ class UserAdoptionController extends Controller
                 ->adoptions
                 ->load([
                     'pet.user',
-                    'pet.breed.specie'
+                    'pet.media',
+                    'pet.specie',
                 ])
         );
     }

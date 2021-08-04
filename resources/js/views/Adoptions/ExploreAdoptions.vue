@@ -21,29 +21,56 @@
                             class="text-gray-900 rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
                             :class="speciesTab === 'dog' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'"
                             aria-current="page">
-                        <span>Perros</span>
-                        <span v-if="speciesTab === 'dog'" aria-hidden="true" class="bg-cyan-500 absolute inset-x-0 bottom-0 h-0.5"></span>
+                        <span class="flex justify-center items-center">
+                            <span class="mr-2">Perros</span>
+                            <span v-text="this.adoptions.filter(adoption => adoption.pet.specie.name === 'dog').length"
+                                  class="text-cyan-400 items-center align-middle"
+                            ></span>
+                            <span v-if="speciesTab === 'dog'"
+                                  aria-hidden="true"
+                                  class="bg-cyan-500 absolute inset-x-0 bottom-0 h-0.5"
+                            ></span>
+                        </span>
                     </button>
 
                     <button @click="switchSpeciesTab('cat')"
                             class="group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
                             :class="speciesTab === 'cat' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'">
-                        <span>Gatos</span>
-                        <span v-if="speciesTab === 'cat'" aria-hidden="true" class="bg-cyan-500 absolute inset-x-0 bottom-0 h-0.5"></span>
+                        <span class="flex justify-center items-center">
+                            <span class="mr-2">Gatos</span>
+                            <span v-text="this.adoptions.filter(adoption => adoption.pet.specie.name === 'cat').length"
+                                  class="text-cyan-400 items-center align-middle"
+                            ></span>
+                            <span v-if="speciesTab === 'cat'" aria-hidden="true" class="bg-cyan-500 absolute inset-x-0 bottom-0 h-0.5"></span>
+                        </span>
                     </button>
 
                     <button @click="switchSpeciesTab('rodent')"
                             class="group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
                             :class="speciesTab === 'rodent' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'">
-                        <span>Roedores</span>
-                        <span v-if="speciesTab === 'rodent'" aria-hidden="true" class="bg-cyan-500 absolute inset-x-0 bottom-0 h-0.5"></span>
+                            <span class="flex justify-center items-center">
+                                <span class="mr-2">Roedores</span>
+                                <span v-text="this.adoptions.filter(adoption => adoption.pet.specie.name === 'rodent').length"
+                                      class="text-cyan-400 items-center align-middle"
+                                ></span>
+                                <span v-if="speciesTab === 'rodent'" aria-hidden="true" class="bg-cyan-500 absolute inset-x-0 bottom-0 h-0.5"></span>
+                            </span>
                     </button>
 
                     <button @click="switchSpeciesTab('other')"
                             class="group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
                             :class="speciesTab === 'other' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'">
-                        <span>Otras Especies</span>
-                        <span v-if="speciesTab === 'other'" aria-hidden="true" class="bg-cyan-500 absolute inset-x-0 bottom-0 h-0.5"></span>
+                        <span class="flex justify-center items-center">
+                            <span class="mr-2">Otras Especies</span>
+                            <span v-text="this.adoptions.filter(
+                                adoption => adoption.pet.specie.name !== 'dog' &&
+                                    adoption.pet.specie.name !== 'cat' &&
+                                    adoption.pet.specie.name !== 'rodent'
+                             ).length"
+                                  class="text-cyan-400 items-center align-middle"
+                            ></span>
+                            <span v-if="speciesTab === 'other'" aria-hidden="true" class="bg-cyan-500 absolute inset-x-0 bottom-0 h-0.5"></span>
+                        </span>
                     </button>
                 </nav>
             </div>
@@ -55,7 +82,9 @@
                 :key="adoption.id"
                 @click="openAdoptionSlider(adoption)"
                 class="cursor-pointer relative py-4 w-full 2xl:w-1/2 px-3">
-                <pet-card :pet="adoption"></pet-card>
+                <pet-card :data="adoption"
+                          :meta="{ date: adoption.meta.publishedAt }"
+                ></pet-card>
             </li>
         </ul>
         <adoption-slider></adoption-slider>
@@ -90,13 +119,13 @@ export default {
             this.speciesTab = specie
             if (this.speciesTab === 'other') {
                 this.filteredAdoptions = this.adoptions.filter(adoption => {
-                    return adoption.pet.breed.specie.name !== 'dog' &&
-                        adoption.pet.breed.specie.name !== 'cat' &&
-                        adoption.pet.breed.specie.name !== 'rodent'
+                    return adoption.pet.specie.name !== 'dog' &&
+                        adoption.pet.specie.name !== 'cat' &&
+                        adoption.pet.specie.name !== 'rodent'
                 })
             } else {
                 this.filteredAdoptions = this.adoptions.filter(
-                    adoption => adoption.pet.breed.specie.name === this.speciesTab
+                    adoption => adoption.pet.specie.name === this.speciesTab
                 )
             }
         },

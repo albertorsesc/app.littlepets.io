@@ -35,7 +35,7 @@
                         if (process.env.MIX_NODE_ENV !== 'production') {
                             img = window.location.origin + `/img/${this.size}/${this.localImages[i].file_name.split('public/').pop()}`
                         } else {
-                            img = `${this.localImages[i].file_name}`
+                            img = `/${this.localImages[i].file_name.replace('public/', 'storage/')}`
                         }
 
                         this.data.push('<img class="d-block h-full w-full object-fit rounded-lg" src="' + img + '" loading="lazy">')
@@ -51,7 +51,7 @@
         mounted() {
             this.displayImages()
 
-            window.Event.$on('adoptions-images-destroy', images => {
+            window.Event.$on(`pets-images-destroy`, images => {
                 this.localImages = images
                 this.data = []
                 this.displayImages()

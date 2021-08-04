@@ -11,7 +11,7 @@ class AdoptionTestCase extends TestCase
     protected function setUp () : void
     {
         parent::setUp();
-        $this->seedBreeds();
+        $this->seedSpecies();
     }
 
     public function getAdoptionData($adoption, $override = []) : array

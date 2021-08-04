@@ -14,12 +14,12 @@ mix.extract([
     'laravel-mix',
     'lodash',
     'alpine',
-    // 'vue2-dropzone',
-    // '@chenfengyuan/vue-carousel',
-    // 'sweetalert2',
+    'vue2-dropzone',
+    '@chenfengyuan/vue-carousel',
+    'sweetalert2',
 ])
 
-// mix.copy('node_modules/sweetalert2/src/sweetalert2.scss', 'public/css/sweetalert2.css')
+mix.copy('node_modules/sweetalert2/src/sweetalert2.scss', 'public/css/sweetalert2.css')
 
 mix.webpackConfig({
     plugins: [

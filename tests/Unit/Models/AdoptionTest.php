@@ -6,7 +6,7 @@ use Tests\AdoptionTestCase;
 use Illuminate\Http\UploadedFile;
 use Database\Seeders\{CountrySeeder, StateSeeder};
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\{Comment, Location, Media, Pet, Adoptions\Adoption};
+use App\Models\{Comment, Concerns\CanBeReported, Concerns\Publishable, Location, Media, Pet, Adoptions\Adoption};
 
 class AdoptionTest extends AdoptionTestCase
 {
@@ -24,6 +24,10 @@ class AdoptionTest extends AdoptionTestCase
         $this->assertInstanceOf(Pet::class, $adoption->pet);
     }
 
+    /**
+     * @test
+     * @throws \Throwable
+     */
     public function adoption_morphs_to_many_comments()
     {
         $this->signIn();
@@ -33,23 +37,10 @@ class AdoptionTest extends AdoptionTestCase
         $this->assertInstanceOf(Comment::class, $adoption->comments->first());
     }
 
-    public function adoption_has_many_media()
-    {
-        \Storage::fake('public');
-
-        $this->signIn();
-
-        $adoption = $this->create(Adoption::class);
-
-        $requestWithImages = [
-            'images' => [UploadedFile::fake()->image('adoption.jpg', 1, 1),]
-        ];
-
-        $this->postJson(route('api.adoptions.images.store', $adoption), $requestWithImages);
-
-        $this->assertInstanceOf(Media::class, $adoption->fresh()->media()->first());
-    }
-
+    /**
+     * @test
+     * @throws \Throwable
+     */
     public function adoption_has_one_location()
     {
         $this->loadSeeders([
@@ -66,5 +57,29 @@ class AdoptionTest extends AdoptionTestCase
         );
 
         $this->assertInstanceOf(Location::class, $adoption->fresh()->location);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+    */
+    public function adoption_model_must_use_can_be_reported_trait()
+    {
+        $this->assertClassUsesTrait(
+            CanBeReported::class,
+            Adoption::class
+        );
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function adoption_uses_publishable_trait()
+    {
+        $this->assertClassUsesTrait(
+            Publishable::class,
+            Adoption::class
+        );
     }
 }

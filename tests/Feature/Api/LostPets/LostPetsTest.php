@@ -69,6 +69,7 @@ class LostPetsTest extends LostPetTestCase
      */
     public function authenticated_user_can_update_a_lost_pet()
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
         $existingLostPet = $this->create(LostPet::class);

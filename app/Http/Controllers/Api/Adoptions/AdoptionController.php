@@ -15,18 +15,20 @@ class AdoptionController extends Controller
     public function index() : AnonymousResourceCollection
     {
         return AdoptionResource::collection(
-            Adoption::with([
-                'pet.breed.specie',
-                'pet.user:id,first_name,last_name,email',
-            ])->latest()
-              ->get()
+            Adoption::isPublished()
+                    ->with([
+                        'pet.media',
+                        'pet.specie',
+                        'pet.user:id,first_name,last_name,email',
+                    ])->latest()
+                    ->get()
         );
     }
 
     public function store(AdoptionRequest $request) : JsonResponse
     {
         $pet = Pet::create([
-            'breed_id' => $request->breed_id,
+            'specie_id' => $request->specie_id,
             'name' => $request->name,
             'gender' => $request->gender,
             'size' => $request->size,
@@ -43,7 +45,8 @@ class AdoptionController extends Controller
                     'story' => $request->story,
                 ])->load([
                     'pet.user:id,first_name,last_name,email',
-                    'pet.breed.specie',
+                    'pet.specie',
+                    'pet.media',
 //                    'comments.user:id,first_name,last_name,email',
                 ])
             )
@@ -55,7 +58,7 @@ class AdoptionController extends Controller
         Adoption $adoption
     ) : AdoptionResource {
         $adoption->pet()->update([
-            'breed_id' => $request->breed_id,
+            'specie_id' => $request->specie_id,
             'name' => $request->name,
             'gender' => $request->gender,
             'size' => $request->size,
@@ -67,7 +70,8 @@ class AdoptionController extends Controller
 
         return new AdoptionResource(
             $adoption->load([
-                'pet.breed.specie',
+                'pet.media',
+                'pet.specie',
                 'pet.user:id,first_name,last_name,email',
 //                'comments.user:id,first_name,last_name,email',
             ])
@@ -76,7 +80,7 @@ class AdoptionController extends Controller
 
     public function destroy(Adoption $adoption)
     {
-        $adoption->pet()->delete();
+        $adoption->delete();
 
         return response([], 204);
     }

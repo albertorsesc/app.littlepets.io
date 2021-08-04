@@ -21,7 +21,7 @@ class LostPetResource extends JsonResource
             'postType' => $this->post_type,
             'phone' => $this->phone,
             'description' => $this->description,
-//            'comments' => CommentResource::collection($this->whenLoaded('comments')),
+            'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'meta' => [
                 'profile' => $this->profile(),
                 'publishedAt' => optional($this->published_at)->diffForHumans(),

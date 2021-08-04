@@ -15,7 +15,7 @@ class UserLostPetController extends Controller
                 ->user()
                 ->lostPets
                 ->load([
-                    'pet.breed',
+                    'pet.specie',
                     'pet.user:id,first_name',
                 ])
         );

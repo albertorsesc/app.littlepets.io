@@ -4,6 +4,7 @@ export default {
     data() {
         return {
             headerTitle: 'Perdidos y Encontrados',
+
             activeTab: 'explore-lost-pets',
         }
     },

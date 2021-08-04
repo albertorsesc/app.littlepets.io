@@ -4,13 +4,17 @@ namespace App\Models\LostPets;
 
 use App\Models\Pet;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Concerns\SerializeTimestamps;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Concerns\{CanBeReported, Commentable, HasLocation, Publishable, SerializeTimestamps};
 
 class LostPet extends Model
 {
     use HasFactory;
+    use HasLocation;
+    use Commentable;
+    use Publishable;
+    use CanBeReported;
     use SerializeTimestamps;
 
     const POST_TYPES = ['owner', 'rescuer'];
@@ -30,5 +34,13 @@ class LostPet extends Model
     public function profile() : string
     {
         return route('web.lost-pets.show', $this);
+    }
+
+    public static function getReportingCauses () : array
+    {
+        return array_merge([
+            'found' => 'La mascota ha sido encontrada por su Dueño',
+            'not-owner' => 'Dueño de Mascota incorrecto',
+        ], config('littlepets.reporting_causes'));
     }
 }

@@ -86,7 +86,7 @@
                                 v-model="shelterForm.size"
                                 class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="Miniatura">Miniatura</option>
-                            <option value="Pequeno">Pequeno</option>
+                            <option value="Pequeño">Pequeño</option>
                             <option value="Mediano">Mediano</option>
                             <option value="Grande">Grande</option>
                         </select>

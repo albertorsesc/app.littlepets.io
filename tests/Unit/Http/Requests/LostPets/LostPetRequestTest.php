@@ -1,12 +1,10 @@
 <?php
 
-namespace Tests\Unit\Http\Requests;
+namespace Tests\Unit\Http\Requests\LostPets;
 
-use Carbon\Carbon;
 use Tests\LostPetTestCase;
 use Illuminate\Support\Str;
 use App\Models\LostPets\LostPet;
-use Database\Seeders\{BreedSeeder, SpecieSeeder};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LostPetRequestTest extends LostPetTestCase
@@ -19,50 +17,6 @@ class LostPetRequestTest extends LostPetTestCase
     {
         parent::setUp();
         $this->signIn();
-    }
-
-    /**
-     *   @test
-     *   @throws \Throwable
-     */
-    public function breed_id_is_required()
-    {
-        $validatedField = 'breed_id';
-        $brokenRule = null;
-        $lostPet = $this->make(LostPet::class);
-
-        $this->postJson(
-            route($this->routePrefix . 'store'),
-            $this->getLostPetData($lostPet, [$validatedField => $brokenRule])
-        )->assertJsonValidationErrors($validatedField);
-
-        $existingLostPet = $this->create(LostPet::class);
-        $this->putJson(
-            route($this->routePrefix . 'update', $existingLostPet),
-            $this->getLostPetData($lostPet, [$validatedField => $brokenRule])
-        )->assertJsonValidationErrors($validatedField);
-    }
-
-    /**
-     *   @test
-     *   @throws \Throwable
-     */
-    public function breed_id_must_exist_in_breeds_table()
-    {
-        $validatedField = 'breed_id';
-        $brokenRule = 19887324;
-        $lostPet = $this->make(LostPet::class);
-
-        $this->postJson(
-            route($this->routePrefix . 'store'),
-            $this->getLostPetData($lostPet, [$validatedField => $brokenRule])
-        )->assertJsonValidationErrors($validatedField);
-
-        $existingLostPet = $this->create(LostPet::class);
-        $this->putJson(
-            route($this->routePrefix . 'update', $existingLostPet),
-            $this->getLostPetData($lostPet, [$validatedField => $brokenRule])
-        )->assertJsonValidationErrors($validatedField);
     }
 
     /**

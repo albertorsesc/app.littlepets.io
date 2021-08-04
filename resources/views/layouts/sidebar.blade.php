@@ -139,7 +139,9 @@
         <!-- Sidebar component, swap this element with another sidebar if you like -->
         <div class="flex flex-col flex-grow bg-cyan-600 pt-5 pb-4 overflow-y-auto">
             <div class="flex items-center flex-shrink-0 px-4">
-                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/easywire-logo-cyan-300-mark-white-text.svg" alt="Easywire logo">
+{{--                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/easywire-logo-cyan-300-mark-white-text.svg" alt="Easywire logo">--}}
+                <img class="h-full w-auto" src="/logos/min_logo_little_pets_blanco.png" alt="Easywire logo">
+
             </div>
             <nav class="mt-5 flex-1 flex flex-col divide-y divide-cyan-800 overflow-y-auto" aria-label="Sidebar">
                 <div class="px-2 space-y-1">
@@ -153,16 +155,46 @@
                     </a>--}}
 
                     <a href="{{ route('web.adoptions.index') }}"
-                       class="@if(request()->routeIs('web.adoptions.index')) bg-cyan-800 @endif text-white hover:text-white hover:bg-cyan-600 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
+                       class="@if(request()->routeIs('web.adoptions.index')) bg-cyan-800 @endif text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
                         <i class="fas fa-paw mr-4 flex-shrink-0 text-cyan-200"></i>
                         Adopciones
                     </a>
 
                     <a href="{{ route('web.lost-pets.index') }}"
-                       class="@if(request()->routeIs('web.lost-pets.index')) bg-cyan-800 @endif text-white hover:text-white hover:bg-cyan-600 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
+                       class="@if(request()->routeIs('web.lost-pets.index')) bg-cyan-800 @endif text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
                         <i class="fas fa-bullhorn mr-4 flex-shrink-0 text-cyan-200"></i>
                         Perdidos y Encontrados
                     </a>
+
+                    <a href="#"
+                       class="text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
+                        <i class="fas fa-clinic-medical mr-4 flex-shrink-0 text-cyan-200"></i>
+                        Veterinarias
+                    </a>
+
+                    {{--<a href="#"
+                       class="text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
+                        <i class="fas fa-university mr-4 flex-shrink-0 text-cyan-200"></i>
+                        Organizaciones
+                    </a>
+
+                    <a href="#"
+                       class="text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
+                        <i class="fas fa-hand-holding-heart mr-4 flex-shrink-0 text-cyan-200"></i>
+                        Donaciones
+                    </a>
+
+                    <a href="#"
+                       class="text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
+                        <i class="fas fa-cut mr-4 flex-shrink-0 text-cyan-200"></i>
+                        Estéticas de Mascotas
+                    </a>
+
+                    <a href="#"
+                       class="text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
+                        <i class="fas fa-dumbbell mr-4 flex-shrink-0 text-cyan-200"></i>
+                        Entrenadores
+                    </a>--}}
 
                     {{--<a href="#" class="text-cyan-100 hover:text-white hover:bg-cyan-600 group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md">
                         <!-- Heroicon name: outline/scale -->

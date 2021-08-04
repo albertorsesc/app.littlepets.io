@@ -8,11 +8,11 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    Ubicación de la Propiedad
+                    Ubicación de la Adopción
                 </h3>
                 <div v-if="adoption.pet.user.id === auth">
                     <button @click="openModal" class="h-link bg-white -mt-1 shadow rounded-md py-2 px-2 float-left hover:text-emerald-500 focus:outline-none focus:shadow-outline-blue active:bg-emerald-50 active:text-emerald-800"
-                            title="Registrar Ubicación de la Propiedad">
+                            title="Registrar Ubicación de la Adopción">
                         <svg class="text-emerald-400 hover:text-emerald-600" width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -82,7 +82,7 @@
             <modal v-if="isAuthenticated && adoption.pet.user.id === auth"
                    modal-id="adoption-location"
                    max-width="sm:max-w-5xl">
-                <template #title>Ubicación de la Propiedad</template>
+                <template #title>Ubicación de la Adopción</template>
                 <template #content>
                     <form @submit.prevent>
 

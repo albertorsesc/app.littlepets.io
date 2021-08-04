@@ -2,25 +2,15 @@
 
 namespace Tests\Feature\Api\LostPets;
 
-use Tests\TestCase;
+use Tests\LostPetTestCase;
 use App\Models\LostPets\LostPet;
-use Database\Seeders\{BreedSeeder, SpecieSeeder};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserLostPetsTest extends TestCase
+class UserLostPetsTest extends LostPetTestCase
 {
     use RefreshDatabase;
 
     private string $routePrefix = 'api.user-lost-pets.';
-
-    protected function setUp () : void
-    {
-        parent::setUp();
-        $this->loadSeeders([
-            SpecieSeeder::class,
-            BreedSeeder::class
-        ]);
-    }
 
     /**
      * @test

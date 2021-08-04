@@ -1,27 +1,33 @@
 <?php
 
-    use App\Http\Controllers\Api\BreedController;
-    use App\Http\Controllers\Api\LostPets\UserLostPetController;
     use App\Http\Controllers\Api\StateController;
+    use App\Http\Controllers\Api\BreedController;
     use App\Http\Controllers\Api\SpecieController;
     use App\Http\Controllers\Api\CountryController;
+    use App\Http\Controllers\Api\Pets\PetImageController;
     use App\Http\Controllers\Api\LostPets\LostPetController;
     use App\Http\Controllers\Api\Adoptions\AdoptionController;
+    use App\Http\Controllers\Api\LostPets\UserLostPetController;
     use App\Http\Controllers\Api\Adoptions\UserAdoptionController;
-    use App\Http\Controllers\Api\Adoptions\AdoptionImageController;
+    use App\Http\Controllers\Api\LostPets\LostPetCommentController;
+    use App\Http\Controllers\Api\LostPets\LostPetLocationController;
     use App\Http\Controllers\Api\Adoptions\AdoptionCommentController;
     use App\Http\Controllers\Api\Adoptions\AdoptionLocationController;
+    use App\Http\Controllers\Api\LostPets\Actions\ReportLostPetController;
+    use App\Http\Controllers\Api\LostPets\Actions\PublishLostPetController;
     use App\Http\Controllers\Api\Adoptions\Actions\MarkAsAdoptedController;
     use App\Http\Controllers\Api\Adoptions\Actions\ReportAdoptionController;
     use App\Http\Controllers\Api\Adoptions\Actions\PublishAdoptionController;
 
-    Route::get('countries', CountryController::class)->name('api.countries.index');
-    Route::get('states', StateController::class)->name('api.states.index');
-
-    Route::get('species', [SpecieController::class, 'index'])->name('api.species.index');
-    Route::get('species/{specie}/breeds', [BreedController::class, 'index'])->name('api.species.breeds.index');
-
     Route::middleware('auth:sanctum')->group(function () {
+        Route::get('countries', CountryController::class)->name('api.countries.index');
+        Route::get('states', StateController::class)->name('api.states.index');
+
+        Route::get('species', [SpecieController::class, 'index'])->name('api.species.index');
+
+        /* Pets */
+        Route::post('pets/{pet}/images', [PetImageController::class, 'store'])->name('api.pets.images.store');
+        Route::delete('pets/{pet}/images/{media:id}', [PetImageController::class, 'destroy'])->name('api.pets.images.destroy');
 
         /* Adoptions */
         Route::get('adoptions', [AdoptionController::class, 'index'])->name('api.adoptions.index');
@@ -37,9 +43,6 @@
         Route::post('adoptions/{adoption}/location', [AdoptionLocationController::class, 'store'])->name('api.adoptions.location.store');
         Route::put('adoptions/{adoption}/location', [AdoptionLocationController::class, 'update'])->name('api.adoptions.location.update');
 
-        Route::post('adoptions/{adoption}/images', [AdoptionImageController::class, 'store'])->name('api.adoptions.images.store');
-        Route::delete('adoptions/{adoption}/images/{media:id}', [AdoptionImageController::class, 'destroy'])->name('api.adoptions.images.destroy');
-
         /* Adoption Comments */
         Route::post('adoptions/{adoption}/comments', [AdoptionCommentController::class, 'store'])->name('api.adoptions.comments.store');
         Route::put('adoptions/{adoption}/comments/{comment}', [AdoptionCommentController::class, 'update'])->name('api.adoptions.comments.update');
@@ -52,5 +55,13 @@
         Route::delete('lost-pets/{lostPet}', [LostPetController::class, 'destroy'])->name('api.lost-pets.destroy');
 
         Route::get('my-lost-pets', UserLostPetController::class)->name('api.user-lost-pets.index');
+        Route::put('lost-pets/{lostPet}/toggle', PublishLostPetController::class)->name('api.lost-pets.toggle');
+        Route::post('lost-pets/{lostPet}/report', ReportLostPetController::class)->name('api.lost-pets.report');
 
+        Route::post('lost-pets/{lostPet}/location', [LostPetLocationController::class, 'store'])->name('api.lost-pets.location.store');
+        Route::put('lost-pets/{lostPet}/location', [LostPetLocationController::class, 'update'])->name('api.lost-pets.location.update');
+
+        Route::post('lost-pets/{lostPet}/comments', [LostPetCommentController::class, 'store'])->name('api.lost-pets.comments.store');
+        Route::put('lost-pets/{lostPet}/comments/{comment}', [LostPetCommentController::class, 'update'])->name('api.lost-pets.comments.update');
+        Route::delete('lost-pets/{lostPet}/comments/{comment}', [LostPetCommentController::class, 'destroy'])->name('api.lost-pets.comments.destroy');
     });

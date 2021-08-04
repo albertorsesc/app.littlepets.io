@@ -12,7 +12,7 @@ class LostPetTestCase extends TestCase
     protected function setUp () : void
     {
         parent::setUp();
-        $this->seedBreeds();
+        $this->seedSpecies();
     }
 
     public function getLostPetData($lostPet, $override = []) : array

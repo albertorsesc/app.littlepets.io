@@ -32,4 +32,13 @@ class AdoptionFactory extends Factory
             'adopted_at' => null,
         ];
     }
+
+    public function published() : AdoptionFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'published_at' => $this->faker->dateTime,
+            ];
+        });
+    }
 }

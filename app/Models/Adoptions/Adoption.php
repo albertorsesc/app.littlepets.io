@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Concerns\{CanBeReported, Commentable, HasLocation, HandlesMedia, Publishable};
+use App\Models\Concerns\{CanBeReported, Commentable, HasLocation, Publishable, SerializeTimestamps};
 
 class Adoption extends Model
 {
@@ -15,8 +15,8 @@ class Adoption extends Model
     use HasLocation;
     use Commentable;
     use Publishable;
-    use HandlesMedia;
     use CanBeReported;
+    use SerializeTimestamps;
 
     protected $fillable = ['title', 'phone', 'bio', 'story', 'published_at', 'adopted_at'];
     protected $casts = ['status' => 'boolean', 'published_at' => 'datetime', 'adopted_at' => 'datetime'];

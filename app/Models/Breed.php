@@ -14,8 +14,5 @@ class Breed extends Model
 
     /* Relations */
 
-    public function specie() : BelongsTo
-    {
-        return $this->belongsTo(Specie::class);
-    }
+
 }

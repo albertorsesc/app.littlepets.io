@@ -22,7 +22,6 @@ class PublishAdoptionTest extends TestCase
     {
         $this->loadSeeders([
             SpecieSeeder::class,
-            BreedSeeder::class,
         ]);
         $this->signIn();
 

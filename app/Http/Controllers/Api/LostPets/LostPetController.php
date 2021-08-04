@@ -16,7 +16,7 @@ class LostPetController extends Controller
     public function index() : AnonymousResourceCollection
     {
         return LostPetResource::collection(
-            LostPet::with(['pet.user', 'pet.breed'])
+            LostPet::with(['pet.user', 'pet.specie'])
                    ->latest('updated_at')
                    ->get()
         );
@@ -25,7 +25,7 @@ class LostPetController extends Controller
     public function store(LostPetRequest $request) : JsonResponse
     {
         $pet = Pet::create([
-            'breed_id' => $request->breed_id,
+            'specie_id' => $request->specie_id,
             'name' => $request->name,
             'gender' => $request->gender,
             'size' => $request->size,
@@ -35,8 +35,11 @@ class LostPetController extends Controller
 
         return response()->json(
             new LostPetResource(
-                $pet->lostPet()
-                    ->create($request->all())
+                $pet->lostPet()->create($request->all())
+                    ->load([
+                        'pet.specie',
+                        'pet.user:id,first_name,last_name,email',
+                    ])
             ),
             201
         );
@@ -45,7 +48,7 @@ class LostPetController extends Controller
     public function update(LostPetRequest $request, LostPet $lostPet) : LostPetResource
     {
         $lostPet->pet()->update([
-            'breed_id' => $request->breed_id,
+            'specie_id' => $request->specie_id,
             'name' => $request->name,
             'gender' => $request->gender,
             'size' => $request->size,

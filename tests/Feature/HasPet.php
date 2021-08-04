@@ -9,7 +9,7 @@ trait HasPet
     public function getPetData($relation, $override = []) : array
     {
         return array_merge([
-            'breed_id' => $relation->pet->breed->id,
+            'specie_id' => $relation->pet->specie_id,
             'name' => $relation->pet->name,
             'gender' => $relation->pet->gender,
             'size' => $relation->pet->size,
@@ -18,9 +18,8 @@ trait HasPet
         ], $override);
     }
 
-    public function seedBreeds()
+    public function seedSpecies()
     {
         Artisan::call('db:seed --class=SpecieSeeder');
-        Artisan::call('db:seed --class=BreedSeeder');
     }
 }

@@ -18,8 +18,8 @@ class AdoptionController extends Controller
         return view('adoptions.show', [
             'adoption' => new AdoptionResource(
                 $adoption->load([
-                    'media',
-                    'pet.breed.specie',
+                    'pet.media',
+                    'pet.specie',
                     'pet.user:id,first_name,last_name,email',
                     'comments.user:id,first_name,last_name,email',
                 ])

@@ -9,7 +9,6 @@ class DatabaseSeeder extends Seeder
 {
     private array $seeders = [
         SpecieSeeder::class,
-        BreedSeeder::class,
     ];
 
     /**

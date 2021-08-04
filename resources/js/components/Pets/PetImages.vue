@@ -9,7 +9,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    Imágenes de la Adopcion
+                    Imágenes de la Adopción
                 </h3>
                 <div v-if="images.length > 0">
                     <button @click="openModal"
@@ -20,8 +20,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                     </button>
-                    <modal modal-id="manage-adoption-images" max-width="sm:max-w-5xl">
-                        <template #title>Administrar Imágenes de la Adopcion</template>
+                    <modal modal-id="manage-pet-images" max-width="sm:max-w-5xl">
+                        <template #title>Administrar Imágenes de la Adopción</template>
                         <template #content>
                             <div class="md:flex md:flex-wrap">
                                 <div class="w-full items-center md:w-32 p-2" v-for="image in images" :key="image.id">
@@ -39,7 +39,7 @@
                     </modal>
                 </div>
             </div>
-            <div v-if="adoption.pet.user.id === auth"
+            <div v-if="pet.user.id === auth"
                  class="border-t border-gray-200 mx-4 py-5 sm:px-6">
                 <div class="w-full mt-4">
                     <dropzone :endpoint="endpoint"></dropzone>
@@ -51,16 +51,16 @@
 
 <script>
 
-// import SweetAlert from "../../models/SweetAlert";
+import SweetAlert from "../../models/SweetAlert";
 
 export default {
-    name: "AdoptionImages",
-    inject: ['adoption'],
-    emits: ['adoptions-images-destroy'],
+    name: "PetImages",
+    inject: ['pet'],
+    emits: ['pets-images-destroy'],
     data () {
         return {
-            endpoint: `/api/adoptions/${this.adoption.id}/images`,
-            images: this.adoption.images,
+            endpoint: `/api/pets/${this.pet.id}/images`,
+            images: this.pet.images,
             modal: {},
             errors: [],
         }
@@ -70,7 +70,7 @@ export default {
             this.modal = {}
             this.actionType = action
             this.errors = []
-            this.modal.id = 'manage-adoption-images'
+            this.modal.id = 'manage-pet-images'
 
             window.Event.$emit(`${this.modal.id}:open`)
         },
@@ -79,11 +79,11 @@ export default {
             this.modal = {}
         },
         deleteMedia(imageId) {
-            axios.delete(`/adoptions/${this.adoption.id}/images/${imageId}`)
+            axios.delete(`/pets/${this.pet.id}/images/${imageId}`)
             .then(() => {
                 this.images = this.images.filter(image => image.id !== imageId)
-                // SweetAlert.toast('La Imagen ha sido eliminada exitosamente!')
-                window.Event.$emit('adoptions-images-destroy', this.images)
+                SweetAlert.toast('La Imagen ha sido eliminada exitosamente!')
+                window.Event.$emit('pets-images-destroy', this.images)
 
                 if (this.images.length === 0) {
                     this.reload(500)
@@ -94,21 +94,21 @@ export default {
     },
     computed: {
         isOwner() {
-            return this.adoption.pet.user.id === this.auth
+            return this.pet.user.id === this.auth
         }
     },
     mounted() {
         window.Event.$on('dropzone.success', response => {
-            // SweetAlert.success('Las imágenes han sido guardadas exitosamente!')
+            SweetAlert.success('Las imágenes han sido guardadas exitosamente!')
             setTimeout(() => {
                 window.location.reload()
             }, 1500)
         })
     },
     components: {
-        Modal: () => import(/* webpackChunkName: "modal" */ '../../components/Modal'),
-        Divider: () => import(/* webpackChunkName: "divider" */ '../../components/Divider'),
-        Dropzone: () => import(/* webpackChunkName: "dropzone" */ '../../components/Dropzone'),
+        Modal: () => import(/* webpackChunkName: "modal" */ '../Modal'),
+        Divider: () => import(/* webpackChunkName: "divider" */ '../Divider'),
+        Dropzone: () => import(/* webpackChunkName: "dropzone" */ '../Dropzone'),
     }
 
 }

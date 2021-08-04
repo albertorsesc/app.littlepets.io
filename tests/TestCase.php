@@ -82,4 +82,22 @@ abstract class TestCase extends BaseTestCase
     {
         Event::fake();
     }
+
+    public function assertClassUsesTrait($trait, $class)
+    {
+        $this->assertArrayHasKey(
+            $trait,
+            class_uses($class),
+            "{$class} must use {$trait} trait"
+        );
+    }
+
+    public function assertClassImplementsContracts($contract, $class)
+    {
+        $this->assertArrayHasKey(
+            $contract,
+            class_implements($class),
+            "{$class} must abide {$contract} contract."
+        );
+    }
 }

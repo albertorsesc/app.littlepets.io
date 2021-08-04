@@ -2,6 +2,115 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+[v-cloak] {display: none}
+
+/* LittlePets Custom CSS */
+.lp-input {
+    @apply block rounded-md shadow-sm w-full bg-white outline-none border border-cyan-200;
+}
+.lp-input:focus {
+    @apply outline-none ring-cyan-500 shadow border-none appearance-none;
+}
+.lp-select {
+    @apply w-full block bg-white text-gray-700 outline-none border-teal-200 rounded-md py-2 px-3;
+}
+.lp-select:focus {
+    @apply outline-none shadow border-none;
+}
+strong.required {
+    @apply font-bold text-red-500;
+}
+a {
+    transition: all .2s ease !important;
+}
+a:hover {
+    @apply no-underline;
+}
+.card {
+    @apply bg-white shadow rounded-lg border-none;
+}
+.card:hover {
+    @apply shadow-2xl;
+}
+.translate-r-2 {
+    transform: translateX(5px) !important;
+}
+.lp-transition {
+    -webkit-transition: all .45s ease;
+    transition: all .45s ease;
+}
+.lp-transform {
+    transform: translateY(5px);
+}
+
+.btn {
+    @apply inline-flex items-center justify-center px-4 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150;
+}
+.btn-primary:hover {
+    @apply font-semibold shadow-lg bg-pink-500 text-white;
+}
+
+/* Modal Transitions */
+
+.modal-fade-enter {
+    @apply ease-out duration-300;
+}
+.modal-fade-enter-active {
+    @apply opacity-0;
+}
+.modal-fade-enter-to {
+    @apply opacity-100;
+}
+.modal-fade-leave {
+    @apply ease-in duration-200;
+}
+.modal-fade-leave-active {
+    @apply opacity-100;
+}
+.modal-fade-leave-to {
+    @apply opacity-0;
+}
+
+.modal-dialog-enter {
+    transform: translateY(-50%) translateX(100vw);
+    opacity: 0;
+}
+.modal-dialog-enter-active {
+    transition: transform .5s;
+}
+.modal-dialog-enter-to {
+    @apply opacity-100 translate-y-0; /*.sm:scale-100*/
+}
+.modal-dialog-leave {
+    @apply ease-in duration-200;
+}
+.modal-dialog-leave-active {
+    transition: transform 1s;
+}
+.modal-dialog-leave-to {
+    transform: translateY(-50%) translateX(100vw);
+    opacity: 0;/*.sm:translate-y-0 .sm:scale-95*/
+}
+
+[v-cloak] {display: none}
+
+
+/*.modal-dialog-enter-active, .modal-dialog-leave-active {
+    transition: opacity 0.5s;
+}
+.modal-dialog-enter, .modal-dialog-leave-to !* .fade-leave-active below version 2.1.8 *! {
+    opacity: 0;
+}*/
+
+/* Transitions */
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
 .btn {
     @apply inline-flex items-center justify-center px-4 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150;
 }

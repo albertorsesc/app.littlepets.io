@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\LostPets\LostPet;
 use App\Models\Adoptions\Adoption;
+use App\Models\Concerns\HandlesMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{HasOne, BelongsTo};
@@ -11,8 +12,9 @@ use Illuminate\Database\Eloquent\Relations\{HasOne, BelongsTo};
 class Pet extends Model
 {
     use HasFactory;
+    use HandlesMedia;
 
-    protected $fillable = ['breed_id', 'name', 'gender', 'size', 'weight', 'age', 'age_range'];
+    protected $fillable = ['specie_id', 'name', 'gender', 'size', 'weight', 'age', 'age_range'];
 
     protected static function boot ()
     {
@@ -24,14 +26,14 @@ class Pet extends Model
 
     /* Relations */
 
+    public function specie() : BelongsTo
+    {
+        return $this->belongsTo(Specie::class);
+    }
+
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function breed() : BelongsTo
-    {
-        return $this->belongsTo(Breed::class);
     }
 
     public function adoption() : HasOne

@@ -47,6 +47,11 @@ export default {
     },
     created() {
         this.index()
+
+        window.Event.$on('lost-pet-form:store', newLostPet => {
+            this.lostPets.unshift(newLostPet)
+            this.showForm = false
+        })
     },
     components: {
         PetCard: () => import(/* webpackChunkName: "pet-card" */ '../../components/PetCard'),

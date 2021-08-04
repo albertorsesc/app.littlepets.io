@@ -42,7 +42,7 @@
                                    href="#"
                                    class="text-cyan-500 text-sm md:text-base hover:text-cyan-700 hover:border-b border-cyan-300 mx-1"
                                    :class="[activeTab === 'my-lost-pets' ? 'border-b-2 border-emerald-400 text-cyan-600' : 'hover:border-emerald-400 hover:text-cyan-600']">
-                                    Mis Mascotas Extraviadas
+                                    Mis Mascotas Registradas
                                 </a>
                             </div>
                         </div>

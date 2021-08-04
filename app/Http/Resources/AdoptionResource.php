@@ -21,11 +21,10 @@ class AdoptionResource extends JsonResource
             'phone' => $this->phone,
             'bio' => $this->bio,
             'story' => $this->story,
-//            'comments' => CommentResource::collection($this->whenLoaded('comments')),
-            'images' => $this->whenLoaded('media'),
+            'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'meta' => [
                 'profile' => $this->profile(),
-                'publishedAt' => optional($this->published_at)->diffForHumans(),
+                'publishedAt' => optional($this->published_at)->format('M j'),
                 'adoptedAt' => optional($this->adopted_at)->diffForHumans(),
                 'updatedAt' => $this->updated_at->diffForHumans()
             ]

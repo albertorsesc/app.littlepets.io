@@ -32,7 +32,6 @@ class LostPetsTest extends TestCase
     {
         $this->loadSeeders([
             SpecieSeeder::class,
-            BreedSeeder::class
         ]);
         $this->signIn();
 

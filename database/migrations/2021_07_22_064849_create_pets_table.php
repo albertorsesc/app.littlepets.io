@@ -16,7 +16,7 @@ class CreatePetsTable extends Migration
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('breed_id')->constrained();
+            $table->foreignId('specie_id')->constrained()->cascadeOnDelete();
             $table->string('name', 100);
             $table->string('gender', 10);
             $table->string('size', 50);

@@ -28,7 +28,7 @@ class LostPetRequest extends FormRequest
     public function rules()
     {
         return [
-                'title' => ['required', 'max:50'],
+                'title' => ['nullable', 'max:50'],
                 'phone' => ['nullable', 'max:50'],
                 'post_type' => [
                     'required',

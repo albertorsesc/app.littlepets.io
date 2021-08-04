@@ -4,7 +4,7 @@ namespace Tests\Feature\Api\Adoptions\Actions;
 
 use Tests\TestCase;
 use App\Models\Adoptions\Adoption;
-use Database\Seeders\{BreedSeeder, SpecieSeeder};
+use Database\Seeders\{SpecieSeeder};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MarkAsAdoptedTest extends TestCase
@@ -22,7 +22,6 @@ class MarkAsAdoptedTest extends TestCase
     {
         $this->loadSeeders([
             SpecieSeeder::class,
-            BreedSeeder::class,
         ]);
         $this->signIn();
 

@@ -6,11 +6,12 @@
     use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
     Route::get('/', function () {
-        return view('welcome');
+        return redirect()->route('web.adoptions.index');
     });
 
     Route::middleware(['auth:sanctum',])->group(function () {
         Route::view('/dashboard', 'dashboard')->name('dashboard');
+        Route::redirect('dashboard', 'adopciones');
 
         Route::get('adopciones', [AdoptionController::class, 'index'])->name('web.adoptions.index');
         Route::get('adopciones/{adoption}', [AdoptionController::class, 'show'])->name('web.adoptions.show');
@@ -21,9 +22,9 @@
     });
 
     /*Route::get('resize', function () {
-        \Intervention\Image\Facades\Image::make('img/adoptions.png')
+        \Intervention\Image\Facades\Image::make('img/lost-pets.png')
                                          ->filter(new \App\Models\Concerns\InterventionImage\Filters\MediumFilter())
-                                         ->save('img/adoptions1.png');
+                                         ->save('img/lost-pets_medium.png');
     });*/
 
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {

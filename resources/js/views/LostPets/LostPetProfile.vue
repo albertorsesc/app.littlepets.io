@@ -1,4 +1,6 @@
 <script>
+import SweetAlert from "../../models/SweetAlert";
+
 export default {
     name: "LostPetProfile",
     props: {
@@ -7,14 +9,18 @@ export default {
             type: Object
         }
     },
+    provide() {
+        return {
+            lostPet: this.localLostPet
+        }
+    },
     data() {
         return {
             localLostPet: this.lostPet,
 
             species: [],
-            breeds: [],
 
-            lostPetForm: {},
+            lostPetForm: {pet: {}},
             selectedSpecie: {},
             selectedBreed: {},
 
@@ -38,12 +44,15 @@ export default {
             this.isLoading = true
             axios.put(`/api/lost-pets/${this.lostPet.id}`, {
                 breed_id: this.selectedBreed.id,
-                name: this.lostPetForm.name,
-                gender: this.lostPetForm.gender,
-                size: this.lostPetForm.size,
-                age: this.lostPetForm.age,
+                name: this.lostPetForm.pet.name,
+                gender: this.lostPetForm.pet.gender,
+                size: this.lostPetForm.pet.size,
+                age: this.lostPetForm.pet.age,
+                age_range: this.lostPetForm.pet.ageRange,
                 phone: this.lostPetForm.phone,
                 description: this.lostPetForm.description,
+                lost_at: this.lostPetForm.lostAt,
+                rescued_at: this.lostPetForm.rescuedAt,
             })
             .then(response => {
                 this.localLostPet = response.data.data
@@ -127,23 +136,14 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-        getBreedsBySpecie(specie) {
-            let selectedSpecie = specie ? specie : this.selectedSpecie
-            this.selectedBreed = {}
-
-            axios.get(`/species/${selectedSpecie.id}/breeds`)
-                .then(response => {
-                    this.breeds = response.data.data
-                })
-                .catch(error => console.log(error))
-        },
         toggle() {
             this.isLoading = true
             axios
                 .put(`/lost-pets/${this.localLostPet.id}/toggle`)
                 .then(response => {
                     this.localLostPet.meta.publishedAt = response.data
-                    let publishedAt = this.localLostPet.meta.publishedAt ? 'Publicada' : 'Ocultada'
+                    let isPublished = this.localLostPet.meta.publishedAt ? 'Publicada' : 'Ocultada'
+                    SweetAlert.success(`Tu Publicación ha sido ${isPublished} existosamente!`)
                     this.isLoading = false
                 })
                 .catch(error => {
@@ -158,16 +158,22 @@ export default {
             this.actionType = action
             this.errors = []
 
+            if (action === 'report') {
+                this.modal = {
+                    id: 'reports',
+                }
+            }
+
             if (action === 'put') {
-                this.selectedSpecie = this.localLostPet.breed.specie
-                this.getBreedsBySpecie(this.selectedSpecie)
-                this.lostPetForm.breed = this.selectedBreed = this.localLostPet.breed
-                this.lostPetForm.name = this.localLostPet.name
-                this.lostPetForm.gender = this.localLostPet.gender
-                this.lostPetForm.size = this.localLostPet.size
-                this.lostPetForm.age = this.localLostPet.age
+                this.lostPetForm.pet.specie = this.localLostPet.pet.specie
+                this.lostPetForm.pet.name = this.localLostPet.pet.name
+                this.lostPetForm.pet.gender = this.localLostPet.pet.gender
+                this.lostPetForm.pet.size = this.localLostPet.pet.size
+                this.lostPetForm.pet.age = this.localLostPet.pet.age
                 this.lostPetForm.phone = this.localLostPet.phone
                 this.lostPetForm.description = this.localLostPet.description
+                this.lostPetForm.lostAt = this.localLostPet.lostAt
+                this.lostPetForm.rescuedAt = this.localLostPet.rescuedAt
 
                 this.modal.id = 'update-lost-pet'
             }
@@ -179,16 +185,23 @@ export default {
             this.errors = []
             this.actionType = ''
             this.modal = {}
-            this.lostPetForm = {}
+            this.lostPetForm = {pet: {}}
             this.selectedSpecie = {}
             this.selectedBreed = {}
         },
     },
     created() {
         this.getSpecies()
+
+        window.Event.$on('SweetAlert:destroy', () => { this.destroy() })
     },
     components: {
         Modal: () => import(/* webpackChunkName: "modal" */ '../../components/Modal'),
+        Report: () => import(/* webpackChunkName: "report" */ '../../components/Report'),
+        Divider: () => import(/* webpackChunkName: "divider" */ '../../components/Divider'),
+        LostPetLocation: () => import(/* webpackChunkName: "lost-pet-location" */ './LostPetLocation'),
+        CustomCarousel: () => import(/* webpackChunkName: "custom-carousel" */ '../../components/CustomCarousel'),
+        PetImages: () => import(/* webpackChunkName: "pet-images" */ '../../components/Pets/PetImages'),
     }
 }
 </script>

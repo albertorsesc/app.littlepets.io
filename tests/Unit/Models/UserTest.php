@@ -3,9 +3,7 @@
 namespace Tests\Unit\Models;
 
 use Tests\TestCase;
-use App\Models\User;
 use App\Models\LostPets\LostPet;
-use Database\Seeders\BreedSeeder;
 use Database\Seeders\SpecieSeeder;
 use App\Models\Adoptions\Adoption;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,7 +20,6 @@ class UserTest extends TestCase
     {
         $this->loadSeeders([
             SpecieSeeder::class,
-            BreedSeeder::class
         ]);
         $this->signIn();
 
@@ -39,7 +36,6 @@ class UserTest extends TestCase
     {
         $this->loadSeeders([
             SpecieSeeder::class,
-            BreedSeeder::class
         ]);
         $this->signIn();
 

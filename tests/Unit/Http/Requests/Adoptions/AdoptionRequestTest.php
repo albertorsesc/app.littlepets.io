@@ -23,51 +23,6 @@ class AdoptionRequestTest extends AdoptionTestCase
      *   @test
      *   @throws \Throwable
      */
-    public function breed_id_is_required()
-    {
-        $validatedField = 'breed_id';
-        $brokenRule = null;
-        $adoption = $this->make(Adoption::class);
-
-        $this->postJson(
-            route($this->routePrefix . 'store'),
-            $this->getAdoptionData($adoption, [$validatedField => $brokenRule])
-        )->assertJsonValidationErrors($validatedField);
-
-        $existingAdoption = $this->create(Adoption::class);
-        $this->putJson(
-            route($this->routePrefix . 'update', $existingAdoption),
-            $this->getAdoptionData($adoption, [$validatedField => $brokenRule])
-        )->assertJsonValidationErrors($validatedField);
-    }
-
-    /**
-     *   @test
-     *   @throws \Throwable
-     */
-    public function breed_id_must_exist_in_breeds_table()
-    {
-        $validatedField = 'breed_id';
-        $brokenRule = 19887324;
-
-        $adoption = $this->make(Adoption::class);
-
-        $this->postJson(
-            route($this->routePrefix . 'store'),
-            $this->getAdoptionData($adoption, [$validatedField => $brokenRule])
-        )->assertJsonValidationErrors($validatedField);
-
-        $existingAdoption = $this->create(Adoption::class);
-        $this->putJson(
-            route($this->routePrefix . 'update', $existingAdoption),
-            $this->getAdoptionData($adoption, [$validatedField => $brokenRule])
-        )->assertJsonValidationErrors($validatedField);
-    }
-
-    /**
-     *   @test
-     *   @throws \Throwable
-     */
     public function title_is_required()
     {
         $validatedField = 'title';
