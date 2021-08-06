@@ -51,6 +51,10 @@
                                     v-text="specie.display_name"
                             ></option>
                         </select>
+                        <p v-if="errors.specie_id"
+                           v-text="errors.specie_id[0]"
+                           class="text-red-500 font-medium"
+                        ></p>
                     </div>
 
                     <div class="col-span-6 sm:col-span-2">
@@ -129,7 +133,7 @@
                         ></p>
                     </div>
 
-                    <div class="col-span-6 sm:col-span-4">
+                    <div class="col-span-6">
                         <div>
                             <label for="bio" class="block text-sm font-medium text-gray-700">
                                 Cuéntanos sobre

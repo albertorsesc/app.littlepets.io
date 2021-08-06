@@ -30,16 +30,6 @@ class Adoption extends Model
 
     /* Scopes */
 
-    /**
-     * @param Builder $query
-     *
-     * @return Builder
-     */
-    public function scopeIsPublished(Builder $query) : Builder
-    {
-        return $query->whereNotNull('adopted_at');
-    }
-
     /* Helpers */
 
     public function toggleAdoption()

@@ -23,7 +23,7 @@
                                 Dueno
                             </h3>
                             <p class="mt-1 text-sm text-gray-500 w-3/5">
-                                Esta informacion nos ayudara a conocer las caracteristicas basicas de tu
+                                Esta Información nos ayudara a conocer las caracteristicas basicas de tu
                                 mascota para que toda la comunidad pueda reconocerlo.
                             </p>
                         </div>
@@ -32,7 +32,7 @@
                                 Rescatista
                             </h3>
                             <p class="mt-1 text-sm text-gray-500 w-3/5">
-                                Esta informacion nos ayudara a conocer las caracteristicas basicas de tu
+                                Esta Información nos ayudara a conocer las caracteristicas basicas de tu
                                 mascota para que toda la comunidad pueda reconocerlo.
                             </p>
                         </div>
@@ -187,7 +187,7 @@
                             <div class="col-span-6 sm:col-span-4">
                                 <div>
                                     <label for="bio" class="block text-sm font-medium text-gray-700">
-                                        Cualquier otra informacion puede ser de gran ayuda
+                                        Cualquier otra Información puede ser de gran ayuda
                                     </label>
                                     <div class="mt-1">
                                 <textarea id="bio"

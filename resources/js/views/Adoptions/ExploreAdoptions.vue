@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div class="w-full md:w-2/3">
+        <div class="w-full lg:w-2/3">
             <!--Mobile-->
             <div class="sm:hidden">
                 <label for="tabs" class="sr-only">Select a tab</label>
-                <select id="tabs" name="tabs" class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                    <option selected>Perros</option>
+                <select id="tabs" v-model="speciesTab" @change="switchSpeciesTab(speciesTab)" class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                    <option value="dog">Perros</option>
 
-                    <option>Gatos</option>
+                    <option value="cat">Gatos</option>
 
-                    <option>Roedores</option>
+                    <option value="rodent">Roedores</option>
 
-                    <option>Otras Especies</option>
+                    <option value="other">Otras Especies</option>
                 </select>
             </div>
             <!--Desktop-->
@@ -58,7 +58,7 @@
                     </button>
 
                     <button @click="switchSpeciesTab('other')"
-                            class="group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+                            class="group relative min-w-0 rounded-r-lg flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
                             :class="speciesTab === 'other' ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'">
                         <span class="flex justify-center items-center">
                             <span class="mr-2">Otras Especies</span>
@@ -87,7 +87,7 @@
                 ></pet-card>
             </li>
         </ul>
-        <adoption-slider></adoption-slider>
+        <slider></slider>
     </div>
 </template>
 
@@ -95,6 +95,7 @@
 
 export default {
     name: "ExploreAdoptions",
+    emits: ['slider:open'],
     data() {
         return {
             adoptions: [],
@@ -113,7 +114,7 @@ export default {
                 .catch(error => console.log(error))
         },
         openAdoptionSlider(adoption) {
-            window.Event.$emit('adoption-slider:open', adoption)
+            window.Event.$emit('slider:open', adoption)
         },
         switchSpeciesTab(specie) {
             this.speciesTab = specie
@@ -139,8 +140,8 @@ export default {
         })
     },
     components: {
+        Slider: () => import(/* webpackChunkName: "slider" */ '../../components/Slider'),
         PetCard: () => import(/* webpackChunkName: "pet-card" */ '../../components/PetCard'),
-        AdoptionSlider: () => import(/* webpackChunkName: "adoption-slider" */ '../../components/Adoptions/AdoptionSlider'),
     }
 }
 </script>

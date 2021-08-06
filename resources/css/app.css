@@ -117,3 +117,81 @@ a:hover {
 .btn-primary:hover {
     @apply font-semibold shadow-lg bg-pink-500 text-white;
 }
+
+/* Slider */
+.slider-enter {
+    @apply transform transition ease-in-out duration-500 sm:duration-700;
+}
+.slider-enter-active {
+    @apply translate-x-full;
+}
+.slider-enter-to {
+    @apply translate-x-0;
+}
+.slider-leave {
+    @apply transform transition ease-in-out duration-500 sm:duration-700;
+}
+.slider-leave-active {
+    @apply translate-x-0;
+}
+.slider-leave-to {
+    @apply translate-x-full;
+}
+
+/* Mobile Sidebar */
+.menu-enter {
+    @apply transition-opacity ease-linear duration-300;
+}
+.menu-enter-active {
+    @apply opacity-0;
+}
+.menu-enter-to {
+    @apply opacity-100;
+}
+.menu-leave {
+    @apply transition-opacity ease-linear duration-300;
+}
+.menu-leave-active {
+    @apply opacity-100;
+}
+.menu-leave-to {
+    @apply opacity-0;
+}
+/* Menu Off canvas */
+.menu-off-canvas-enter {
+    @apply transition ease-in-out duration-300 transform;
+}
+.menu-off-canvas-enter-active {
+    @apply -translate-x-full;
+}
+.menu-off-canvas-enter-to {
+    @apply translate-x-0;
+}
+.menu-off-canvas-leave {
+    @apply transition ease-in-out duration-300 transform;
+}
+.menu-off-canvas-leave-active {
+    @apply translate-x-0;
+}
+.menu-off-canvas-leave-to {
+    @apply -translate-x-full;
+}
+/* Menu Close Btn */
+.menu-close-btn-enter {
+    @apply ease-in-out duration-300;
+}
+.menu-close-btn-enter-active {
+    @apply opacity-0;
+}
+.menu-close-btn-enter-to {
+    @apply opacity-100;
+}
+.menu-close-btn-leave {
+    @apply ease-in-out duration-300;
+}
+.menu-close-btn-leave-active {
+    @apply opacity-100;
+}
+.menu-close-btn-leave-to {
+    @apply opacity-0;
+}

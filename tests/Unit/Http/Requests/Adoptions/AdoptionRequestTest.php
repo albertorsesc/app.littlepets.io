@@ -23,6 +23,52 @@ class AdoptionRequestTest extends AdoptionTestCase
      *   @test
      *   @throws \Throwable
      */
+    public function specie_id_is_required()
+    {
+        $validatedField = 'specie_id';
+        $brokenRule = null;
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $this->make(Adoption::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingAdoption = $this->create(Adoption::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingAdoption),
+            $this->make(Adoption::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function specie_id_must_exist_in_species_table()
+    {
+        $validatedField = 'specie_id';
+        $brokenRule = 999;
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $this->make(Adoption::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingAdoption = $this->create(Adoption::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingAdoption),
+            $this->make(Adoption::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
     public function title_is_required()
     {
         $validatedField = 'title';

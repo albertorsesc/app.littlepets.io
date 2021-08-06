@@ -31,25 +31,25 @@
                                     </dl>
                                 </div>
                             </div>
-                            <div class="md:flex md:ml-24 items-center align-middle md:-mb-8 md:space-x-3 md:mt-0">
+                            <div class="md:flex md:ml-24 items-center align-middle md:-mb-8 md:space-x-3 mt-3 md:mt-0">
                                 <a @click="activeTab = 'explore-adoptions'"
                                    href="#"
-                                   class="text-cyan-500 text-sm md:text-base hover:text-cyan-700 border-cyan-300 mx-1"
+                                   class="text-cyan-500 text-lg md:text-base hover:text-cyan-700 border-cyan-300 mx-1"
                                    :class="[activeTab === 'explore-adoptions' ? 'border-b-2 border-emerald-400 text-cyan-600' : 'hover:border-emerald-400 hover:text-cyan-600']">
                                     Explorar Adopciones
                                 </a>
                                 <a @click="activeTab = 'my-adoptions'"
                                    href="#"
-                                   class="text-cyan-500 text-sm md:text-base hover:text-cyan-700 hover:border-b border-cyan-300 mx-1"
+                                   class="text-cyan-500 text-lg md:text-base hover:text-cyan-700 hover:border-b border-cyan-300 mx-1"
                                    :class="[activeTab === 'my-adoptions' ? 'border-b-2 border-emerald-400 text-cyan-600' : 'hover:border-emerald-400 hover:text-cyan-600']">
                                     Mis Adopciones
                                 </a>
                                 {{--<a href="#"
-                                   class="text-cyan-500 text-sm md:text-base hover:text-cyan-700 hover:border-b hover:border-cyan-300 mx-1">
+                                   class="text-cyan-500 text-lg md:text-base hover:text-cyan-700 hover:border-b hover:border-cyan-300 mx-1">
                                     Mis Intereses
                                 </a>--}}
                                 {{--<a href="#"
-                                   class="text-cyan-500 text-sm md:text-base hover:text-cyan-700 hover:border-b hover:border-cyan-300 mx-1">
+                                   class="text-cyan-500 text-lg md:text-base hover:text-cyan-700 hover:border-b hover:border-cyan-300 mx-1">
                                     Busqueda Avanzada
                                 </a>--}}
                             </div>

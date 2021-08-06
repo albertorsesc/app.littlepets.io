@@ -24,7 +24,7 @@ class AdoptionResource extends JsonResource
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'meta' => [
                 'profile' => $this->profile(),
-                'publishedAt' => optional($this->published_at)->format('M j'),
+                'publishedAt' => optional($this->published_at)->formatLocalized('%b %e'),
                 'adoptedAt' => optional($this->adopted_at)->diffForHumans(),
                 'updatedAt' => $this->updated_at->diffForHumans()
             ]

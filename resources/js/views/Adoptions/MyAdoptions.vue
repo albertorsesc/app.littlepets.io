@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div class="items-center flex justify-start">
+        <div class="items-center flex justify-start" v-cloak>
             <button @click="showForm = ! showForm" class="btn py-4 btn-primary">
                 <span v-if="! showForm">Registra una nueva adopcion</span>
                 <span v-if="showForm">Regresar</span>
             </button>
         </div>
 
-        <div v-show="showForm" class="w-2/3 my-8">
+        <div v-show="showForm" class="w-full lg:w-2/3 my-8">
             <create-adoption></create-adoption>
         </div>
 
-        <div v-show="! showForm" class="mt-6 w-full md:w-2/3">
+        <div v-show="! showForm" class="-ml-2 mt-6 w-full md:w-1/2">
             <ul role="list"
                 class="w-full lg:w-2/3 lg:flex lg:flex-wrap" v-cloak>
                 <li v-for="adoption in adoptions"

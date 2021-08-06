@@ -6,7 +6,7 @@
                      alt="Little Pets photo"
                      class="w-full object-scale-down lg:object-cover lg:h-48 rounded-lg shadow-md">
             </div>
-            <div class="flex-auto ml-3 justify-evenly py-1">
+            <div class="flex-auto lg:ml-6 justify-evenly py-1">
                 <div class="flex-wrap">
                     <div class="flex items-center">
                         <div class="mr-2 flex-none text-sm text-sky-500 font-medium">

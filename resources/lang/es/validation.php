@@ -152,11 +152,14 @@
             'title' => 'Título',
             'name' => 'Nombre',
             'phone' => 'Teléfono',
-            'breed_id' => 'Raza',
+            'specie_id' => 'Especie',
             'size' => 'Tamaño',
+            'gender' => 'Genero',
             'age' => 'Edad',
             'age_range' => 'Rango de Edad',
             'body' => 'Contenido',
+            'bio' => 'Biografía',
+            'story' => 'Historia',
 
             /* Pets */
 

@@ -26,7 +26,7 @@ class AdoptionsTest extends AdoptionTestCase
 
         $response = $this->getJson(route($this->routePrefix . 'index'));
         $response->assertOk();
-        $response->assertJsonFragment([
+        $response->assertJson([
             'data' => [
                 [
                     'id' => $adoption->id,

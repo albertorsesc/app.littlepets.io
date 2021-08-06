@@ -7,6 +7,8 @@ window.Event = new Vue()
 window.baseURL = process.env.MIX_APP_URL
 window.dd = console.log
 
+Vue.component('app', require('./views/App').default);
+
 Vue.component('adoptions', require('./views/Adoptions/Adoptions').default);
 Vue.component('my-adoptions', require('./views/Adoptions/MyAdoptions').default);
 Vue.component('adoption-profile', require('./views/Adoptions/AdoptionProfile').default);

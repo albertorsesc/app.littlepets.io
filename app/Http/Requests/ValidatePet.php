@@ -7,6 +7,7 @@ trait ValidatePet
     public function validatePet () : array
     {
         return [
+            'specie_id' => ['required', 'exists:species,id'],
             'name' => ['required', 'max:100'],
             'gender' => ['required', 'in:' . implode(',', config('littlepets.genders'))],
             'size' => ['required', 'max:50', 'in:' . implode(',', config('littlepets.sizes'))],

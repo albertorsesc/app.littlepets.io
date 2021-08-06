@@ -4,9 +4,6 @@ namespace App\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
 
-/**
- * @method static isPublished
- */
 trait Publishable
 {
 
