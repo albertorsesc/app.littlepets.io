@@ -83,4 +83,8 @@ class AdoptionCommentsTest extends AdoptionTestCase
 
         $this->assertDatabaseMissing('comments', ['body' => $comment->body]);
     }
+
+    /* Notifications */
+
+
 }

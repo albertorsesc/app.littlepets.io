@@ -1,9 +1,10 @@
 <?php
 
-    use App\Http\Controllers\Web\LostPets\LostPetController;
     use Illuminate\Support\Facades\Route;
-    use App\Http\Controllers\Web\Adoptions\AdoptionController;
     use Illuminate\Foundation\Auth\EmailVerificationRequest;
+    use App\Http\Controllers\Web\LostPets\LostPetController;
+    use App\Http\Controllers\Web\Adoptions\AdoptionController;
+    use App\Http\Controllers\Web\Veterinaries\VeterinaryController;
 
     Route::get('/', function () {
         return redirect()->route('web.adoptions.index');
@@ -18,6 +19,9 @@
 
         Route::get('perdidos-y-encontrados', [LostPetController::class, 'index'])->name('web.lost-pets.index');
         Route::get('perdidos-y-encontrados/{lostPet}', [LostPetController::class, 'show'])->name('web.lost-pets.show');
+
+        Route::get('veterinarias', [VeterinaryController::class, 'index'])->name('web.veterinaries.index');
+        Route::get('veterinarias/{veterinary}', [VeterinaryController::class, 'show'])->name('web.veterinaries.show');
 
     });
 

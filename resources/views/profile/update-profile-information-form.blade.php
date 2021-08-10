@@ -1,11 +1,10 @@
 <x-jet-form-section submit="updateProfileInformation">
     <x-slot name="form">
-
         <div class="py-6 px-4 sm:p-6 lg:pb-8">
             <div>
-                <h2 class="text-lg leading-6 font-medium text-gray-900">Profile</h2>
+                <h2 class="text-lg leading-6 font-medium text-gray-900">Mi Perfil</h2>
                 <p class="mt-1 text-sm text-gray-500">
-                    This information will be displayed publicly so be careful what you share.
+                    Actualiza la Información de tu Perfil.
                 </p>
             </div>
 
@@ -13,17 +12,21 @@
                 <div class="flex-grow space-y-6">
                     <div class="mt-6 grid grid-cols-12 gap-6">
                         <div class="col-span-12 sm:col-span-6">
-                            <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
+                            <label for="first-name" class="block text-sm font-medium text-gray-700">Nombre</label>
                             <input type="text"
-                                   wire:model.defer="state.name"
+                                   wire:model.defer="state.first_name"
                                    autocomplete="first_name"
                                    id="first-name"
                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm">
                         </div>
 
                         <div class="col-span-12 sm:col-span-6">
-                            <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
-                            <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm">
+                            <label for="last-name" class="block text-sm font-medium text-gray-700">Apellido</label>
+                            <input type="text"
+                                   wire:model.defer="state.last_name"
+                                   id="last-name"
+                                   autocomplete="family-name"
+                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm">
                         </div>
 
                         <div class="col-span-12">
@@ -117,7 +120,6 @@
                 </div>
                 @endif
             </div>
-
         </div>
     </x-slot>
 
@@ -127,7 +129,7 @@
         </x-jet-action-message>
 
         <x-jet-button wire:loading.attr="disabled" wire:target="photo">
-            {{ __('Save') }}
+            {{ __('Actualizar') }}
         </x-jet-button>
     </x-slot>
 </x-jet-form-section>

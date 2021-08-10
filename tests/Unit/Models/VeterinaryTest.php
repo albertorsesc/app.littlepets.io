@@ -11,6 +11,9 @@ class VeterinaryTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @test
+    */
     public function veterinary_belongs_to_user()
     {
         $this->fakeEvent();

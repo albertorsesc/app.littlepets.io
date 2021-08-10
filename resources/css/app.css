@@ -195,3 +195,23 @@ a:hover {
 .menu-close-btn-leave-to {
     @apply opacity-0;
 }
+
+/* Dropdown menu */
+.dropdown-enter {
+    @apply transition ease-out duration-100;
+}
+.dropdown-enter-active {
+    @apply transform opacity-0 scale-95;
+}
+.dropdown-enter-to {
+    @apply transform opacity-100 scale-100;
+}
+.dropdown-leave {
+    @apply transition ease-in duration-75;
+}
+.dropdown-leave-active {
+    @apply transform opacity-100 scale-100;
+}
+.dropdown-leave-to {
+    @apply transform opacity-0 scale-95;
+}

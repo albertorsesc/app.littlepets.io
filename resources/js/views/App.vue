@@ -3,7 +3,8 @@ export default {
     name: "App",
     data() {
         return {
-            isMenuOpen: false
+            isMenuOpen: false,
+            isDropdownOpen: false,
         }
     }
 }

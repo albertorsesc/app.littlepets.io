@@ -160,6 +160,8 @@
             'body' => 'Contenido',
             'bio' => 'Biografía',
             'story' => 'Historia',
+            'lost_at' => 'Fecha de extravío',
+            'owner' => 'Dueño',
 
             /* Pets */
 

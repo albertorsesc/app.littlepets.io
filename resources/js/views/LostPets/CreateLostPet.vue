@@ -2,28 +2,65 @@
 
     <div>
         <form @submit.prevent>
-            <div class="bg-white space-y-4 shadow sm:rounded-md sm:overflow-hidden">
-                <div v-if="! postTypeTab" class="md:-mx-2 p-12 flex justify-between justify-center align-middle items-center">
-                    <div @click="postTypeTab = 'owner'"
-                         class="md:mx-2 h-full w-full text-center rounded-lg shadow-md p-6 text-2xl font-medium cursor-pointer"
-                         :class="[postTypeTab === 'owner' ? 'border-2 border-cyan-200 text-cyan-400' : 'text-gray-800 border border-gray-200 hover:bg-gray-50 hover:text-cyan-400 hover:font-semibold hover:shadow-inner']">
-                        Duenos buscando su mascota
+            <div class="space-y-4 ">
+                <div v-if="! postTypeTab" class="w-full md:w-2/3 lg:-mx-2 lg:flex lg:justify-between lg:justify-center align-middle items-center">
+<!--                    <div @click="postTypeTab = 'owner'"
+                         class="lg:mx-2 bg-white shadow sm:rounded-md h-32 w-full text-center items-center align-middle rounded-lg shadow-md py-4 px-6 text-2xl font-medium cursor-pointer"
+                         :class="[postTypeTab === 'owner' ? 'border-2 border-cyan-200 text-cyan-400' : 'text-gray-700 border border-gray-200 hover:bg-gray-50 hover:text-cyan-400 hover:font-semibold hover:shadow-inner']">
+                        <span class="items-center align-middle my-auto">Dueños buscando su mascota</span>
                     </div>
                     <div @click="postTypeTab = 'rescuer'"
-                         class="md:mx-2 h-full w-full text-center rounded-lg shadow-md p-6 text-2xl font-medium cursor-pointer"
-                         :class="[postTypeTab === 'rescuer' ? 'border-2 border-cyan-200 text-cyan-400' : 'text-gray-800 border border-gray-200 hover:bg-gray-50 hover:text-cyan-400 hover:font-semibold hover:shadow-inner']">
-                        Encontre una mascota
+                         class="lg:mx-2 bg-white shadow sm:rounded-md h-32 w-full text-center items-center align-middle rounded-lg shadow-md py-4 px-6 text-2xl font-medium cursor-pointer"
+                         :class="[postTypeTab === 'rescuer' ? 'border-2 border-cyan-200 text-cyan-400' : 'text-gray-700 border border-gray-200 hover:bg-gray-50 hover:text-cyan-400 hover:font-semibold hover:shadow-inner']">
+                        <span class="items-center align-middle my-auto">Encontre una mascota</span>
+                    </div>-->
+
+                    <!--Owner-->
+                    <div @click="postTypeTab = 'owner'"
+                         class="lg:mx-2 bg-white shadow-lg rounded-xl cursor-pointer hover:bg-gray-50 active:bg-gray-50 active:shadow-inner hover:shadow-inner transition hover:transform active:transform">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Dueños buscando su mascota
+                            </h3>
+                            <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+                                <div class="max-w-xl text-sm text-gray-500">
+                                    <p>
+                                        Si tienes una mascota extraviada, elige esta opción para publicar sus datos.
+                                        Mantendremos los ojos abiertos.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!--Rescuer-->
+                    <div @click="postTypeTab = 'rescuer'"
+                         class="mt-8 lg:mt-0 lg:mx-2 bg-white shadow-lg rounded-xl cursor-pointer hover:bg-gray-50 active:bg-gray-50 active:shadow-inner hover:shadow-inner transition hover:transform active:transform">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Rescate una mascota
+                            </h3>
+                            <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+                                <div class="max-w-xl text-sm text-gray-500">
+                                    <p>
+                                        Si rescataste una mascota extraviada o en situación de calle, elige esta opción
+                                        para ayudarl@ a regresar a casa o encontrar un hogar.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div v-if="postTypeTab">
-                    <div class="py-4 px-10">
+                <div v-if="postTypeTab" class="w-full lg:w-2/3 bg-white shadow rounded-md">
+                    <div class="py-4 px-4 md:px-10">
                         <div  v-if="postTypeTab === 'owner'">
                             <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                Dueno
+                                Dueño
                             </h3>
-                            <p class="mt-1 text-sm text-gray-500 w-3/5">
-                                Esta Información nos ayudara a conocer las caracteristicas basicas de tu
+                            <p class="mt-1 text-justify text-sm text-gray-500 w-full md:w-3/5">
+                                Esta Información nos ayudara a conocer las características básicas de tu
                                 mascota para que toda la comunidad pueda reconocerlo.
                             </p>
                         </div>
@@ -31,8 +68,8 @@
                             <h3 class="text-lg leading-6 font-medium text-gray-900">
                                 Rescatista
                             </h3>
-                            <p class="mt-1 text-sm text-gray-500 w-3/5">
-                                Esta Información nos ayudara a conocer las caracteristicas basicas de tu
+                            <p class="mt-1 text-sm text-gray-500 w-full md:w-3/5">
+                                Esta Información nos ayudara a conocer las características básicas de tu
                                 mascota para que toda la comunidad pueda reconocerlo.
                             </p>
                         </div>
@@ -53,10 +90,9 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-2">
-                                <label for="specie_id" class="block text-sm font-medium text-gray-700">Soy un:</label>
+                                <label for="specie_id" class="block text-sm font-medium text-gray-700">Especie</label>
                                 <select id="specie_id"
-                                        v-model="selectedSpecie"
-                                        @change="getBreedsBySpecie"
+                                        v-model="lostPetForm.pet.specie"
                                         class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     <option v-for="specie in species"
                                             :key="specie.id"
@@ -64,27 +100,14 @@
                                             v-text="specie.display_name"
                                     ></option>
                                 </select>
-                            </div>
-
-                            <div class="col-span-6 sm:col-span-2">
-                                <label for="breed_id" class="block text-sm font-medium text-gray-700">De la Raza:</label>
-                                <select v-model="lostPetForm.pet.breed"
-                                        id="breed_id"
-                                        class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option v-for="breed in breeds"
-                                            :key="breed.id"
-                                            :value="breed"
-                                            v-text="breed.name"
-                                    ></option>
-                                </select>
-                                <p v-if="errors.breed_id"
-                                   v-text="errors.breed_id[0]"
+                                <p v-if="errors.specie_id"
+                                   v-text="errors.specie_id[0]"
                                    class="text-red-500 font-medium"
                                 ></p>
                             </div>
 
                             <div class="col-span-6 sm:col-span-2">
-                                <label for="country" class="block text-sm font-medium text-gray-700">Soy:</label>
+                                <label for="country" class="block text-sm font-medium text-gray-700">Genero:</label>
                                 <select id="country"
                                         v-model="lostPetForm.pet.gender"
                                         class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -194,7 +217,7 @@
                                           v-model="lostPetForm.bio"
                                           rows="3"
                                           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                          :placeholder="`${lostPetForm.pet.name} tiene una mancha en el ozo izquierdo y ...`"
+                                          :placeholder="[lostPetForm.pet.name ? `${lostPetForm.pet.name} tiene una mancha en el ojo izquierdo y ...` : '']"
                                 ></textarea>
                                     </div>
                                     <p v-if="lostPetForm.pet.name" class="mt-2 text-sm text-gray-500">
@@ -227,7 +250,6 @@ export default {
     data() {
         return {
             species: [],
-            breeds: [],
 
             lostPetForm: {
                 pet: {},
@@ -237,7 +259,6 @@ export default {
                 lostAt: '',
                 rescuedAt: '',
             },
-            selectedSpecie: {},
 
             postTypeTab: '',
 
@@ -249,7 +270,7 @@ export default {
         store() {
             this.isLoading = true
             axios.post('/lost-pets', {
-                breed_id: this.lostPetForm.pet.breed ? this.lostPetForm.pet.breed.id : null,
+                specie_id: this.lostPetForm.pet.specie ? this.lostPetForm.pet.specie.id : null,
                 name: this.lostPetForm.pet.name,
                 gender: this.lostPetForm.pet.gender,
                 size: this.lostPetForm.pet.size,
@@ -257,7 +278,7 @@ export default {
                 age_range: this.lostPetForm.pet.ageRange,
                 title: this.lostPetForm.title,
                 post_type: this.postTypeTab,
-                phone: '6862894998',//this.lostPetForm.phone,
+                phone: this.lostPetForm.phone,
                 description: this.lostPetForm.description,
                 lost_at: this.lostPetForm.lostAt,
                 rescued_at: this.lostPetForm.rescuedAt,
@@ -282,13 +303,6 @@ export default {
             axios.get('/species')
                 .then(response => {
                     this.species = response.data.data
-                })
-                .catch(error => console.log(error))
-        },
-        getBreedsBySpecie() {
-            axios.get(`/species/${this.selectedSpecie.id}/breeds`)
-                .then(response => {
-                    this.breeds = response.data.data
                 })
                 .catch(error => console.log(error))
         },

@@ -13,9 +13,11 @@ class VeterinariesTest extends TestCase
 
     private string $routePrefix = 'api.veterinaries.';
 
+    /**
+     * @test
+     *  */
     public function authenticated_user_can_get_all_veterinaries()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $veterinary = $this->create(Veterinary::class);
@@ -30,15 +32,17 @@ class VeterinariesTest extends TestCase
                     'name' => $veterinary->name,
                     'services' => $veterinary->services,
                     'phone' => $veterinary->phone,
-                    'is_open_at_night' => $veterinary->is_open_at_night,
+                    'isOpenAtNight' => $veterinary->is_open_at_night,
                 ]
             ]
         ]);
     }
 
+    /**
+     * @test
+     *  */
     public function authenticated_user_can_store_a_veterinaries()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $veterinary = $this->make(Veterinary::class);
@@ -62,6 +66,9 @@ class VeterinariesTest extends TestCase
         );
     }
 
+    /**
+     * @test
+     *  */
     public function authenticated_user_can_update_a_veterinary()
     {
         $this->withoutExceptionHandling();
@@ -92,6 +99,9 @@ class VeterinariesTest extends TestCase
         );
     }
 
+    /**
+     * @test
+     *  */
     public function authenticated_user_can_delete_a_veterinary()
     {
         $this->signIn();

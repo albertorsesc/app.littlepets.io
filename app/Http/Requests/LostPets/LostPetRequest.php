@@ -38,4 +38,12 @@ class LostPetRequest extends FormRequest
                 'rescued_at' => ['required_if:post_type,' . LostPet::POST_TYPES[1]],
             ] + $this->validatePet();
     }
+
+    public function messages()
+    {
+        return [
+            'lost_at.required_if' => 'Fecha y hora de extravío es requerido.',
+            'rescued_at.required_if' => 'Fecha y hora de rescate es requerido.',
+        ];
+    }
 }

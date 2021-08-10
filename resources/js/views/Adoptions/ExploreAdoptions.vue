@@ -77,11 +77,11 @@
         </div>
 
         <ul role="list"
-            class="w-full lg:w-2/3 lg:flex lg:flex-wrap" v-cloak>
+            class="w-full lg:w-2/3 md:flex md:flex-wrap" v-cloak>
             <li v-for="adoption in filteredAdoptions"
                 :key="adoption.id"
                 @click="openAdoptionSlider(adoption)"
-                class="cursor-pointer relative py-4 w-full 2xl:w-1/2 px-3">
+                class="relative py-4 w-full md:w-1/2 lg:px-3">
                 <pet-card :data="adoption"
                           :meta="{ date: adoption.meta.publishedAt }"
                 ></pet-card>

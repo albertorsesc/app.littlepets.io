@@ -2,6 +2,8 @@
 
 namespace App\Models\Concerns;
 
+use phpDocumentor\Reflection\Types\Boolean;
+
 trait HasAvatar
 {
     public function getGravatar() : string
@@ -23,13 +25,18 @@ trait HasAvatar
     public function getAvatar()
     {
         $profilePhoto = $this->profile_photo_path;
-        if ($profilePhoto) {
-            if (str_contains($profilePhoto, 'https://')) {
+        if (! is_null($profilePhoto)) {
+            if ($this->isExternalImage($profilePhoto)) {
                 return $profilePhoto;
             }
             return \Storage::url($this->profile_photo_path);
         }
 
-        return $this->defaultProfilePhotoUrl();
+        return $this->getGravatar();
+    }
+
+    public function isExternalImage (string $image): bool
+    {
+        return str_contains($image, 'https://');
     }
 }

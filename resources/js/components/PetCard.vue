@@ -1,12 +1,12 @@
 <template>
-    <div class="bg-white shadow-md rounded-lg px-4 pt-3 pb-2 hover:bg-gray-50 hover:shadow-2xl transition hover:transform">
-        <div class="flex-none lg:flex">
-            <div class="h-full w-full lg:h-48 lg:w-48 lg:mb-0 mb-3">
+    <div class="bg-white shadow-md rounded-lg px-4 pt-3 pb-2 hover:bg-gray-50 hover:shadow-2xl transition hover:transform cursor-pointer">
+        <div class="flex-none md:flex">
+            <div class="h-full w-full md:h-48 md:w-48 md:mb-0 mb-3">
                 <img :src="localData.pet.images && localData.pet.images.length > 0 ? localData.pet.images[0].file_name.replace('public', 'storage') : '/img/adoptions.png'"
                      alt="Little Pets photo"
-                     class="w-full object-scale-down lg:object-cover lg:h-48 rounded-lg shadow-md">
+                     class="w-full object-scale-down lg:object-cover md:h-48 rounded-lg shadow-md">
             </div>
-            <div class="flex-auto lg:ml-6 justify-evenly py-1">
+            <div class="flex-auto md:ml-6 justify-evenly py-1">
                 <div class="flex-wrap">
                     <div class="flex items-center">
                         <div class="mr-2 flex-none text-sm text-sky-500 font-medium">

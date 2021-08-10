@@ -7,18 +7,18 @@
             </button>
         </div>
 
-        <div v-if="showForm" class="w-2/3 my-6">
+        <div v-if="showForm" class="my-8">
             <create-lost-pet></create-lost-pet>
         </div>
 
         <div v-else>
             <ul role="list"
-                class="w-full lg:w-2/3 lg:flex lg:flex-wrap md:-ml-3 my-3">
+                class="w-full md:w-2/3 md:flex md:flex-wrap md:-ml-3 my-3">
                 <li v-for="lostPet in lostPets"
                     :key="lostPet.id"
-                    class="relative py-4 w-full 2xl:w-1/2 px-3">
+                    class="relative py-4 w-full 2xl:w-1/2 md:px-3">
                     <a :href="lostPet.meta.profile">
-                        <pet-card :pet="lostPet"></pet-card>
+                        <pet-card :data="lostPet" :meta="{ date: lostPet.publishedAt }"></pet-card>
                     </a>
                 </li>
             </ul>

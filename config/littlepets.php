@@ -11,8 +11,8 @@
         ],
 
         'veterinary_services' => [
-            'Cirugias',
-            'Diagnostico Medico',
+            'Cirugías',
+            'Diagnóstico Médico',
         ],
 
         'species' => [

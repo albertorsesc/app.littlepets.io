@@ -37,7 +37,7 @@ class AdoptionsTest extends AdoptionTestCase
                     'story' => $adoption->story,
                     'meta' => [
                         'profile' => $adoption->profile(),
-                        'publishedAt' => optional($adoption->published_at)->format('M j'),
+                        'publishedAt' => optional($adoption->published_at)->formatLocalized('%b %e'),
                         'adoptedAt' => optional($adoption->adopted_at)->diffForHumans(),
                         'updatedAt' => $adoption->updated_at->diffForHumans(),
                     ]
