@@ -11,7 +11,8 @@ export default {
     },
     provide() {
         return {
-            lostPet: this.localLostPet
+            lostPet: this.localLostPet,
+            pet: this.localLostPet.pet,
         }
     },
     data() {
@@ -42,7 +43,7 @@ export default {
     methods: {
         update() {
             this.isLoading = true
-            axios.put(`/api/lost-pets/${this.lostPet.id}`, {
+            axios.put(`/lost-pets/${this.lostPet.id}`, {
                 breed_id: this.selectedBreed.id,
                 name: this.lostPetForm.pet.name,
                 gender: this.lostPetForm.pet.gender,
@@ -70,7 +71,7 @@ export default {
             })
         },
         destroy() {
-            axios.delete(`/api/lost-pets/${this.lostPet.id}`)
+            axios.delete(`/lost-pets/${this.lostPet.id}`)
             .then(() => {
                 setTimeout( () => {
                         window.location.href = `/perdidos-y-encontrados`
@@ -153,6 +154,40 @@ export default {
                     this.isLoading = false
                 })
         },
+        togglePetFound() {
+            this.isLoading = true
+            axios
+                .put(`/lost-pets/${this.localLostPet.id}/found`)
+                .then(response => {
+                    this.localLostPet.meta.foundAt = response.data
+                    let adopted = this.localLostPet.meta.foundAt ? 'Encontrad@' : 'Sin Encontrar'
+                    SweetAlert.success(`Marcado como: ${adopted}`)
+                    this.isLoading = false
+                })
+                .catch(error => {
+                    this.errors = error.response.status === 422 ?
+                        error.response.data.errors :
+                        []
+                    this.isLoading = false
+                })
+        },
+        togglePetRescued() {
+            this.isLoading = true
+            axios
+                .put(`/lost-pets/${this.localLostPet.id}/rescued`)
+                .then(response => {
+                    this.localLostPet.meta.rescuedAt = response.data
+                    let adopted = this.localLostPet.meta.rescuedAt ? 'Rescatado@' : 'Sin Rescatar'
+                    SweetAlert.success(`Marcado como: ${adopted}`)
+                    this.isLoading = false
+                })
+                .catch(error => {
+                    this.errors = error.response.status === 422 ?
+                        error.response.data.errors :
+                        []
+                    this.isLoading = false
+                })
+        },
         openModal(action) {
             this.modal = {}
             this.actionType = action
@@ -199,9 +234,9 @@ export default {
         Modal: () => import(/* webpackChunkName: "modal" */ '../../components/Modal'),
         Report: () => import(/* webpackChunkName: "report" */ '../../components/Report'),
         Divider: () => import(/* webpackChunkName: "divider" */ '../../components/Divider'),
+        PetImages: () => import(/* webpackChunkName: "pet-images" */ '../../components/Pets/PetImages'),
         LostPetLocation: () => import(/* webpackChunkName: "lost-pet-location" */ './LostPetLocation'),
         CustomCarousel: () => import(/* webpackChunkName: "custom-carousel" */ '../../components/CustomCarousel'),
-        PetImages: () => import(/* webpackChunkName: "pet-images" */ '../../components/Pets/PetImages'),
     }
 }
 </script>

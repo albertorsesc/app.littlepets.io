@@ -21,7 +21,9 @@ class LostPetsTest extends LostPetTestCase
     {
         $this->signIn();
 
-        $lostPet = $this->create(LostPet::class);
+        $lostPet = $this->create(LostPet::class, [], 'published');
+        $this->create(LostPet::class);
+
 
         $response = $this->getJson(route($this->routePrefix . 'index'));
         $response->assertOk();
@@ -34,7 +36,7 @@ class LostPetsTest extends LostPetTestCase
                     'description' => $lostPet->description,
                     'meta' => [
                         'profile' => $lostPet->profile(),
-                        'publishedAt' => optional($lostPet->published_at)->diffForHumans(),
+                        'publishedAt' => optional($lostPet->published_at)->formatLocalized('%b %e'),
                         'lostAt' => optional($lostPet->lost_at)->diffForHumans(),
                         'foundAt' => optional($lostPet->found_at)->diffForHumans(),
                         'rescuedAt' => optional($lostPet->rescued_at)->diffForHumans(),
@@ -43,6 +45,8 @@ class LostPetsTest extends LostPetTestCase
                 ]
             ]
         ]);
+
+        $this->assertCount(1, $response->getOriginalContent());
     }
 
     /**
@@ -69,11 +73,12 @@ class LostPetsTest extends LostPetTestCase
      */
     public function authenticated_user_can_update_a_lost_pet()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
-        $existingLostPet = $this->create(LostPet::class);
-        $newLostPet = $this->make(LostPet::class, ['pet_id' => $existingLostPet->pet_id]);
+        $existingLostPet = $this->create(LostPet::class, [], 'fromOwner');
+        $newLostPet = $this->make(LostPet::class, [
+            'pet_id' => $existingLostPet->pet_id
+        ], 'fromOwner');
 
         $response = $this->putJson(
             route($this->routePrefix . 'update', $existingLostPet),

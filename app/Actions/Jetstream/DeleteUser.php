@@ -21,10 +21,10 @@ class DeleteUser implements DeletesUsers
      * @param  \Laravel\Jetstream\Contracts\DeletesTeams  $deletesTeams
      * @return void
      */
-    public function __construct(DeletesTeams $deletesTeams)
+    /*public function __construct(DeletesTeams $deletesTeams)
     {
         $this->deletesTeams = $deletesTeams;
-    }
+    }*/
 
     /**
      * Delete the given user.

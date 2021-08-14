@@ -117,9 +117,8 @@
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
                                     <div class="mt-1">
-                                        <select name="" id="" class="lp-select"></select>
-<!--                                        <vue-multiselect v-model="adoptionLocationForm.state"
-                                                         :options="getStates"
+                                        <vue-multiselect v-model="adoptionLocationForm.state"
+                                                         :options="states"
                                                          id="state_id"
                                                          label="name"
                                                          track-by="id"
@@ -136,7 +135,7 @@
                                             <template slot="noResult">
                                                 <span class="text-lg text-yellow-600">Lo sentimos, no se encontraron resultados :(</span>
                                             </template>
-                                        </vue-multiselect>-->
+                                        </vue-multiselect>
                                     </div>
                                 </div>
                             </div>
@@ -149,8 +148,7 @@
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
                                     <div class="mt-1">
-                                        <select name="" id="" class="lp-select"></select>
-<!--                                        <vue-multiselect v-model="adoptionLocationForm.city"
+                                        <vue-multiselect v-model="adoptionLocationForm.city"
                                                          :options="cities"
                                                          id="city"
                                                          :searchable="true"
@@ -162,7 +160,7 @@
                                                          :hide-selected="true"
                                                          placeholder="Selecciona tu Ciudad..."
                                                          @select="getNeighborhoods"
-                                        ></vue-multiselect>-->
+                                        ></vue-multiselect>
                                     </div>
                                 </div>
                             </div>
@@ -175,8 +173,7 @@
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
                                     <div class="mt-1">
-                                        <select name="" id="" class="lp-select"></select>
-<!--                                        <vue-multiselect v-model="adoptionLocationForm.neighborhood"
+                                        <vue-multiselect v-model="adoptionLocationForm.neighborhood"
                                                          :options="neighborhoods"
                                                          id="neighborhood"
                                                          :searchable="true"
@@ -187,7 +184,7 @@
                                                          deselect-label=""
                                                          :hide-selected="true"
                                                          placeholder="Fraccionamiento/Colonia..."
-                                        ></vue-multiselect>-->
+                                        ></vue-multiselect>
                                     </div>
                                 </div>
                             </div>
@@ -231,6 +228,7 @@
 </template>
 
 <script>
+import VueMultiselect from "vue-multiselect";
 import SweetAlert from "../../models/SweetAlert";
 
 export default {
@@ -305,6 +303,15 @@ export default {
                     []
             })
         },
+        getStates() {
+            axios.get('/states')
+                .then(response => {
+                    this.states = response.data.data
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
         getCities(selectedState) {
             let state = this.isObject(selectedState) ? selectedState : this.adoptionLocationForm.state
             axios.get(`/states/${state.name}/cities`)
@@ -353,11 +360,11 @@ export default {
             }
         }
     },
-    computed: {
-    },
     created() {
+        this.getStates()
     },
     components: {
+        VueMultiselect,
         Modal: () => import(/* webpackChunkName: "modal" */ '../../components/Modal'),
         Errors: () => import(/* webpackChunkName: "errors" */ '../../components/Errors'),
         Divider: () => import(/* webpackChunkName: "divider" */ '../../components/Divider'),

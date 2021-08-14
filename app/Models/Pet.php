@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\SerializeTimestamps;
 use App\Models\LostPets\LostPet;
 use App\Models\Adoptions\Adoption;
 use App\Models\Concerns\HandlesMedia;
@@ -13,6 +14,7 @@ class Pet extends Model
 {
     use HasFactory;
     use HandlesMedia;
+    use SerializeTimestamps;
 
     protected $fillable = ['specie_id', 'name', 'gender', 'size', 'weight', 'age', 'age_range'];
 

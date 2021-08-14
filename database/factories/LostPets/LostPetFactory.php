@@ -30,8 +30,8 @@ class LostPetFactory extends Factory
             'description' => $this->faker->paragraph,
             'published_at' => null,
             'lost_at' => $this->faker->dateTime,
-            'found_at' => $this->faker->dateTime,
-            'rescued_at' => $this->faker->dateTime,
+            'found_at' => null,
+            'rescued_at' => null,
         ];
     }
 
@@ -41,6 +41,15 @@ class LostPetFactory extends Factory
             return [
                 'post_type' => 'owner',
                 'lost_at' => $this->faker->dateTime,
+            ];
+        });
+    }
+
+    public function published() : LostPetFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'published_at' => $this->faker->dateTime,
             ];
         });
     }

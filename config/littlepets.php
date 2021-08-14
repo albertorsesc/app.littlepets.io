@@ -2,6 +2,15 @@
 
     return [
 
+        /**
+         * Roles
+         */
+        'roles' => [
+            'root' => [
+                'alberto.rsesc@protonmail.com',
+            ],
+        ],
+
         // Pet Sizes
         'sizes' => [
             'mini' => 'Miniatura',

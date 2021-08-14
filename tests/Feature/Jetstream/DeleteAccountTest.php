@@ -19,13 +19,18 @@ class DeleteAccountTest extends TestCase
             return $this->markTestSkipped('Account deletion is not enabled.');
         }
 
+        $this->withoutExceptionHandling();
         $this->actingAs($user = User::factory()->create());
 
         $component = Livewire::test(DeleteUserForm::class)
                         ->set('password', 'password')
                         ->call('deleteUser');
 
-        $this->assertNull($user->fresh());
+        $this->assertSoftDeleted('users', [
+            'first_name' => $user->fresh()->first_name,
+            'last_name' => $user->fresh()->last_name,
+            'email' => $user->fresh()->email,
+        ]);
     }
 
     public function test_correct_password_must_be_provided_before_account_can_be_deleted()

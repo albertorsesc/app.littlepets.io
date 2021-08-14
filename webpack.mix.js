@@ -9,17 +9,20 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.extract([
     'vue',
-    'tailwindcss',
-    'postcss',
-    'laravel-mix',
     'lodash',
     'alpine',
-    'vue2-dropzone',
-    '@chenfengyuan/vue-carousel',
+    'postcss',
     'sweetalert2',
+    'autoprefixer',
+    'tailwindcss',
+    'laravel-mix',
+    'vue2-dropzone',
+    'vue-multiselect',
+    '@chenfengyuan/vue-carousel',
 ])
 
 mix.copy('node_modules/sweetalert2/src/sweetalert2.scss', 'public/css/sweetalert2.css')
+mix.copy('node_modules/vue-multiselect/dist/vue-multiselect.min.css', 'public/css/vue-multiselect.min.css')
 
 mix.webpackConfig({
     plugins: [

@@ -21,6 +21,7 @@ class AdoptionResource extends JsonResource
             'phone' => $this->phone,
             'bio' => $this->bio,
             'story' => $this->story,
+            'location' => new LocationResource($this->whenLoaded('location')),
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'meta' => [
                 'profile' => $this->profile(),

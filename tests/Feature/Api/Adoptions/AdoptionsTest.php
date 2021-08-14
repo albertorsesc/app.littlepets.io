@@ -77,7 +77,7 @@ class AdoptionsTest extends AdoptionTestCase
      * @test
      * @throws \Throwable
     */
-    public function authenticated_user_can_update_an_adoption()
+    public function authorized_user_can_update_an_adoption()
     {
         $this->signIn();
 
@@ -107,7 +107,7 @@ class AdoptionsTest extends AdoptionTestCase
      * @test
      * @throws \Throwable
     */
-    public function authenticated_user_can_delete_an_adoption()
+    public function authorized_user_can_delete_an_adoption()
     {
         $this->signIn();
 

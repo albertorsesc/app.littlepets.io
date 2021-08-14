@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('title', e($lostPet->title))
+@section('title', e($lostPet->title ?? 'Hola soy ' . $lostPet->pet->name))
+
+@section('styles')
+    <link rel="stylesheet" href="/css/vue-multiselect.min.css">
+@endsection
 
 @section('content')
     <lost-pet-profile :lost-pet="{{ json_encode($lostPet) }}"  inline-template>
@@ -22,21 +26,22 @@
                                         </h1>
                                         <h1 v-if="localLostPet.postType === 'rescuer'"
                                             class="ml-3 text-2xl font-medium leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                                            Hola! Podrian ayudarme a encontrar a mi humano? por favor
+                                            Hola! Podrían ayudarme a encontrar a mi humano? por favor
                                         </h1>
-                                        <dl class="flex flex-col sm:ml-3 sm:flex-row sm:flex-wrap">
-                                            <dd v-if="localLostPet.title"
-                                                class="flex items-center text-sm text-gray-500 font-medium capitalize sm:mr-6">
-                                                <i class="fas fa-bullhorn mr-2"></i>
-                                                <span v-text="localLostPet.title" class="text-gray-600 text-base font-semibold"></span>
-                                            </dd>
-                                        </dl>
                                     </div>
+                                    <dl class="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
+                                        <dd v-if="localLostPet.title"
+                                            class="flex items-center text-sm text-gray-500 font-medium capitalize sm:mr-6">
+                                            <i class="fas fa-bullhorn mr-2"></i>
+                                            <span v-text="localLostPet.title" class="text-gray-600 text-base font-semibold"></span>
+                                        </dd>
+                                    </dl>
                                 </div>
                             </div>
                             <div class="md:flex items-center align-middle mr-48 align-middle md:-mb-8 md:space-x-3 md:mt-0">
                                 <span class="rounded-md shadow-sm">
-                                    <button type="button"
+                                    <button @click="togglePetFound"
+                                            type="button"
                                             class="btn btn-primary -mt-1 items-center flex shadow-sm justify-center w-full px-10 py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-600 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
                                             title="Hacer publico esta Publicación...">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,7 +165,7 @@
                                     <div class="card transition hover:transform">
                                         <div class="card-body">
                                             <custom-carousel
-                                                :images="localLostPet.images"
+                                                :images="localLostPet.pet.images"
                                                 :module-name="'lost-pets'"
                                                 :size="'medium'"
                                             ></custom-carousel>
@@ -241,23 +246,6 @@
                                                                           class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500">
                                                                         Sin Encontrar
                                                                     </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                {{--Breed--}}
-                                                <li class="mt-1">
-                                                    <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-                                                        <div class="px-4 py-2 sm:px-6">
-                                                            <div class="flex items-center justify-between">
-                                                                <div class="text-base leading-5 font-medium text-gray-600 truncate">
-                                                                    Raza
-                                                                </div>
-                                                                <div class="ml-2 flex-shrink-0 flex">
-                                                                <span class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500"
-                                                                      v-text="localLostPet.pet.breed.name"
-                                                                ></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -414,7 +402,7 @@
                         </div>
 
                         <div>
-                            <lost-pet-images></lost-pet-images>
+                            <pet-images></pet-images>
                         </div>
 
                         <lost-pet-location></lost-pet-location>
@@ -567,28 +555,6 @@
                                                     :key="specie.id"
                                                     :value="specie"
                                                     v-text="specie.display_name"
-                                            ></option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
-                                <div class="form-group">
-                                    <label for="breed_id">
-                                        <strong class="required">*</strong>
-                                        Raza o Similar
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
-                                    </label>
-                                    <div class="mt-2">
-                                        <select v-model="selectedBreed" id="breed_id" class="lp-select">
-                                            <option v-text="selectedBreed.name"
-                                                    :value="selectedBreed"
-                                                    selected disabled
-                                            ></option>
-                                            <option v-for="breed in breeds"
-                                                    :key="breed.id"
-                                                    :value="breed"
-                                                    v-text="breed.name"
                                             ></option>
                                         </select>
                                     </div>

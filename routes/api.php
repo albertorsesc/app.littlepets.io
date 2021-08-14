@@ -13,15 +13,16 @@
     use App\Http\Controllers\Api\Veterinaries\VeterinaryController;
     use App\Http\Controllers\Api\LostPets\LostPetLocationController;
     use App\Http\Controllers\Api\Adoptions\AdoptionCommentController;
-    use App\Http\Controllers\Api\Sepomex\NeighborhoodByCityController;
     use App\Http\Controllers\Api\Adoptions\AdoptionLocationController;
+    use App\Http\Controllers\Api\Sepomex\NeighborhoodByCityController;
+    use App\Http\Controllers\Api\LostPets\Actions\MarkAsFoundController;
     use App\Http\Controllers\Api\LostPets\Actions\ReportLostPetController;
     use App\Http\Controllers\Api\LostPets\Actions\PublishLostPetController;
     use App\Http\Controllers\Api\Adoptions\Actions\MarkAsAdoptedController;
     use App\Http\Controllers\Api\Adoptions\Actions\ReportAdoptionController;
     use App\Http\Controllers\Api\Adoptions\Actions\PublishAdoptionController;
 
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('countries', CountryController::class)->name('api.countries.index');
         Route::get('states', StateController::class)->name('api.states.index');
         Route::get('states/{state}/cities', CityByStateController::class)->name('api.states.cities.index');
@@ -61,6 +62,7 @@
         Route::get('my-lost-pets', UserLostPetController::class)->name('api.user-lost-pets.index');
         Route::put('lost-pets/{lostPet}/toggle', PublishLostPetController::class)->name('api.lost-pets.toggle');
         Route::post('lost-pets/{lostPet}/report', ReportLostPetController::class)->name('api.lost-pets.report');
+        Route::put('lost-pets/{lostPet}/found', MarkAsFoundController::class)->name('api.lost-pets.found');
 
         Route::post('lost-pets/{lostPet}/location', [LostPetLocationController::class, 'store'])->name('api.lost-pets.location.store');
         Route::put('lost-pets/{lostPet}/location', [LostPetLocationController::class, 'update'])->name('api.lost-pets.location.update');

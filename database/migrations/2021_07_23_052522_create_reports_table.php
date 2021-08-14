@@ -16,8 +16,7 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->unsignedBigInteger('reportable_id');
-            $table->string('reportable_type');
+            $table->morphs('reportable');
             $table->string('reporting_cause', 100);
             $table->string('comments', 255)->nullable();
             $table->boolean('status')->default(true);

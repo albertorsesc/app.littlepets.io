@@ -10,7 +10,7 @@
         return redirect()->route('web.adoptions.index');
     });
 
-    Route::middleware(['auth:sanctum',])->group(function () {
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::view('/dashboard', 'dashboard')->name('dashboard');
         Route::redirect('dashboard', 'adopciones');
 

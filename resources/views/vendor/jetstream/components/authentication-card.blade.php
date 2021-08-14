@@ -44,7 +44,7 @@
                 <div>
                     <div>
                         <p class="text-sm font-medium text-gray-700">
-                            inicia sesion a traves de
+                            inicia sesión a traves de
                         </p>
 
                         <div class="mt-1 grid grid-cols-2 gap-3">

@@ -2,6 +2,10 @@
 
 @section('title', e($adoption->title))
 
+@section('styles')
+    <link rel="stylesheet" href="/css/vue-multiselect.min.css">
+@endsection
+
 @section('content')
     <adoption-profile :adoption="{{ json_encode($adoption) }}"  inline-template>
         <div>
@@ -15,7 +19,7 @@
                             <div class="md:flex items-center">
                                 <div>
                                     {{--Title--}}
-                                    <div class="flex items-center">
+                                    <div class="flex items-center align-middle my-auto">
                                         <h1 class="ml-3 text-2xl font-medium leading-7 text-gray-900 sm:leading-9 sm:truncate">
                                             Hola! mi nombre es <span class="text-cyan-500 font-bold">@{{ localAdoption.pet.name }}</span>
                                         </h1>
@@ -123,7 +127,8 @@
                         <div>
                             <div class="w-full mb-2 md:flex mt-4">
                                 <div class="md:hidden">
-                                    <div class="flex justify-end md:hidden mx-2 md:-mx-3 mt-1 mb-2">
+                                    <div v-if="localAdoption.pet.user.id === auth"
+                                         class="flex justify-end md:hidden mx-2 md:-mx-3 mt-1 mb-2">
                                         {{--Publish/Unpublish--}}
                                         <div class="w-full md:w-1/3 mx-2 md:mx-3 mb-2 md:mb-0">
                                         <span class="rounded-md shadow-sm">
@@ -139,14 +144,14 @@
 
                                         {{--Update Property--}}
                                         <div class="w-full md:w-1/3 mx-2 md:mx-3">
-                                        <span class="rounded-md shadow-sm">
-                                            <button @click="openModal('put')"
-                                                    type="button"
-                                                    class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                                    title="Actualizar Datos de la Adopción...">
-                                                <span class="text-gray-300">Editar</span>
-                                            </button>
-                                        </span>
+                                            <span class="rounded-md shadow-sm">
+                                                <button @click="openModal('put')"
+                                                        type="button"
+                                                        class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                                        title="Actualizar Datos de la Adopción...">
+                                                    <span class="text-gray-300">Editar</span>
+                                                </button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +170,8 @@
                                 </div>
 
                                 <div class="w-full md:w-1/3 mt-4">
-                                    <div class="hidden md:flex md:justify-between md:-mx-2 mt-1 mb-2">
+                                    <div v-if="localAdoption.pet.user.id === auth"
+                                         class="hidden md:flex md:justify-between md:-mx-2 mt-1 mb-2">
                                         {{--Publish/Unpublish--}}
                                         <div class="w-full md:w-1/2 md:mx-2 mb-2 md:mb-0">
                                             <span class="rounded-md shadow-sm">
@@ -182,14 +188,14 @@
 
                                         {{--Update Property--}}
                                         <div class="w-full md:w-1/2 md:mx-2">
-                                <span class="rounded-md shadow-sm">
-                                    <button @click="openModal('put')"
-                                            type="button"
-                                            class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                            title="Actualizar Datos de la Adopción...">
-                                        <span class="text-gray-300">Editar</span>
-                                    </button>
-                                </span>
+                                            <span class="rounded-md shadow-sm">
+                                                <button @click="openModal('put')"
+                                                        type="button"
+                                                        class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                                        title="Actualizar Datos de la Adopción...">
+                                                    <span class="text-gray-300">Editar</span>
+                                                </button>
+                                            </span>
                                         </div>
                                     </div>
 
@@ -381,7 +387,7 @@
                         <section aria-labelledby="notes-title" class="mt-6">
                             <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
                                 <div class="bg-gray-50 px-4 py-4 sm:px-6">
-                                    <div class="flex space-x-3">
+                                    <div v-if="auth" class="flex space-x-3">
                                         <div class="flex-shrink-0">
                                             <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80" alt="">
                                         </div>
@@ -419,6 +425,12 @@
                                                 </div>
                                             </form>
                                         </div>
+                                    </div>
+                                    <div v-else
+                                         class="flex-space-x-3">
+                                        <span>
+                                            Debes <a href="{{ route('login') }}">iniciar sesión</a> para comentar en esta publicación.
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="divide-y divide-gray-200">

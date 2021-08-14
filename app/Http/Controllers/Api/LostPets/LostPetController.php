@@ -16,7 +16,12 @@ class LostPetController extends Controller
     public function index() : AnonymousResourceCollection
     {
         return LostPetResource::collection(
-            LostPet::with(['pet.user', 'pet.specie'])
+            LostPet::isPublished()
+                   ->with([
+                       'pet.media',
+                       'pet.specie',
+                       'pet.user:id,first_name,last_name,email',
+                   ])
                    ->latest('updated_at')
                    ->get()
         );
@@ -47,6 +52,8 @@ class LostPetController extends Controller
 
     public function update(LostPetRequest $request, LostPet $lostPet) : LostPetResource
     {
+        $this->authorize('update', $lostPet);
+
         $lostPet->pet()->update([
             'specie_id' => $request->specie_id,
             'name' => $request->name,
@@ -63,6 +70,8 @@ class LostPetController extends Controller
 
     public function destroy(LostPet $lostPet)
     {
+        $this->authorize('update', $lostPet);
+
         $lostPet->delete();
 
         return response([], 204);

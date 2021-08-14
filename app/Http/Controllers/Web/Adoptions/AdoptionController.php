@@ -20,6 +20,7 @@ class AdoptionController extends Controller
                 $adoption->load([
                     'pet.media',
                     'pet.specie',
+                    'location.state',
                     'pet.user:id,first_name,last_name,email',
                     'comments.user:id,first_name,last_name,email',
                 ])

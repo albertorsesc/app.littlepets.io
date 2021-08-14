@@ -13,7 +13,7 @@ class PetImageController extends Controller
     {
         if ($pet->media()->count() >= 5) {
             return response()->json([
-                'error' => 'Alcanzaste el numero maximo de Imágenes para esta publicacion :/'
+                'error' => 'Alcanzaste el numero maximo de Imágenes para esta publicación :/'
             ], 422);
         }
         $request->validate([

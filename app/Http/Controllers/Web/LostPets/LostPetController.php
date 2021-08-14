@@ -20,6 +20,7 @@ class LostPetController extends Controller
                 $lostPet->load([
                     'pet.media',
                     'pet.specie',
+                    'location.state',
                     'pet.user:id,first_name,last_name,email',
                     'comments.user:id,first_name,last_name,email',
                 ])

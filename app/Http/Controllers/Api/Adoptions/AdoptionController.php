@@ -57,6 +57,8 @@ class AdoptionController extends Controller
         AdoptionRequest $request,
         Adoption $adoption
     ) : AdoptionResource {
+        $this->authorize('update', $adoption);
+
         $adoption->pet()->update([
             'specie_id' => $request->specie_id,
             'name' => $request->name,
@@ -80,6 +82,8 @@ class AdoptionController extends Controller
 
     public function destroy(Adoption $adoption)
     {
+        $this->authorize('update', $adoption);
+
         $adoption->delete();
 
         return response([], 204);

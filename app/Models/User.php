@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\SerializeTimestamps;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Jetstream\HasTeams;
 use App\Models\LostPets\LostPet;
 use Laravel\Sanctum\HasApiTokens;
@@ -20,9 +22,21 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasAvatar;
     use HasFactory;
     use Notifiable;
+    use SoftDeletes;
     use HasApiTokens;
     use HasProfilePhoto;
+    use SerializeTimestamps;
     use TwoFactorAuthenticatable;
+
+    protected static function boot ()
+    {
+        parent::boot();
+        self::deleting(function ($user) {
+            $user->adoptions()->each(fn ($adoption) => $adoption->delete());
+            $user->lostPets()->each(fn ($lostPet) => $lostPet->delete());
+            \Storage::delete($user->getProfilePhotoUrlAttribute());
+        });
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -68,5 +82,15 @@ class User extends Authenticatable implements MustVerifyEmail
             LostPet::class,
             Pet::class,
         )->latest('updated_at');
+    }
+
+    /* Helpers */
+
+    public function isRoot() : bool
+    {
+        return in_array(
+            $this->email,
+            config('littlepets.roles.root')
+        );
     }
 }

@@ -21,10 +21,11 @@ class LostPetResource extends JsonResource
             'postType' => $this->post_type,
             'phone' => $this->phone,
             'description' => $this->description,
+            'location' => new LocationResource($this->whenLoaded('location')),
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'meta' => [
                 'profile' => $this->profile(),
-                'publishedAt' => optional($this->published_at)->diffForHumans(),
+                'publishedAt' => optional($this->published_at)->formatLocalized('%b %e'),
                 'lostAt' => optional($this->lost_at)->diffForHumans(),
                 'foundAt' => optional($this->found_at)->diffForHumans(),
                 'rescuedAt' => optional($this->rescued_at)->diffForHumans(),
