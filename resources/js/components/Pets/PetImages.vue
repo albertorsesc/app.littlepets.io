@@ -1,8 +1,7 @@
 <template>
     <div v-if="isOwner">
         <divider title="Imágenes"></divider>
-        <div v-if="isOwner"
-             class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="flex justify-between px-4 py-5 sm:px-6 items-center">
                 <h3 class="flex text-lg leading-6 font-medium text-emerald-600">
                     <svg class="mr-2 h-5 w-5 text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

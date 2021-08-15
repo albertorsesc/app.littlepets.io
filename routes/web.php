@@ -10,6 +10,12 @@
         return redirect()->route('web.adoptions.index');
     });
 
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect('/dashboard');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::view('/dashboard', 'dashboard')->name('dashboard');
         Route::redirect('dashboard', 'adopciones');
@@ -31,8 +37,3 @@
                                          ->save('img/lost-pets_medium.png');
     });*/
 
-    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
-
-        return redirect('/inicio');
-    })->middleware(['auth', 'signed'])->name('verification.verify');

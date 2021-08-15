@@ -20,11 +20,11 @@
                                 <div>
                                     {{--Title--}}
                                     <div class="flex items-center align-middle my-auto">
-                                        <h1 class="ml-3 text-2xl font-medium leading-7 text-gray-900 sm:leading-9 sm:truncate">
+                                        <h1 class="lg:ml-3 text-2xl font-medium leading-7 text-gray-900 sm:leading-9 sm:truncate">
                                             Hola! mi nombre es <span class="text-cyan-500 font-bold">@{{ localAdoption.pet.name }}</span>
                                         </h1>
                                     </div>
-                                    <dl class="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
+                                    <dl class="mt-2 lg:mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
                                         <dd class="flex items-center text-sm text-gray-500 font-medium capitalize sm:mr-6">
                                             <i class="fas fa-bullhorn mr-2"></i>
                                             <span v-text="localAdoption.title" class="text-gray-600 text-base font-semibold"></span>
@@ -32,27 +32,30 @@
                                     </dl>
                                 </div>
                             </div>
-                            <div class="md:flex items-center align-middle mr-48 align-middle md:-mb-8 md:space-x-3 md:mt-0">
-                                <span class="rounded-md shadow-sm">
+                            <div class="mt-4 lg:mt-0 flex items-center align-middle lg:mr-48 align-middle md:-mb-8 md:space-x-3 md:mt-0">
+                                {{--Toggle Adoption--}}
+                                <span v-if="localAdoption.pet.user.id === auth"
+                                      class="rounded-md shadow-sm mr-2">
                                     <button @click="toggleAdoption"
                                             type="button"
-                                            class="btn btn-primary -mt-1 items-center flex shadow-sm justify-center w-full px-10 py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-600 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                            class="btn btn-primary -mt-1 items-center flex shadow-sm justify-center lg:w-full px-3 lg:px-10 py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-600 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
                                             title="Hacer publico esta Adopción...">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        {{--<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
-                                        </svg>
+                                        </svg>--}}
                                         <span v-if="! localAdoption.meta.adoptedAt" class="ml-2 text-base">
-                                            Marcar @{{ localAdoption.pet.name }} como Adoptado!
+                                            Ha sido Adoptad@
                                         </span>
                                         <span v-else
                                               class="ml-2 text-base">
-                                            @{{ localAdoption.pet.name }} ha sido Adoptad@!
+                                            No ha sido Adoptad@
                                         </span>
                                     </button>
                                 </span>
-
-                                <button @click="onDelete"
-                                        class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
+                                {{--Delete--}}
+                                <button v-if="localAdoption.pet.user.id === auth"
+                                        @click="onDelete"
+                                        class="mr-2 inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
                                         title="Eliminar Adopción">
                                     <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
@@ -123,23 +126,29 @@
 
             <main class="w-full">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-                    <div class="w-full md:w-2/3 py-6 sm:px-0">
+                    <div class="w-full lg:w-2/3 py-6 sm:px-0">
                         <div>
+                            <alert v-if="localAdoption.pet.user.id === auth && ! localAdoption.location"
+                                   :type="'warning'">
+                                Para Publicar la adopción es necesario registrar su Dirección
+                            </alert>
+
                             <div class="w-full mb-2 md:flex mt-4">
                                 <div class="md:hidden">
                                     <div v-if="localAdoption.pet.user.id === auth"
                                          class="flex justify-end md:hidden mx-2 md:-mx-3 mt-1 mb-2">
                                         {{--Publish/Unpublish--}}
-                                        <div class="w-full md:w-1/3 mx-2 md:mx-3 mb-2 md:mb-0">
-                                        <span class="rounded-md shadow-sm">
-                                            <button @click="toggle"
-                                                    :disabled="isLoading"
-                                                    type="button"
-                                                    class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                                    title="Hacer publico esta Adopción...">
-                                                <span class="text-green-300 hover:text-green-400">Publicar</span>
-                                            </button>
-                                        </span>
+                                        <div v-if="localAdoption.location"
+                                             class="w-full md:w-1/3 mx-2 md:mx-3 mb-2 md:mb-0">
+                                            <span class="rounded-md shadow-sm">
+                                                <button @click="toggle"
+                                                        :disabled="isLoading"
+                                                        type="button"
+                                                        class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                                        :title="localAdoption.status ? 'Ocultar esta Adopción del publico...' : 'Hacer publico esta Adopción...'">
+                                                    <span class="text-green-300 hover:text-green-400">Publicar</span>
+                                                </button>
+                                            </span>
                                         </div>
 
                                         {{--Update Property--}}
@@ -173,7 +182,8 @@
                                     <div v-if="localAdoption.pet.user.id === auth"
                                          class="hidden md:flex md:justify-between md:-mx-2 mt-1 mb-2">
                                         {{--Publish/Unpublish--}}
-                                        <div class="w-full md:w-1/2 md:mx-2 mb-2 md:mb-0">
+                                        <div v-if="localAdoption.location"
+                                             class="w-full md:w-1/2 md:mx-2 mb-2 md:mb-0">
                                             <span class="rounded-md shadow-sm">
                                                 <button @click="toggle"
                                                         type="button"
@@ -187,7 +197,8 @@
                                         </div>
 
                                         {{--Update Property--}}
-                                        <div class="w-full md:w-1/2 md:mx-2">
+                                        <div class="w-full md:mx-2"
+                                             :class="[localAdoption.location ? 'md:w-1/2' : 'md:w-full']">
                                             <span class="rounded-md shadow-sm">
                                                 <button @click="openModal('put')"
                                                         type="button"
@@ -387,7 +398,8 @@
                         <section aria-labelledby="notes-title" class="mt-6">
                             <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
                                 <div class="bg-gray-50 px-4 py-4 sm:px-6">
-                                    <div v-if="auth" class="flex space-x-3">
+                                    <div v-if="auth"
+                                         class="flex space-x-3">
                                         <div class="flex-shrink-0">
                                             <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80" alt="">
                                         </div>
@@ -483,7 +495,7 @@
                 </div>
             </main>
 
-            <modal modal-id="update-adoption" max-width="sm:max-w-5xl">
+            <modal v-if="localAdoption.pet.user.id === auth" modal-id="update-adoption" max-width="sm:max-w-5xl">
                 <template #title>Actualizar Datos de la Adopción</template>
                 <template #content>
                     <form @submit.prevent>

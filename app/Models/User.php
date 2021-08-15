@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\SerializeTimestamps;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Jetstream\HasTeams;
 use App\Models\LostPets\LostPet;
 use Laravel\Sanctum\HasApiTokens;
@@ -11,8 +9,11 @@ use App\Models\Adoptions\Adoption;
 use App\Models\Concerns\HasAvatar;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Concerns\SerializeTimestamps;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -93,4 +94,17 @@ class User extends Authenticatable implements MustVerifyEmail
             config('littlepets.roles.root')
         );
     }
+
+    /**
+     * Send a password reset notification to the user.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    /*public function sendPasswordResetNotification($token)
+    {
+        $url = config('app.url') . '/reset-password?token='.$token;
+
+        $this->notify(new ResetPasswordNotification($url));
+    }*/
 }

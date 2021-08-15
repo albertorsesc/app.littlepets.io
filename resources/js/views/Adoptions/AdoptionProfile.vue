@@ -216,6 +216,7 @@ export default {
         window.Event.$on('SweetAlert:destroy', () => { this.destroy() })
     },
     components: {
+        Alert: () => import(/* webpackChunkName: "alert" */ '../../components/Alert'),
         Modal: () => import(/* webpackChunkName: "modal" */ '../../components/Modal'),
         Report: () => import(/* webpackChunkName: "report" */ '../../components/Report'),
         Divider: () => import(/* webpackChunkName: "divider" */ '../../components/Divider'),

@@ -5,12 +5,15 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+            En LittlePets agradecemos que te hayas unido y esperamos que al igual que nosotros encuentres el potencial de ayuda
+            de esta herramienta hecha para cada uno de los animales mas vulnerables allá afuera!
+            Antes de comenzar, podrías verificar tu correo electrónico al hacer clic en el enlace que se envió a tu correo?
+            Si no recibiste el correo, con gusto enviaremos otro.
         </div>
 
         @if (session('status') == 'verification-link-sent')
             <div class="mb-4 font-medium text-sm text-green-600">
-                {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+                {{ __('Un nuevo enlace de verificación ha sido enviado al correo electrónico que nos proporcionaste durante el registro.') }}
             </div>
         @endif
 
@@ -20,7 +23,7 @@
 
                 <div>
                     <x-jet-button type="submit">
-                        {{ __('Resend Verification Email') }}
+                        {{ __('Reenviar correo de verificación') }}
                     </x-jet-button>
                 </div>
             </form>
@@ -29,7 +32,7 @@
                 @csrf
 
                 <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    {{ __('Log Out') }}
+                    {{ __('Cerrar Sesión') }}
                 </button>
             </form>
         </div>

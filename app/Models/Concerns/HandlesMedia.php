@@ -2,11 +2,13 @@
 
 namespace App\Models\Concerns;
 
+use App\Models\Concerns\InterventionImage\Filters\MediumFilter;
 use App\Models\Media;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Intervention\Image\Facades\Image;
 
 trait HandlesMedia
 {
