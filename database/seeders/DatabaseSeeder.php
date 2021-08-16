@@ -33,8 +33,8 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now()->toDateTimeString(),
             'created_at' => now()->toDateTimeString(),
         ]);
-        Auth::login($user);
+        /*Auth::login($user);
         $user->adoptions()->create(Adoption::factory()->make()->toArray());
-        $user->lostPets()->create(LostPet::factory()->make()->toArray());
+        $user->lostPets()->create(LostPet::factory()->make()->toArray());*/
     }
 }
