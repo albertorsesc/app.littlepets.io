@@ -21,10 +21,10 @@
         Route::redirect('dashboard', 'adopciones');
 
         Route::get('adopciones', [AdoptionController::class, 'index'])->name('web.adoptions.index');
-        Route::get('adopciones/{adoption}', [AdoptionController::class, 'show'])->name('web.adoptions.show');
+        Route::get('adopciones/{adoption:uuid}', [AdoptionController::class, 'show'])->name('web.adoptions.show');
 
         Route::get('perdidos-y-encontrados', [LostPetController::class, 'index'])->name('web.lost-pets.index');
-        Route::get('perdidos-y-encontrados/{lostPet}', [LostPetController::class, 'show'])->name('web.lost-pets.show');
+        Route::get('perdidos-y-encontrados/{lostPet:uuid}', [LostPetController::class, 'show'])->name('web.lost-pets.show');
 
         Route::get('veterinarias', [VeterinaryController::class, 'index'])->name('web.veterinaries.index');
         Route::get('veterinarias/{veterinary}', [VeterinaryController::class, 'show'])->name('web.veterinaries.show');

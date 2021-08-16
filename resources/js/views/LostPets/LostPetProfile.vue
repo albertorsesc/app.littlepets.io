@@ -1,4 +1,6 @@
 <script>
+import {DateTime} from "luxon";
+import { Datetime } from 'vue-datetime'
 import SweetAlert from "../../models/SweetAlert";
 
 export default {
@@ -24,6 +26,8 @@ export default {
             lostPetForm: {pet: {}},
             selectedSpecie: {},
             selectedBreed: {},
+            formattedLostAt: '',
+            formattedRescuedAt: '',
 
             commentForm: {},
             selectedComment: {},
@@ -43,22 +47,25 @@ export default {
     methods: {
         update() {
             this.isLoading = true
-            axios.put(`/lost-pets/${this.lostPet.id}`, {
-                breed_id: this.selectedBreed.id,
+            axios.put(`/lost-pets/${this.lostPet.uuid}`, {
+                specie_id: this.lostPetForm.pet.specie.id,
                 name: this.lostPetForm.pet.name,
                 gender: this.lostPetForm.pet.gender,
                 size: this.lostPetForm.pet.size,
                 age: this.lostPetForm.pet.age,
                 age_range: this.lostPetForm.pet.ageRange,
+                post_type: this.lostPetForm.postType,
                 phone: this.lostPetForm.phone,
                 description: this.lostPetForm.description,
                 lost_at: this.lostPetForm.lostAt,
+                found_at: this.lostPetForm.foundAt,
                 rescued_at: this.lostPetForm.rescuedAt,
             })
             .then(response => {
                 this.localLostPet = response.data.data
                 this.closeModal()
                 this.isLoading = false
+                SweetAlert.success('La Publicación ha sido actualizada exitosamente!')
             })
             .catch(error => {
                 if (error.response.status === 422) {
@@ -71,7 +78,7 @@ export default {
             })
         },
         destroy() {
-            axios.delete(`/lost-pets/${this.lostPet.id}`)
+            axios.delete(`/lost-pets/${this.lostPet.uuid}`)
             .then(() => {
                 setTimeout( () => {
                         window.location.href = `/perdidos-y-encontrados`
@@ -80,16 +87,18 @@ export default {
             .catch(error => console.log(error))
         },
         onDelete() {
-            if (confirm('Seguro que desea eliminar las mascota extraviada?')) {
-                this.destroy()
-            }
+            SweetAlert.danger(
+                `Eliminar la Publicación`,
+                'La Publicación ha sido eliminada exitosamente!',
+            )
         },
         comment() {
-            axios.post(`/lost-pets/${this.lostPet.id}/comments`, {
+            axios.post(`/lost-pets/${this.lostPet.uuid}/comments`, {
                 body: this.selectedComment.body
             }).then(response => {
                 this.localLostPet.comments.unshift(response.data.data)
                 this.selectedComment = {}
+                SweetAlert.toast('Gracias por tu comentario.')
             }).catch(error => {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors
@@ -99,12 +108,13 @@ export default {
             })
         },
         updateComment() {
-            axios.put(`/lost-pets/${this.lostPet.id}/comments/${this.selectedComment.id}`, {
+            axios.put(`/lost-pets/${this.lostPet.uuid}/comments/${this.selectedComment.id}`, {
                 body: this.selectedComment.body
             }).then(response => {
                 this.localLostPet.comments = response.data.data
                 this.selectedComment = {}
                 this.updatingComment = false
+                SweetAlert.toast('Comentario actualizado.')
             }).catch(error => {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors
@@ -120,9 +130,10 @@ export default {
             this.commentForm = this.selectedComment = comment
         },
         destroyComment(comment) {
-            axios.delete(`/lost-pets/${this.lostPet.id}/comments/${comment.id}`)
+            axios.delete(`/lost-pets/${this.lostPet.uuid}/comments/${comment.id}`)
             .then(() => {
                 this.localLostPet.comments = this.localLostPet.comments.filter(item => item.id !== comment.id)
+                SweetAlert.toast('Comentario eliminado.')
             }).catch(error => console.log(error))
         },
         onDeleteComment(comment) {
@@ -140,7 +151,7 @@ export default {
         toggle() {
             this.isLoading = true
             axios
-                .put(`/lost-pets/${this.localLostPet.id}/toggle`)
+                .put(`/lost-pets/${this.localLostPet.uuid}/toggle`)
                 .then(response => {
                     this.localLostPet.meta.publishedAt = response.data
                     let isPublished = this.localLostPet.meta.publishedAt ? 'Publicada' : 'Ocultada'
@@ -157,7 +168,7 @@ export default {
         togglePetFound() {
             this.isLoading = true
             axios
-                .put(`/lost-pets/${this.localLostPet.id}/found`)
+                .put(`/lost-pets/${this.localLostPet.uuid}/found`)
                 .then(response => {
                     this.localLostPet.meta.foundAt = response.data
                     let adopted = this.localLostPet.meta.foundAt ? 'Encontrad@' : 'Sin Encontrar'
@@ -174,7 +185,7 @@ export default {
         togglePetRescued() {
             this.isLoading = true
             axios
-                .put(`/lost-pets/${this.localLostPet.id}/rescued`)
+                .put(`/lost-pets/${this.localLostPet.uuid}/rescued`)
                 .then(response => {
                     this.localLostPet.meta.rescuedAt = response.data
                     let adopted = this.localLostPet.meta.rescuedAt ? 'Rescatado@' : 'Sin Rescatar'
@@ -204,10 +215,12 @@ export default {
                 this.lostPetForm.pet.name = this.localLostPet.pet.name
                 this.lostPetForm.pet.gender = this.localLostPet.pet.gender
                 this.lostPetForm.pet.size = this.localLostPet.pet.size
+                this.lostPetForm.pet.ageRange = this.localLostPet.pet.ageRange
                 this.lostPetForm.pet.age = this.localLostPet.pet.age
+                this.lostPetForm.postType = this.localLostPet.postType
                 this.lostPetForm.phone = this.localLostPet.phone
                 this.lostPetForm.description = this.localLostPet.description
-                this.lostPetForm.lostAt = this.localLostPet.lostAt
+                this.lostPetForm.lostAt = this.localLostPet.meta.lostAt
                 this.lostPetForm.rescuedAt = this.localLostPet.rescuedAt
 
                 this.modal.id = 'update-lost-pet'
@@ -229,8 +242,12 @@ export default {
         this.getSpecies()
 
         window.Event.$on('SweetAlert:destroy', () => { this.destroy() })
+
+        this.formattedLostAt = DateTime.fromISO(this.localLostPet.meta.lostAt).setLocale('es').toFormat('MMM d y, hh:mm')
+        this.formattedRescuedAt = DateTime.fromISO(this.localLostPet.meta.rescuedAt).setLocale('es').toFormat('MMM d y, hh:mm')
     },
     components: {
+        Datetime,
         Modal: () => import(/* webpackChunkName: "modal" */ '../../components/Modal'),
         Report: () => import(/* webpackChunkName: "report" */ '../../components/Report'),
         Divider: () => import(/* webpackChunkName: "divider" */ '../../components/Divider'),

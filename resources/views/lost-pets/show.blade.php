@@ -4,6 +4,7 @@
 
 @section('styles')
     <link rel="stylesheet" href="/css/vue-multiselect.min.css">
+    <link rel="stylesheet" href="/css/vue-datetime.css">
 @endsection
 
 @section('content')
@@ -39,31 +40,33 @@
                                 </div>
                             </div>
                             <div class="md:flex items-center align-middle mr-48 align-middle md:-mb-8 md:space-x-3 md:mt-0">
+                                {{--togglePetFound--}}
                                 <span class="rounded-md shadow-sm">
                                     <button @click="togglePetFound"
                                             type="button"
                                             class="btn btn-primary -mt-1 items-center flex shadow-sm justify-center w-full px-10 py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-600 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                            title="Hacer publico esta Publicación...">
+                                            title="Marcar Publicación como Encontrad@...">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
                                         </svg>
                                         <span v-if="! localLostPet.meta.foundAt" class="ml-2 text-base">
-                                            Marcar @{{ localLostPet.pet.name }} como Encontrad@!
+                                            Marcar como Encontrad@
                                         </span>
                                         <span v-else
                                               class="ml-2 text-base">
-                                            @{{ localLostPet.pet.name }} ha sido Encontrad@!
+                                            Marcar como Extraviad@
                                         </span>
                                     </button>
                                 </span>
 
+                                {{--OnDelete--}}
                                 <button @click="onDelete"
                                         class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
                                         title="Eliminar Publicación">
                                     <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
                                 {{--Report--}}
-                                <report :model-id="localLostPet.id" model-name="lost-pets" inline-template>
+                                <report :model-id="localLostPet.uuid" model-name="lost-pets" inline-template>
                                     <div>
                                         <button @click="openModal('report')"
                                                 class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
@@ -135,16 +138,18 @@
                                 <div class="md:hidden">
                                     <div class="flex justify-end md:hidden mx-2 md:-mx-3 mt-1 mb-2">
                                         {{--Publish/Unpublish--}}
-                                        <div class="w-full md:w-1/3 mx-2 md:mx-3 mb-2 md:mb-0">
-                                        <span class="rounded-md shadow-sm">
-                                            <button @click="toggle"
-                                                    :disabled="isLoading"
-                                                    type="button"
-                                                    class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                                    title="Hacer publica esta Publicación...">
-                                                <span class="text-green-300 hover:text-green-400">Publicar</span>
-                                            </button>
-                                        </span>
+                                        <div v-if="localLostPet.location"
+                                             class="w-full md:w-1/3 mx-2 md:mx-3 mb-2 md:mb-0">
+                                            <span class="rounded-md shadow-sm">
+                                                <button @click="toggle"
+                                                        :disabled="isLoading"
+                                                        type="button"
+                                                        class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                                        :title="localLostPet.meta.publishedAt ? 'Ocultar esta Publicación' : 'Hacer publica esta Publicación'">
+                                                    <span v-text="localLostPet.meta.publishedAt ? 'Publicar' : 'Ocultar'"
+                                                          class="text-green-300 hover:text-green-400"></span>
+                                                </button>
+                                            </span>
                                         </div>
 
                                         {{--Update Property--}}
@@ -177,7 +182,8 @@
                                 <div class="w-full md:w-1/3 mt-4">
                                     <div class="hidden md:flex md:justify-between md:-mx-2 mt-1 mb-2">
                                         {{--Publish/Unpublish--}}
-                                        <div class="w-full md:w-1/2 md:mx-2 mb-2 md:mb-0">
+                                        <div v-show="localLostPet.location"
+                                             class="w-full md:w-1/2 md:mx-2 mb-2 md:mb-0">
                                             <span class="rounded-md shadow-sm">
                                                 <button @click="toggle"
                                                         type="button"
@@ -191,15 +197,16 @@
                                         </div>
 
                                         {{--Update Property--}}
-                                        <div class="w-full md:w-1/2 md:mx-2">
-                                <span class="rounded-md shadow-sm">
-                                    <button @click="openModal('put')"
-                                            type="button"
-                                            class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                            title="Actualizar Datos de la Publicación...">
-                                        <span class="text-gray-300">Editar</span>
-                                    </button>
-                                </span>
+                                        <div class="w-full md:mx-2"
+                                             :class="[localLostPet.location ? 'md:w-1/2' : 'md:w-full']">
+                                            <span class="rounded-md shadow-sm" >
+                                                <button @click="openModal('put')"
+                                                        type="button"
+                                                        class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                                        title="Actualizar Datos de la Publicación...">
+                                                    <span class="text-gray-300">Editar</span>
+                                                </button>
+                                            </span>
                                         </div>
                                     </div>
 
@@ -235,17 +242,29 @@
                                                         <div class="px-4 py-2 sm:px-6">
                                                             <div class="flex items-center justify-between">
                                                                 <div class="text-base leading-5 font-medium text-gray-600 truncate">
-                                                                    Situacion
+                                                                    Situación Actual
                                                                 </div>
                                                                 <div class="ml-2 flex-shrink-0 flex">
-                                                                    <span v-if="localLostPet.meta.foundAt"
+                                                                    <span v-text="localLostPet.meta.foundAt ? 'Encontrad@' : 'Extraviado'"
                                                                           class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500">
-                                                                        Encontrad@
                                                                     </span>
-                                                                    <span v-else
-                                                                          class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500">
-                                                                        Sin Encontrar
-                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                {{--Specie--}}
+                                                <li class="mt-1">
+                                                    <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                                                        <div class="px-4 py-2 sm:px-6">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-base leading-5 font-medium text-gray-600 truncate">
+                                                                    Especie
+                                                                </div>
+                                                                <div class="ml-2 flex-shrink-0 flex">
+                                                                    <span class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500"
+                                                                          v-text="localLostPet.pet.specie.display_name"
+                                                                    ></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -325,6 +344,23 @@
                                                         </div>
                                                     </div>
                                                 </li>
+                                                {{--LostAt--}}
+                                                <li v-show="localLostPet.meta.lostAt" class="mt-1">
+                                                    <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                                                        <div class="px-4 py-2 sm:px-6">
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="text-base leading-5 font-medium text-gray-600 truncate">
+                                                                    Fecha de Extravío
+                                                                </div>
+                                                                <div class="ml-2 flex-shrink-0 flex">
+                                                                <span class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500">
+                                                                    <p v-text="formattedLostAt"></p>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
                                                 {{--Rescued--}}
                                                 <li v-show="localLostPet.meta.rescuedAt && localLostPet.postType === 'rescuer'"
                                                     class="mt-1">
@@ -336,7 +372,7 @@
                                                                 </div>
                                                                 <div class="ml-2 flex-shrink-0 flex">
                                                                 <span class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500">
-                                                                    <p v-show="localLostPet.meta.rescuedAt" v-text="localLostPet.meta.rescuedAt"></p>
+                                                                    <p v-text="formattedRescuedAt"></p>
                                                                 </span>
                                                                 </div>
                                                             </div>
@@ -508,11 +544,12 @@
             </main>
 
             <modal modal-id="update-lost-pet" max-width="sm:max-w-5xl">
-                <template #title>Actualizar Datos de la Adopción</template>
+                <template #title>Actualizar Datos de la Publicación</template>
                 <template #content>
                     <form @submit.prevent>
 
                         <div class="w-full md:flex md:-mx-2 mt-4">
+                            {{--Title--}}
                             <div class="w-full md:mx-2">
                                 <div class="form-group">
                                     <label for="title">
@@ -527,6 +564,7 @@
                         </div>
 
                         <div class="w-full md:flex md:-mx-2 mt-4">
+                            {{--Name--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
                                     <label for="name">
@@ -538,6 +576,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {{--Specie--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
                                     <label for="specie_id">
@@ -546,11 +585,10 @@
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
                                     <div class="mt-2">
-                                        <select v-model="selectedSpecie"
-                                                @change="getBreedsBySpecie(selectedSpecie)"
+                                        <select v-model="localLostPet.pet.specie"
                                                 id="specie_id"
                                                 class="lp-select">
-                                            <option v-text="selectedSpecie.display_name" selected disabled></option>
+                                            <option v-text="localLostPet.pet.specie.display_name" selected disabled></option>
                                             <option v-for="specie in species"
                                                     :key="specie.id"
                                                     :value="specie"
@@ -563,6 +601,7 @@
                         </div>
 
                         <div class="w-full md:flex md:-mx-2 mt-4">
+                            {{--Gender--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
                                     <label for="gender">
@@ -582,6 +621,7 @@
                                     </div>
                                 </div>
                             </div>
+                             {{--Size--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
                                     <label for="size">
@@ -600,6 +640,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {{--Age--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0 mb-4">
                                 <div class="form-group">
                                     <label for="age">Mi Edad:</label>
@@ -635,18 +676,41 @@
                         </div>
 
                         <div class="w-full md:flex md:-mx-2 mt-4">
-                            <div class="form-group">
-                                <label for="rescued_at" class="block text-sm font-medium text-gray-700">
-                                    Me encontraron el (Fecha y hora de rescate)
-                                </label>
-                                <input type="datetime-local"
-                                       v-model="lostPetForm.rescuedAt"
-                                       id="rescued_at"
-                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                <p v-if="errors.rescued_at"
-                                   v-text="errors.rescued_at[0]"
-                                   class="text-red-500 font-medium"
-                                ></p>
+                            {{--RescuedAt--}}
+                            <div v-if="localLostPet.postType === 'rescuer'" class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
+                                <div class="form-group">
+                                    <label for="rescued_at" class="block text-sm font-medium text-gray-700">
+                                        Me encontraron el (Fecha y hora de rescate)
+                                    </label>
+                                    <datetime v-model="lostPetForm.rescuedAt"
+                                              type="datetime"
+                                              format="dd-MM-yyyy HH:mm"
+                                              :value-zone="'America/Tijuana'"
+                                              zone="local"
+                                    ></datetime>
+                                    <p v-if="errors.rescued_at"
+                                       v-text="errors.rescued_at[0]"
+                                       class="text-red-500 font-medium"
+                                    ></p>
+                                </div>
+                            </div>
+                            {{--LostAt--}}
+                            <div v-if="localLostPet.postType === 'owner'" class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
+                                <div class="form-group">
+                                    <label for="lost_at" class="block text-sm font-medium text-gray-700">
+                                        Me extravié el (Fecha y hora de extravío)
+                                    </label>
+                                    <datetime v-model="lostPetForm.lostAt"
+                                              type="datetime"
+                                              format="dd-MM-yyyy HH:mm"
+                                              :value-zone="'America/Tijuana'"
+                                              zone="local"
+                                    ></datetime>
+                                    <p v-if="errors.lost_at"
+                                       v-text="errors.lost_at[0]"
+                                       class="text-red-500 font-medium"
+                                    ></p>
+                                </div>
                             </div>
                         </div>
 

@@ -60,7 +60,7 @@
                                     <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
                                 {{--Report--}}
-                                <report :model-id="localAdoption.id" model-name="adoptions" inline-template>
+                                <report :model-id="localAdoption.uuid" model-name="adoptions" inline-template>
                                     <div>
                                         <button @click="openModal('report')"
                                                 class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
@@ -151,7 +151,7 @@
                                             </span>
                                         </div>
 
-                                        {{--Update Property--}}
+                                        {{--Update Adoption--}}
                                         <div class="w-full md:w-1/3 mx-2 md:mx-3">
                                             <span class="rounded-md shadow-sm">
                                                 <button @click="openModal('put')"
@@ -196,7 +196,7 @@
                                             </span>
                                         </div>
 
-                                        {{--Update Property--}}
+                                        {{--Update Adoption--}}
                                         <div class="w-full md:mx-2"
                                              :class="[localAdoption.location ? 'md:w-1/2' : 'md:w-full']">
                                             <span class="rounded-md shadow-sm">
@@ -240,7 +240,7 @@
                                                         <div class="px-4 py-2 sm:px-6">
                                                             <div class="flex items-center justify-between">
                                                                 <div class="text-base leading-5 font-medium text-gray-600 truncate">
-                                                                    Situacion
+                                                                    Situación
                                                                 </div>
                                                                 <div class="ml-2 flex-shrink-0 flex">
                                                                     <span v-if="localAdoption.meta.adoptedAt"
@@ -325,7 +325,8 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li class="mt-1">
+                                                <li v-show="localAdoption.meta.publishedAt"
+                                                    class="mt-1">
                                                     <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                                                         <div class="px-4 py-2 sm:px-6">
                                                             <div class="flex items-center justify-between">
@@ -334,8 +335,7 @@
                                                                 </div>
                                                                 <div class="ml-2 flex-shrink-0 flex">
                                                                 <span class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500">
-                                                                    <p v-show="localAdoption.meta.publishedAt" v-text="localAdoption.meta.publishedAt"></p>
-                                                                    <p v-show="! localAdoption.meta.publishedAt" class="text-gray-400">Sin Publicar</p>
+                                                                    <p v-text="localAdoption.meta.publishedAt"></p>
                                                                 </span>
                                                                 </div>
                                                             </div>

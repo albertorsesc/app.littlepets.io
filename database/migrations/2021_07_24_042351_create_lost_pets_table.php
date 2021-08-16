@@ -15,6 +15,7 @@ class CreateLostPetsTable extends Migration
     {
         Schema::create('lost_pets', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->foreignId('pet_id')->constrained();
             $table->string('title', 50)->nullable();
             $table->string('phone', 50)->nullable();

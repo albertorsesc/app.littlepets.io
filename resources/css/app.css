@@ -215,3 +215,8 @@ a:hover {
 .dropdown-leave-to {
     @apply transform opacity-0 scale-95;
 }
+
+/* Vue-Datetime */
+.vdatetime-input {
+    @apply lp-input;
+}

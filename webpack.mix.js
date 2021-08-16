@@ -23,6 +23,8 @@ mix.extract([
 
 mix.copy('node_modules/sweetalert2/src/sweetalert2.scss', 'public/css/sweetalert2.css')
 mix.copy('node_modules/vue-multiselect/dist/vue-multiselect.min.css', 'public/css/vue-multiselect.min.css')
+mix.copy('node_modules/vue-datetime/dist/vue-datetime.css', 'public/css/vue-datetime.css')
+
 
 mix.webpackConfig({
     plugins: [

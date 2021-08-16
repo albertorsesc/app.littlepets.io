@@ -36,8 +36,8 @@ class LostPetsTest extends LostPetTestCase
                     'description' => $lostPet->description,
                     'meta' => [
                         'profile' => $lostPet->profile(),
-                        'publishedAt' => optional($lostPet->published_at)->formatLocalized('%b %e'),
-                        'lostAt' => optional($lostPet->lost_at)->diffForHumans(),
+                        'publishedAt' => optional($lostPet->published_at)->diffForHumans(),
+                        'lostAt' => $lostPet->lost_at->toISOString(),
                         'foundAt' => optional($lostPet->found_at)->diffForHumans(),
                         'rescuedAt' => optional($lostPet->rescued_at)->diffForHumans(),
                         'updatedAt' => $lostPet->updated_at->diffForHumans(),

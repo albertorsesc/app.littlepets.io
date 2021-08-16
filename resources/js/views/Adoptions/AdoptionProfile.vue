@@ -42,7 +42,7 @@ export default {
     methods: {
         update() {
             this.isLoading = true
-            axios.put(`/adoptions/${this.adoption.id}`, {
+            axios.put(`/adoptions/${this.adoption.uuid}`, {
                 specie_id: this.adoptionForm.pet.specie.id,
                 title: this.adoptionForm.title,
                 name: this.adoptionForm.pet.name,
@@ -69,7 +69,7 @@ export default {
             })
         },
         destroy() {
-            axios.delete(`/api/adoptions/${this.adoption.id}`)
+            axios.delete(`/api/adoptions/${this.adoption.uuid}`)
             .then(() => {
                 setTimeout( () => {
                         window.location.href = `/adopciones`
@@ -84,7 +84,7 @@ export default {
             )
         },
         comment() {
-            axios.post(`/adoptions/${this.adoption.id}/comments`, {
+            axios.post(`/adoptions/${this.adoption.uuid}/comments`, {
                 body: this.selectedComment.body
             }).then(response => {
                 this.localAdoption.comments.unshift(response.data.data)
@@ -99,7 +99,7 @@ export default {
             })
         },
         updateComment() {
-            axios.put(`/adoptions/${this.adoption.id}/comments/${this.selectedComment.id}`, {
+            axios.put(`/adoptions/${this.adoption.uuid}/comments/${this.selectedComment.id}`, {
                 body: this.selectedComment.body
             }).then(response => {
                 this.localAdoption.comments = response.data.data
@@ -121,7 +121,7 @@ export default {
             this.commentForm = this.selectedComment = comment
         },
         destroyComment(comment) {
-            axios.delete(`/adoptions/${this.adoption.id}/comments/${comment.id}`)
+            axios.delete(`/adoptions/${this.adoption.uuid}/comments/${comment.id}`)
             .then(() => {
                 this.localAdoption.comments = this.localAdoption.comments.filter(item => item.id !== comment.id)
                 SweetAlert.toast('Comentario eliminado.')
@@ -142,7 +142,7 @@ export default {
         toggle() {
             this.isLoading = true
             axios
-                .put(`/adoptions/${this.localAdoption.id}/toggle`)
+                .put(`/adoptions/${this.localAdoption.uuid}/toggle`)
                 .then(response => {
                     this.localAdoption.meta.publishedAt = response.data
                     let isPublished = this.localAdoption.meta.publishedAt ? 'Publicada' : 'Ocultada'
@@ -159,7 +159,7 @@ export default {
         toggleAdoption() {
             this.isLoading = true
             axios
-                .put(`/adoptions/${this.localAdoption.id}/adopted`)
+                .put(`/adoptions/${this.localAdoption.uuid}/adopted`)
                 .then(response => {
                     this.localAdoption.meta.adoptedAt = response.data
                     let adopted = this.localAdoption.meta.adoptedAt ? 'Adoptad@' : 'Sin Adoptar'

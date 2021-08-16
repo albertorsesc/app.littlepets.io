@@ -15,6 +15,7 @@ class CreateAdoptionsTable extends Migration
     {
         Schema::create('adoptions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->foreignId('pet_id')->constrained()->cascadeOnDelete();
             $table->string('title', 100);
             $table->string('phone', 50)->nullable();

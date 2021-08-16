@@ -15,6 +15,7 @@ class LostPetResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'uuid' => $this->uuid,
             'id' => $this->id,
             'pet' => new PetResource($this->whenLoaded('pet')),
             'title' => $this->title,
@@ -25,8 +26,8 @@ class LostPetResource extends JsonResource
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'meta' => [
                 'profile' => $this->profile(),
-                'publishedAt' => optional($this->published_at)->formatLocalized('%b %e'),
-                'lostAt' => optional($this->lost_at)->diffForHumans(),
+                'publishedAt' => optional($this->published_at)->diffForHumans(), //->formatLocalized('%b %e'),
+                'lostAt' => $this->lost_at,
                 'foundAt' => optional($this->found_at)->diffForHumans(),
                 'rescuedAt' => optional($this->rescued_at)->diffForHumans(),
                 'updatedAt' => $this->updated_at->diffForHumans(),

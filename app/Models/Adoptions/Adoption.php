@@ -6,10 +6,11 @@ use App\Models\Pet;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Concerns\{CanBeReported, Commentable, HasLocation, Publishable, SerializeTimestamps};
+use App\Models\Concerns\{CanBeReported, Commentable, HasLocation, HasUuid, Publishable, SerializeTimestamps};
 
 class Adoption extends Model
 {
+    use HasUuid;
     use HasFactory;
     use HasLocation;
     use Commentable;
@@ -19,6 +20,11 @@ class Adoption extends Model
 
     protected $fillable = ['title', 'phone', 'bio', 'story', 'published_at', 'adopted_at'];
     protected $casts = ['status' => 'boolean', 'published_at' => 'datetime', 'adopted_at' => 'datetime'];
+
+    public function getRouteKeyName() : string
+    {
+        return 'uuid';
+    }
 
     /* Relations */
 

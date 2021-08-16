@@ -15,6 +15,7 @@ class AdoptionResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'uuid' => $this->uuid,
             'id' => $this->id,
             'pet' => new PetResource($this->whenLoaded('pet')),
             'title' => $this->title,

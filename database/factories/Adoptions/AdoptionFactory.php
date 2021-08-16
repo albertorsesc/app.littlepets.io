@@ -23,6 +23,7 @@ class AdoptionFactory extends Factory
     public function definition()
     {
         return [
+            'uuid' => $uuid = $this->faker->uuid,
             'pet_id' => Pet::factory(),
             'title' => $this->faker->sentence(3),
             'phone' => $this->faker->phoneNumber,

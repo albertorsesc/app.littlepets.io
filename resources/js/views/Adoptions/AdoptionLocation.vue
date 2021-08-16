@@ -237,7 +237,7 @@ export default {
     emits: ['adoptions.location'],
     data() {
         return {
-            endpoint: `/adoptions/${this.adoption.id}/location`,
+            endpoint: `/adoptions/${this.adoption.uuid}/location`,
 
             location: this.adoption.location,
             states: [],

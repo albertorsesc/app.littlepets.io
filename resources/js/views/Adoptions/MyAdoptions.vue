@@ -17,7 +17,7 @@
                 <li v-for="adoption in adoptions"
                     :key="adoption.id"
                     class="cursor-pointer relative py-4 w-full px-3">
-                    <a :href="`/adopciones/${adoption.id}`">
+                    <a :href="adoption.meta.profile">
                         <pet-card :data="adoption"
                                   :meta="{ date: adoption.meta.publishedAt }"
                         ></pet-card>

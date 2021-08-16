@@ -10,7 +10,12 @@ class MarkAsFoundController extends Controller
 {
     public function __invoke(LostPet $lostPet)
     {
-        $lostPet->update(['found_at' => now()->toDateTimeString()]);
+        if (is_null($lostPet->found_at)) {
+            $lostPet->update(['found_at' => now()->toDateTimeString()]);
+        } else {
+            $lostPet->update(['found_at' => null]);
+        }
+
 
         return response(
             optional($lostPet->found_at)->diffForHumans()

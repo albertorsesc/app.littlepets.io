@@ -23,6 +23,7 @@ class LostPetFactory extends Factory
     public function definition()
     {
         return [
+            'uuid' => $uuid = $this->faker->uuid,
             'post_type' => $this->faker->randomElement(\App\Models\LostPets\LostPet::POST_TYPES),
             'pet_id' => Pet::factory(),
             'title' => $this->faker->word,

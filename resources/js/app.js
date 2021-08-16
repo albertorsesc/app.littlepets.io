@@ -28,6 +28,13 @@ Vue.component('profile', require('./views/User/Profile').default);
  * https://vue-multiselect.js.org/
  */
 
+/**
+ * Vue-Datetime
+ * https://openbase.com/js/vue-datetime
+ * Moment-Luxon
+ * https://moment.github.io/luxon/#/formatting?id=presets
+ */
+
 /** Mixins */
 import auth from './mixins/auth';
 Vue.mixin(auth)

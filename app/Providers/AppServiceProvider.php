@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        setlocale(LC_ALL, "es_MX.utf8");
-        Carbon::setLocale(config('app.locale'));
+//        setlocale(LC_ALL, "es_MX.utf8");
+//        Carbon::setLocale(config('app.locale'));
 
         Adoption::observe(AdoptionObserver::class);
         LostPet::observe(LostPetObserver::class);

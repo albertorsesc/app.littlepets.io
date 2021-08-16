@@ -26,7 +26,8 @@
                 </div>
                 <p class="mt-2"></p>
                 <span class="text-gray-500 text-xs items-center">Datos adicionales</span>
-                <div class="flex pb-3 pt-1 text-sm text-gray-600">
+                <div v-if="localData.location"
+                     class="flex pb-3 pt-1 text-sm text-gray-600">
                     <div class="flex-1 inline-flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +37,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        <p class="">Mexicali, BC</p>
+                        <p class="ml-0"
+                           v-text="localData.location.city + ' - ' + localData.location.state.code"></p>
                     </div>
                     <div v-if="meta.date"
                          class="flex-1 inline-flex items-center">

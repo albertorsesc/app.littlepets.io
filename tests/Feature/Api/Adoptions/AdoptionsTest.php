@@ -56,7 +56,7 @@ class AdoptionsTest extends AdoptionTestCase
     {
         $this->signIn();
 
-        $adoption = $this->make(Adoption::class);
+        $adoption = $this->make(Adoption::class, ['uuid' => null]);
 
         $response = $this->postJson(
             route($this->routePrefix . 'store'),
@@ -69,7 +69,7 @@ class AdoptionsTest extends AdoptionTestCase
 
         $this->assertDatabaseHas(
             'adoptions',
-            Arr::except($adoption->toArray(), ['pet', 'pet_id'])
+            Arr::except($adoption->toArray(), ['pet', 'pet_id', 'uuid'])
         );
     }
 
@@ -83,6 +83,7 @@ class AdoptionsTest extends AdoptionTestCase
 
         $existingAdoption = $this->create(Adoption::class);
         $newAdoption = $this->make(Adoption::class, [
+            'uuid' => $existingAdoption->uuid,
             'pet_id' => $existingAdoption->pet_id
         ]);
 
