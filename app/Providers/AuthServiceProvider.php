@@ -52,10 +52,10 @@ class AuthServiceProvider extends ServiceProvider
             return (new MailMessage)
                 ->subject('[LittlePets.io] Correo Electrónico de verificación')
                 ->greeting('Bienvenido a LittlePets.io!')
-                ->line('Agradecemos te hayas unido a esta comunidad creada especialmente para todos los que estamos relacionado al ramo de la construccion!')
+                ->line('Agradecemos te hayas unido a esta comunidad creada especialmente para todos los que queremos el bienestar de animales que necesitan nuestra ayuda!')
                 ->line('Este correo es para verificar tu identidad, por favor haz click en el enlace para acceder a tu cuenta!')
                 ->action('Verificar mi correo electrónico', $url)
-                ->line('Gracias por apoyarnos!');
+                ->line('Gracias por ayudarnos a ayudar!');
         });
     }
 }
