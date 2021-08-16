@@ -35,7 +35,8 @@
                         if (process.env.MIX_NODE_ENV !== 'production') {
                             img = window.location.origin + `/img/${this.size}/${this.localImages[i].file_name.split('public/').pop()}`
                         } else {
-                            img = `/${this.localImages[i].file_name.replace('public/', 'storage/')}`
+                            /*img = `/${this.localImages[i].file_name.replace('public/', 'storage/')}`*/
+                            img = `${this.localImages[i].file_name}`
                         }
 
                         this.data.push('<img class="d-block h-full w-full object-fit rounded-lg" src="' + img + '" loading="lazy">')
