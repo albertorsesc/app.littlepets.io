@@ -24,7 +24,7 @@
                             <div class="md:flex md:flex-wrap">
                                 <div class="w-full items-center md:w-32 p-2" v-for="image in images" :key="image.id">
                                     <!--baseUrl + `/img/small/${image.file_name.split('public/').pop()}`-->
-                                    <img :src="baseUrl + `/img/small/${image.file_name.split('public/').pop()}`"
+                                    <img :src="image.file_name"
                                          class="h-32 w-32 z-0"
                                          title="Eliminar imágen"
                                          alt="Property image">
