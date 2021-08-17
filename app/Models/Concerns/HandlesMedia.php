@@ -73,7 +73,9 @@ trait HandlesMedia
         $media = $this->media()->find($mediaId);
 
         if (app()->environment('production')) {
-            Storage::disk('s3')->delete($media->file_name);
+            Storage::disk('s3')->delete(
+                Str::after($media->file_name, '.com')
+            );
         } else {
             Storage::delete($media->file_name);
         }
