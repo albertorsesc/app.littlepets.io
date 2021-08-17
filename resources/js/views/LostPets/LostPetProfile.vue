@@ -1,6 +1,8 @@
 <script>
 import {DateTime} from "luxon";
 import { Datetime } from 'vue-datetime'
+import { Settings } from 'luxon'
+Settings.defaultLocale = 'es'
 import SweetAlert from "../../models/SweetAlert";
 
 export default {
@@ -221,7 +223,7 @@ export default {
                 this.lostPetForm.phone = this.localLostPet.phone
                 this.lostPetForm.description = this.localLostPet.description
                 this.lostPetForm.lostAt = this.localLostPet.meta.lostAt
-                this.lostPetForm.rescuedAt = this.localLostPet.rescuedAt
+                this.lostPetForm.rescuedAt = this.localLostPet.meta.rescuedAt
 
                 this.modal.id = 'update-lost-pet'
             }
@@ -244,7 +246,7 @@ export default {
         window.Event.$on('SweetAlert:destroy', () => { this.destroy() })
 
         this.formattedLostAt = DateTime.fromISO(this.localLostPet.meta.lostAt).setLocale('es').toFormat('MMM d y, hh:mm')
-        this.formattedRescuedAt = DateTime.fromISO(this.localLostPet.meta.rescuedAt).setLocale('es').toFormat('MMM d y, hh:mm')
+        this.formattedRescuedAt = DateTime.fromISO(this.localLostPet.meta.rescuedAt).setLocale('es').toFormat('MMM d y, HH:mm')
     },
     components: {
         Datetime,

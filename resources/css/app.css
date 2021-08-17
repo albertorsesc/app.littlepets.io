@@ -220,3 +220,6 @@ a:hover {
 .vdatetime-input {
     @apply lp-input;
 }
+.vdatetime-popup__header {
+    background: #0E7490 !important;
+}

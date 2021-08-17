@@ -21,8 +21,8 @@ class LostPet extends Model
 
     const POST_TYPES = ['owner', 'rescuer'];
 
-    protected $casts = ['age' => 'integer', 'published_at' => 'datetime:Y-m-d H:i:s', 'lost_at' => 'datetime:Y-m-d H:i:s', 'found_at' => 'datetime:Y-m-d H:i:s', 'rescued_at' => 'datetime:Y-m-d H:i:s'];
     protected $fillable = ['title', 'post_type', 'phone', 'description', 'published_at', 'lost_at', 'found_at', 'rescued_at'];
+    protected $casts = ['age' => 'integer', 'published_at' => 'datetime:Y-m-d H:i:s', 'lost_at' => 'datetime:Y-m-d H:i:s', 'found_at' => 'datetime:Y-m-d H:i:s', 'rescued_at' => 'datetime:Y-m-d H:i:s'];
 
     public function getRouteKeyName() : string
     {

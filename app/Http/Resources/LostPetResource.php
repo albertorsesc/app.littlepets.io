@@ -29,7 +29,7 @@ class LostPetResource extends JsonResource
                 'publishedAt' => optional($this->published_at)->diffForHumans(), //->formatLocalized('%b %e'),
                 'lostAt' => $this->lost_at,
                 'foundAt' => optional($this->found_at)->diffForHumans(),
-                'rescuedAt' => optional($this->rescued_at)->diffForHumans(),
+                'rescuedAt' => $this->rescued_at,
                 'updatedAt' => $this->updated_at->diffForHumans(),
             ]
         ];

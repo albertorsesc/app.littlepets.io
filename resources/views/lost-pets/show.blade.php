@@ -552,7 +552,7 @@
                             {{--Title--}}
                             <div class="w-full md:mx-2">
                                 <div class="form-group">
-                                    <label for="title">
+                                    <label for="title" class="block text-base font-medium text-gray-700">
                                         Titulo de la Publicación
                                         <span class="text-gray-500 font-light text-xs">(opcional)</span>
                                     </label>
@@ -567,7 +567,7 @@
                             {{--Name--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
-                                    <label for="name">
+                                    <label for="name" class="block text-base font-medium text-gray-700">
                                         Nombre
                                         <span class="text-gray-500 font-light text-xs">(opcional)</span>
                                     </label>
@@ -579,7 +579,7 @@
                             {{--Specie--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
-                                    <label for="specie_id">
+                                    <label for="specie_id" class="block text-base font-medium text-gray-700">
                                         <strong class="required">*</strong>
                                         Especie
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
@@ -598,13 +598,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="w-full md:flex md:-mx-2 mt-4">
                             {{--Gender--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
-                                    <label for="gender">
+                                    <label for="gender" class="block text-base font-medium text-gray-700">
                                         <strong class="required">*</strong>
                                         Soy (macho/hembra)
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
@@ -621,10 +618,13 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="w-full md:flex md:-mx-2 mt-4">
                              {{--Size--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
-                                    <label for="size">
+                                    <label for="size" class="block text-base font-medium text-gray-700">
                                         <strong class="required">*</strong>
                                         Tamaño
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
@@ -643,7 +643,7 @@
                             {{--Age--}}
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0 mb-4">
                                 <div class="form-group">
-                                    <label for="age">Mi Edad:</label>
+                                    <label for="age" class="block text-base font-medium text-gray-700">Mi Edad:</label>
                                     <div class="mt-2 relative rounded-md shadow-sm">
                                         <div class="absolute inset-y-0 left-0 flex items-center">
                                             <label for="age_range" class="sr-only">Age range</label>
@@ -673,21 +673,21 @@
                                     ></p>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="w-full md:flex md:-mx-2 mt-4">
                             {{--RescuedAt--}}
                             <div v-if="localLostPet.postType === 'rescuer'" class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
-                                    <label for="rescued_at" class="block text-sm font-medium text-gray-700">
-                                        Me encontraron el (Fecha y hora de rescate)
+                                    <label for="rescued_at" class="block text-base font-medium text-gray-700">
+                                        Fecha y hora de rescate
                                     </label>
-                                    <datetime v-model="lostPetForm.rescuedAt"
-                                              type="datetime"
-                                              format="dd-MM-yyyy HH:mm"
-                                              :value-zone="'America/Tijuana'"
-                                              zone="local"
-                                    ></datetime>
+                                    <div class="mt-2 relative rounded-md shadow-sm">
+                                        <datetime v-model="lostPetForm.rescuedAt"
+                                                  type="datetime"
+                                                  format="dd-MM-yyyy HH:mm"
+                                                  :value-zone="'America/Tijuana'"
+                                                  zone="local"
+                                        ></datetime>
+                                    </div>
                                     <p v-if="errors.rescued_at"
                                        v-text="errors.rescued_at[0]"
                                        class="text-red-500 font-medium"
@@ -695,17 +695,20 @@
                                 </div>
                             </div>
                             {{--LostAt--}}
-                            <div v-if="localLostPet.postType === 'owner'" class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
+                            <div v-if="localLostPet.postType === 'owner'" class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0 lg:mt-2">
                                 <div class="form-group">
                                     <label for="lost_at" class="block text-sm font-medium text-gray-700">
-                                        Me extravié el (Fecha y hora de extravío)
+                                        <strong class="required">*</strong>
+                                        Fecha y hora de extravío
                                     </label>
-                                    <datetime v-model="lostPetForm.lostAt"
-                                              type="datetime"
-                                              format="dd-MM-yyyy HH:mm"
-                                              :value-zone="'America/Tijuana'"
-                                              zone="local"
-                                    ></datetime>
+                                    <div class="mt-2 relative rounded-md shadow-sm">
+                                        <datetime v-model="lostPetForm.lostAt"
+                                                  type="datetime"
+                                                  format="dd-MM-yyyy HH:mm"
+                                                  :value-zone="'America/Tijuana'"
+                                                  zone="local"
+                                        ></datetime>
+                                    </div>
                                     <p v-if="errors.lost_at"
                                        v-text="errors.lost_at[0]"
                                        class="text-red-500 font-medium"
@@ -714,7 +717,7 @@
                             </div>
                         </div>
 
-                        <div class="w-full my-6 md:-mx-2 md:mt-0">
+                        <div class="w-full my-6 md:-mx-2 md:mt-0 lg:mt-2">
                             <div class="form-group md:mx-2">
                                 <label for="description">Información Adicional</label>
                                 <span class="text-gray-500 font-light text-xs">(opcional)</span>
