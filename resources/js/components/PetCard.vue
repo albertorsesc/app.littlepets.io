@@ -2,7 +2,12 @@
     <div class="bg-white shadow-md rounded-lg px-4 pt-3 pb-2 hover:bg-gray-50 hover:shadow-2xl transition hover:transform cursor-pointer">
         <div class="flex-none md:flex">
             <div class="h-full w-full md:h-48 md:w-48 md:mb-0 mb-3">
-                <img :src="localData.pet.images && localData.pet.images.length > 0 ? localData.pet.images[0].file_name.replace('public', 'storage') : '/img/adoptions.png'"
+                <img v-if="isProduction"
+                     :src="localData.pet.images && localData.pet.images.length > 0 ? localData.pet.images[0].file_name : '/img/adoptions.png'"
+                     alt="Little Pets photo"
+                     class="w-full object-scale-down lg:object-cover md:h-48 rounded-lg shadow-md">
+                <img v-else
+                     :src="localData.pet.images && localData.pet.images.length > 0 ? localData.pet.images[0].file_name.replace('public', 'storage') : '/img/adoptions.png'"
                      alt="Little Pets photo"
                      class="w-full object-scale-down lg:object-cover md:h-48 rounded-lg shadow-md">
             </div>

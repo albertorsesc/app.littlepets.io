@@ -20,8 +20,15 @@
         ],
 
         'veterinary_services' => [
+            'Cesárea',
             'Cirugías',
-            'Diagnóstico Médico',
+            'Consulta',
+            'Desparasitación',
+            'Diagnóstico',
+            'Esterilización',
+            'Estética',
+            'Vacunación',
+            'Venta de accesorios',
         ],
 
         'species' => [

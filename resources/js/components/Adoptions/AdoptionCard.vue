@@ -47,7 +47,7 @@
                         <i class="fab fa-facebook text-blue-500 text-lg"></i>
                     </a>
                     <div class="mt-1 ml-2 right-0 items-center align-middle">
-                        <a class="h-link flex no-underline text-sm font-medium text-gray-300 hover:text-emerald-400"
+                        <a class="lp-link flex no-underline text-sm font-medium text-gray-300 hover:text-emerald-400"
                            title="Ver Propiedad">
                             Ver
                         </a>

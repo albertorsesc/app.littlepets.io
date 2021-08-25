@@ -1,5 +1,6 @@
 <?php
 
+    use App\Http\Controllers\Api\Veterinaries\Actions\UploadLogoController;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Foundation\Auth\EmailVerificationRequest;
     use App\Http\Controllers\Web\LostPets\LostPetController;
@@ -7,18 +8,18 @@
     use App\Http\Controllers\Web\Veterinaries\VeterinaryController;
 
     Route::get('/', function () {
-        return redirect()->route('web.adoptions.index');
+        return redirect()->route('home');
     });
 
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
 
-        return redirect('/dashboard');
+        return redirect('/inicio');
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-        Route::view('/dashboard', 'dashboard')->name('dashboard');
-        Route::redirect('dashboard', 'adopciones');
+        Route::view('/inicio', 'dashboard')->name('home');
+//        Route::redirect('dashboard', 'adopciones');
 
         Route::get('adopciones', [AdoptionController::class, 'index'])->name('web.adoptions.index');
         Route::get('adopciones/{adoption:uuid}', [AdoptionController::class, 'show'])->name('web.adoptions.show');
@@ -28,6 +29,11 @@
 
         Route::get('veterinarias', [VeterinaryController::class, 'index'])->name('web.veterinaries.index');
         Route::get('veterinarias/{veterinary}', [VeterinaryController::class, 'show'])->name('web.veterinaries.show');
+
+        Route::put(
+            'veterinaries/{veterinary:slug}/image',
+            UploadLogoController::class
+        )->name('veterinaries.logo.store');
 
     });
 

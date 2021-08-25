@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Veterinaries\Veterinary;
 use App\Http\Resources\VeterinaryResource;
+use App\Http\Requests\Veterinaries\VeterinaryRequest;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class VeterinaryController extends Controller
@@ -14,13 +15,18 @@ class VeterinaryController extends Controller
     public function index() : AnonymousResourceCollection
     {
         return VeterinaryResource::collection(
-            Veterinary::with('user')
+            Veterinary::isPublished()
+                      ->with([
+                          'user',
+                          'location.state',
+                          'location:id,city,state_id,locationable_type,locationable_id',
+                      ])
                       ->latest('updated_at')
                       ->get()
         );
     }
 
-    public function store(Request $request) : JsonResponse {
+    public function store(VeterinaryRequest $request) : JsonResponse {
         return response()->json([
             'data' => new VeterinaryResource(
                 Veterinary::create($request->all())
@@ -30,7 +36,7 @@ class VeterinaryController extends Controller
         );
     }
 
-    public function update(Request $request, Veterinary $veterinary) : VeterinaryResource
+    public function update(VeterinaryRequest $request, Veterinary $veterinary) : VeterinaryResource
     {
         return new VeterinaryResource(
             tap($veterinary)

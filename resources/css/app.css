@@ -9,16 +9,19 @@
     @apply block rounded-md shadow-sm w-full bg-white outline-none border border-cyan-200;
 }
 .lp-input:focus {
-    @apply outline-none ring-cyan-500 shadow border-none appearance-none;
+    @apply outline-none ring-2 ring-cyan-500 shadow border-none appearance-none;
 }
 .lp-select {
-    @apply w-full block bg-white text-gray-700 outline-none border-teal-200 rounded-md py-2 px-3;
+    @apply w-full shadow-sm block bg-white text-gray-700 outline-none border border-cyan-200 rounded-md py-2 px-3;
 }
 .lp-select:focus {
-    @apply outline-none shadow border-none;
+    @apply outline-none ring-2 ring-cyan-500 shadow border-none;
 }
 strong.required {
     @apply font-bold text-red-500;
+}
+a {
+    @apply no-underline;
 }
 a {
     transition: all .2s ease !important;
@@ -26,11 +29,17 @@ a {
 a:hover {
     @apply no-underline;
 }
-.card {
-    @apply bg-white shadow rounded-lg border-none;
+.lp-link {
+    @apply duration-500 ease-in-out
 }
-.card:hover {
-    @apply shadow-2xl;
+.lp-link {
+    @layer lp-transition
+}
+.lp-link:hover {
+    @apply no-underline font-semibold;
+}
+.lp-link:hover {
+    @layer lp-transition translate-r-2;
 }
 .translate-r-2 {
     transform: translateX(5px) !important;
@@ -42,12 +51,54 @@ a:hover {
 .lp-transform {
     transform: translateY(5px);
 }
-
-.btn {
-    @apply inline-flex items-center justify-center px-4 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150;
+button {
+    @apply inline-flex items-center justify-center bg-white rounded-md shadow-sm transition ease-in-out duration-150;
 }
-.btn-primary:hover {
-    @apply font-semibold shadow-lg bg-pink-500 text-white;
+.lp-btn {
+    @apply  border border-gray-200 text-gray-500 font-semibold uppercase tracking-widest;
+}
+.lp-btn, .lp-btn-success {
+    @layer .lp-link;
+}
+.lp-btn, .lp-btn-success {
+    @apply text-xs px-4 py-3;
+}
+.lp-btn:hover {
+    @apply bg-gray-50 text-gray-700 font-semibold ring-2 ring-cyan-300;
+}
+.lp-btn:focus {
+    @apply outline-none ring-2 ring-cyan-500;
+}
+.lp-btn-success {
+    @apply text-cyan-500 font-semibold uppercase tracking-widest border border-cyan-200;
+}
+.lp-btn-success:hover {
+     @apply font-semibold shadow-lg bg-cyan-600 text-white ring-2 ring-cyan-300;
+ }
+.lp-btn-success:focus {
+    @apply outline-none border border-cyan-700 ring ring-cyan-500;
+}
+.btn {
+    @apply -mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white;
+}
+.btn:focus {
+    @apply outline-none ring border-cyan-300;
+}
+.btn:hover {
+    @apply text-gray-500;
+}
+.btn:active {
+    @apply bg-gray-50 text-gray-800
+}
+span.optional {
+    @apply text-gray-500 font-light text-xs;
+}
+
+.card {
+    @apply bg-white shadow rounded-lg border-none;
+}
+.card:hover {
+    @apply shadow-2xl;
 }
 
 /* Modal Transitions */
@@ -109,13 +160,6 @@ a:hover {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
-}
-
-.btn {
-    @apply inline-flex items-center justify-center px-4 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150;
-}
-.btn-primary:hover {
-    @apply font-semibold shadow-lg bg-pink-500 text-white;
 }
 
 /* Slider */
@@ -218,8 +262,10 @@ a:hover {
 
 /* Vue-Datetime */
 .vdatetime-input {
-    @apply lp-input;
+    @layer lp-input;
 }
 .vdatetime-popup__header {
     background: #0E7490 !important;
 }
+
+/* Vue-Multiselect */

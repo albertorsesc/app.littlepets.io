@@ -17,13 +17,12 @@ class LostPetsTest extends LostPetTestCase
      * @test
      * @throws \Throwable
      */
-    public function authenticated_user_can_get_all_lost_pets()
+    public function authenticated_user_can_get_all_published_lost_pets()
     {
         $this->signIn();
 
         $lostPet = $this->create(LostPet::class, [], 'published');
         $this->create(LostPet::class);
-
 
         $response = $this->getJson(route($this->routePrefix . 'index'));
         $response->assertOk();

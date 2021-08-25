@@ -12,15 +12,20 @@
     use App\Http\Controllers\Api\LostPets\LostPetCommentController;
     use App\Http\Controllers\Api\Veterinaries\VeterinaryController;
     use App\Http\Controllers\Api\LostPets\LostPetLocationController;
+    use App\Http\Controllers\Api\Veterinaries\Actions\LikeController;
     use App\Http\Controllers\Api\Adoptions\AdoptionCommentController;
     use App\Http\Controllers\Api\Adoptions\AdoptionLocationController;
     use App\Http\Controllers\Api\Sepomex\NeighborhoodByCityController;
+    use App\Http\Controllers\Api\Veterinaries\UserVeterinaryController;
     use App\Http\Controllers\Api\LostPets\Actions\MarkAsFoundController;
     use App\Http\Controllers\Api\LostPets\Actions\ReportLostPetController;
+    use App\Http\Controllers\Api\Veterinaries\VeterinaryServiceController;
+    use App\Http\Controllers\Api\Veterinaries\VeterinaryLocationController;
     use App\Http\Controllers\Api\LostPets\Actions\PublishLostPetController;
     use App\Http\Controllers\Api\Adoptions\Actions\MarkAsAdoptedController;
     use App\Http\Controllers\Api\Adoptions\Actions\ReportAdoptionController;
     use App\Http\Controllers\Api\Adoptions\Actions\PublishAdoptionController;
+    use App\Http\Controllers\Api\Veterinaries\Actions\PublishVeterinaryController;
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('countries', CountryController::class)->name('api.countries.index');
@@ -77,4 +82,13 @@
         Route::put('veterinaries/{veterinary}', [VeterinaryController::class, 'update'])->name('api.veterinaries.update');
         Route::delete('veterinaries/{veterinary}', [VeterinaryController::class, 'destroy'])->name('api.veterinaries.destroy');
 
+        Route::get('my-veterinaries', UserVeterinaryController::class)->name('api.user.veterinaries.index');
+        Route::get('veterinary-services', VeterinaryServiceController::class)->name('api.veterinary-services.index');
+        Route::put('veterinaries/{veterinary:slug}/toggle', PublishVeterinaryController::class)->name('api.veterinaries.toggle');
+
+        Route::post('veterinaries/{veterinary:slug}/location', [VeterinaryLocationController::class, 'store'])->name('api.veterinaries.location.store');
+        Route::put('veterinaries/{veterinary:slug}/location', [VeterinaryLocationController::class, 'update'])->name('api.veterinaries.location.update');
+
+        Route::post('veterinaries/{veterinary:slug}/like', [LikeController::class, 'store'])->name('api.veterinaries.likes.store');
+        Route::delete('veterinaries/{veterinary:slug}/dislike', [LikeController::class, 'destroy'])->name('api.veterinaries.likes.destroy');
     });

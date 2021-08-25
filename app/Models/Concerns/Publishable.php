@@ -20,9 +20,13 @@ trait Publishable
     public function toggle()
     {
         if (is_null($this->published_at)) {
-            $this->update(['published_at' => now()->toDateTimeString()]);
+            $this->update([
+                'published_at' => now()->toDateTimeString()
+            ]);
         } else {
-            $this->update(['published_at' => null]);
+            $this->update([
+                'published_at' => null
+            ]);
         }
     }
 

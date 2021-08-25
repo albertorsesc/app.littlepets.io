@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="items-center flex justify-start">
-            <button @click="showForm = ! showForm" class="btn py-4 btn-primary">
+            <button @click="showForm = ! showForm" class="lp-btn">
                 <span v-if="! showForm">Registrar mi mascota perdida</span>
                 <span v-if="showForm">Regresar</span>
             </button>

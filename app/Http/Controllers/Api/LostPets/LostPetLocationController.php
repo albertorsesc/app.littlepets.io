@@ -13,17 +13,23 @@ class LostPetLocationController extends Controller
 {
     public function store(LostPetLocationRequest $request, LostPet $lostPet) : JsonResponse
     {
+        $this->authorize('update', $lostPet);
+
         $lostPet->location()->create($request->all());
 
         $lostPet->load('location.state');
 
         return response()->json([
-            'data' => new LocationResource($lostPet->location)
+            'data' => new LocationResource(
+                $lostPet->location
+            )
         ], 201);
     }
 
     public function update(LostPetLocationRequest $request, LostPet $lostPet) : LocationResource
     {
+        $this->authorize('update', $lostPet);
+
         $lostPet->location()->update($request->all());
         $lostPet->touch();
 

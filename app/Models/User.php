@@ -8,12 +8,14 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Adoptions\Adoption;
 use App\Models\Concerns\HasAvatar;
 use Laravel\Jetstream\HasProfilePhoto;
+use App\Models\Veterinaries\Veterinary;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Concerns\SerializeTimestamps;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\ResetPasswordNotification;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -85,6 +87,11 @@ class User extends Authenticatable implements MustVerifyEmail
         )->latest('updated_at');
     }
 
+    public function veterinaries() : HasMany
+    {
+        return $this->hasMany(Veterinary::class);
+    }
+
     /* Helpers */
 
     public function isRoot() : bool
@@ -93,6 +100,11 @@ class User extends Authenticatable implements MustVerifyEmail
             $this->email,
             config('littlepets.roles.root')
         );
+    }
+
+    public function fullName() : string
+    {
+        return "$this->first_name $this->last_name";
     }
 
     /**

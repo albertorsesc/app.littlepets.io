@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="col-span-6 sm:col-span-2">
-                        <label for="phone" class="block text-sm font-medium text-gray-700">Telefono</label>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Teléfono</label>
                         <input type="text"
                                v-model="shelterForm.phone"
                                id="phone"
@@ -139,7 +139,7 @@
                                           v-model="shelterForm.story"
                                           rows="3"
                                           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                          :placeholder="`Cuantanos un poco sobre la historia de ${shelterForm.name}.`"
+                                          :placeholder="`Cuéntanos un poco sobre la historia de ${shelterForm.name}.`"
                                 ></textarea>
                             </div>
                             <p class="mt-2 text-sm text-gray-500">

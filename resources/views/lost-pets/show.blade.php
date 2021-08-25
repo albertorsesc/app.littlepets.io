@@ -31,17 +31,17 @@
                                         </h1>
                                     </div>
                                     <dl class="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
-                                        <dd v-if="localLostPet.title"
-                                            class="flex items-center text-sm text-gray-500 font-medium capitalize sm:mr-6">
-                                            <i class="fas fa-bullhorn mr-2"></i>
-                                            <span v-text="localLostPet.title" class="text-gray-600 text-base font-semibold"></span>
+                                        <dd class="flex items-center text-sm text-gray-500 font-medium capitalize sm:mr-6">
+                                            <i class="hidden fas fa-bullhorn mr-2"></i>
+                                            <span v-text="localLostPet.title" class="text-gray-600 py-2 text-base font-semibold"></span>
                                         </dd>
                                     </dl>
                                 </div>
                             </div>
-                            <div class="md:flex items-center align-middle mr-48 align-middle md:-mb-8 md:space-x-3 md:mt-0">
-                                {{--togglePetFound--}}
-                                <span class="rounded-md shadow-sm">
+                            @if(auth()->check() && $lostPet->pet->user->id === auth()->id())
+                                <div class="md:flex items-center align-middle mr-48 align-middle md:-mb-8 md:space-x-3 md:mt-0">
+                                    {{--togglePetFound--}}
+                                    <span class="rounded-md shadow-sm">
                                     <button @click="togglePetFound"
                                             type="button"
                                             class="btn btn-primary -mt-1 items-center flex shadow-sm justify-center w-full px-10 py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-600 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
@@ -58,73 +58,73 @@
                                         </span>
                                     </button>
                                 </span>
-
-                                {{--OnDelete--}}
-                                <button @click="onDelete"
-                                        class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
-                                        title="Eliminar Publicación">
-                                    <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                </button>
-                                {{--Report--}}
-                                <report :model-id="localLostPet.uuid" model-name="lost-pets" inline-template>
-                                    <div>
-                                        <button @click="openModal('report')"
-                                                class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
-                                                title="Reportar Publicación...">
-                                            <svg class="text-yellow-500 hover:text-yellow-600" width="25" height="25" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                                        </button>
-                                        <modal modal-id="reports" max-width="sm:max-w-md">
-                                            <template #title>Reportar Publicación</template>
-                                            <template #content>
-                                                <form @submit.prevent>
-                                                    <div class="w-full">
+                                    {{--OnDelete--}}
+                                    <button @click="onDelete"
+                                            class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
+                                            title="Eliminar Publicación">
+                                        <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    </button>
+                                    {{--Report--}}
+                                    <report :model-id="localLostPet.uuid" model-name="lost-pets" inline-template>
+                                        <div>
+                                            <button @click="openModal('report')"
+                                                    class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
+                                                    title="Reportar Publicación...">
+                                                <svg class="text-yellow-500 hover:text-yellow-600" width="25" height="25" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                            </button>
+                                            <modal modal-id="reports" max-width="sm:max-w-md">
+                                                <template #title>Reportar Publicación</template>
+                                                <template #content>
+                                                    <form @submit.prevent>
                                                         <div class="w-full">
-                                                            <label for="reporting_cause">
-                                                                <strong class="required">*</strong>
-                                                                Causa del Reporte
-                                                                <span class="text-gray-500 text-xs">(requerido)</span>
-                                                            </label>
-                                                            <div class="mt-1">
-                                                                <select v-model="report.reportingCause"
-                                                                        class="lp-select"
-                                                                        id="reporting_cause">
-                                                                    <option value="" selected disabled>Seleccione una Causa...</option>
-                                                                    @foreach(\App\Models\LostPets\LostPet::getReportingCauses() as $key => $reportingCause)
-                                                                        <option value="{{ $reportingCause }}">{{ $reportingCause }}</option>
-                                                                    @endforeach
-                                                                </select>
+                                                            <div class="w-full">
+                                                                <label for="reporting_cause">
+                                                                    <strong class="required">*</strong>
+                                                                    Causa del Reporte
+                                                                    <span class="text-gray-500 text-xs">(requerido)</span>
+                                                                </label>
+                                                                <div class="mt-1">
+                                                                    <select v-model="report.reportingCause"
+                                                                            class="lp-select"
+                                                                            id="reporting_cause">
+                                                                        <option value="" selected disabled>Seleccione una Causa...</option>
+                                                                        @foreach(\App\Models\LostPets\LostPet::getReportingCauses() as $key => $reportingCause)
+                                                                            <option value="{{ $reportingCause }}">{{ $reportingCause }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <errors :error="errors.reporting_cause"></errors>
                                                             </div>
-                                                            <errors :error="errors.reporting_cause"></errors>
-                                                        </div>
-                                                        <div class="w-full mt-4">
-                                                            <div>
-                                                                <label for="report_comments">Comentarios</label>
-                                                                <textarea v-model="report.comments"
-                                                                          id="report_comments"
-                                                                          class="lp-input form-input block w-full"
-                                                                          rows="5"
-                                                                          v-text="report.comments"
-                                                                ></textarea>
-                                                                <errors :error="errors.comments"></errors>
+                                                            <div class="w-full mt-4">
+                                                                <div>
+                                                                    <label for="report_comments">Comentarios</label>
+                                                                    <textarea v-model="report.comments"
+                                                                              id="report_comments"
+                                                                              class="lp-input form-input block w-full"
+                                                                              rows="5"
+                                                                              v-text="report.comments"
+                                                                    ></textarea>
+                                                                    <errors :error="errors.comments"></errors>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </form>
-                                            </template>
-                                            <template #footer>
-                                                <button @click="closeModal()"
-                                                        type="button" class="btn">
-                                                    Cancelar
-                                                </button>
-                                                <button @click="submitReport"
-                                                        class="btn btn-primary">
-                                                    Guardar
-                                                </button>
-                                            </template>
-                                        </modal>
-                                    </div>
-                                </report>
-                            </div>
+                                                    </form>
+                                                </template>
+                                                <template #footer>
+                                                    <button @click="closeModal()"
+                                                            type="button" class="lp-btn">
+                                                        Cancelar
+                                                    </button>
+                                                    <button @click="submitReport"
+                                                            class="lp-btn-success">
+                                                        Guardar
+                                                    </button>
+                                                </template>
+                                            </modal>
+                                        </div>
+                                    </report>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -134,8 +134,13 @@
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                     <div class="w-full md:w-2/3 py-6 sm:px-0">
                         <div>
+                            <alert v-if="localLostPet.pet.user.id === auth && ! localLostPet.location"
+                                   :type="'warning'">
+                                Para Publicar es necesario registrar la Dirección.
+                            </alert>
+
                             <div class="w-full mb-2 md:flex mt-4">
-                                <div class="md:hidden">
+                                <div v-if="localLostPet.pet.user.id === auth" class="md:hidden">
                                     <div class="flex justify-end md:hidden mx-2 md:-mx-3 mt-1 mb-2">
                                         {{--Publish/Unpublish--}}
                                         <div v-if="localLostPet.location"
@@ -145,6 +150,7 @@
                                                         :disabled="isLoading"
                                                         type="button"
                                                         class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                                        :class="! localLostPet.meta.publishedAt ? 'animate-bounce' : ''"
                                                         :title="localLostPet.meta.publishedAt ? 'Ocultar esta Publicación' : 'Hacer publica esta Publicación'">
                                                     <span v-text="localLostPet.meta.publishedAt ? 'Publicar' : 'Ocultar'"
                                                           class="text-green-300 hover:text-green-400"></span>
@@ -157,7 +163,7 @@
                                         <span class="rounded-md shadow-sm">
                                             <button @click="openModal('put')"
                                                     type="button"
-                                                    class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                                    class="btn"
                                                     title="Actualizar Datos de la Publicación...">
                                                 <span class="text-gray-300">Editar</span>
                                             </button>
@@ -176,18 +182,18 @@
                                             ></custom-carousel>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="w-full md:w-1/3 mt-4">
-                                    <div class="hidden md:flex md:justify-between md:-mx-2 mt-1 mb-2">
+                                    <div v-if="localLostPet.pet.user.id === auth"
+                                         class="hidden md:flex md:justify-between md:-mx-2 mt-1 mb-2">
                                         {{--Publish/Unpublish--}}
                                         <div v-show="localLostPet.location"
                                              class="w-full md:w-1/2 md:mx-2 mb-2 md:mb-0">
                                             <span class="rounded-md shadow-sm">
                                                 <button @click="toggle"
                                                         type="button"
-                                                        :class="[status.btnClass]"
+                                                        :class="[status.btnClass, ! localLostPet.meta.publishedAt ? 'animate-bounce' : '']"
                                                         class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
                                                         :title="localLostPet.meta.publishedAt ? 'Ocultar esta Publicación...' : 'Hacer publica esta Publicación...'">
                                                         <span v-if="! localLostPet.meta.publishedAt" class="text-green-300 hover:text-green-400">Publicar</span>
@@ -215,6 +221,7 @@
                                         <div class="w-full bg-white shadow-sm overflow-hidden sm:rounded-md h-auto">
                                             <ul>
                                                 {{--Status--}}
+                                                @if(auth()->check() && $lostPet->pet->user->id === auth()->id())
                                                 <li class="mt-2" title="Estatus de la Publicación">
                                                     <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                                                         <div class="px-4 py-2 sm:px-6">
@@ -236,6 +243,7 @@
                                                         </div>
                                                     </div>
                                                 </li>
+                                                @endif
                                                 {{--Situation--}}
                                                 <li class="mt-1">
                                                     <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
@@ -448,9 +456,12 @@
                         <section aria-labelledby="notes-title" class="mt-6">
                             <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
                                 <div class="bg-gray-50 px-4 py-4 sm:px-6">
-                                    <div class="flex space-x-3">
-                                        <div class="flex-shrink-0">
-                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80" alt="">
+                                    <div v-if="auth"
+                                         class="flex space-x-3">
+                                        <div class="hidden md:flex-shrink-0">
+                                            <img class="h-14 w-14 rounded-full"
+                                                 src="{{ auth()->user()->getAvatar() }}"
+                                                 alt="{{ auth()->user()->fullName() }} avatar">
                                         </div>
                                         <div class="min-w-0 flex-1">
                                             <form @submit.prevent>
@@ -458,39 +469,40 @@
                                                     <label for="comment" class="sr-only">Comments</label>
                                                     <textarea id="comment"
                                                               v-model="selectedComment.body"
-                                                              rows="3"
-                                                              class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md"
-                                                              placeholder="Anade un comentario"
+                                                              rows="4"
+                                                              class="lp-input"
+                                                              placeholder="Añade un comentario"
                                                     ></textarea>
                                                     <p v-if="errors.body"
                                                        v-text="errors.body[0]"
                                                        class="text-red-500 font-medium"
                                                     ></p>
                                                 </div>
-                                                <div class="mt-3 flex items-center justify-between">
-                                                    <a href="#" class="md:-mt-8 group inline-flex items-start text-sm space-x-2 text-gray-500 hover:text-gray-900">
-                                                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                                                        </svg>
-                                                        <span>
-                                                            Seamos respetuosos con los demas, todos queremos lo mejor para estos angelitos.
-                                                        </span>
-                                                    </a>
+                                                <div class="mt-1 md:mt-3 md:flex items-center justify-between">
+                                                    <span class="md:-mt-8 group inline-flex items-start text-sm space-x-2 text-gray-500 hover:text-gray-900">
+                                                        Seamos respetuosos con los demás, todos queremos lo mejor para estos angelitos.
+                                                    </span>
                                                     <button v-if="updatingComment"
                                                             @click="updateComment"
                                                             type="submit"
-                                                            class="btn">
+                                                            class="lp-btn-success mt-2 w-full md:w-auto">
                                                         Actualizar
                                                     </button>
                                                     <button v-else
                                                             @click="comment"
                                                             type="submit"
-                                                            class="btn">
+                                                            class="lp-btn-success mt-2 w-full md:w-auto">
                                                         Comentar
                                                     </button>
                                                 </div>
                                             </form>
                                         </div>
+                                    </div>
+                                    <div v-else
+                                         class="flex-space-x-3">
+                                        <span>
+                                            Debes <a href="{{ route('login') }}">iniciar sesión</a> para comentar en esta publicación.
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="divide-y divide-gray-200">
@@ -501,14 +513,16 @@
                                             <li v-if="! localLostPet.comments.length">Sin comentarios</li>
                                             <li v-for="comment in localLostPet.comments"
                                                 :key="comment.id">
-                                                <div class="flex space-x-3">
+                                                <div class="flex space-x-3 my-2">
                                                     <div class="flex-shrink-0">
-                                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                        <img class="h-14 w-14 rounded-full"
+                                                             src="{{ auth()->user()->getAvatar() }}"
+                                                             alt="{{ auth()->user()->fullName() }} avatar">
                                                     </div>
                                                     <div>
                                                         <div class="text-sm">
                                                             <a href="#" class="font-medium text-gray-900"
-                                                                v-text="comment.user.first_name"
+                                                               v-text="comment.user.first_name"
                                                             ></a>
                                                         </div>
                                                         <div class="mt-1 text-sm text-gray-700">
@@ -519,16 +533,16 @@
                                                                   v-text="comment.updatedAt"
                                                             ></span>
                                                             <span class="text-gray-500 font-medium">&middot;</span>
-                                                            <button @click="onUpdateComment(comment)"
-                                                                    type="button"
-                                                                    class="text-gray-900 font-medium">
+                                                            <span @click="onUpdateComment(comment)"
+                                                                  type="button"
+                                                                  class="text-gray-600 font-medium cursor-pointer">
                                                                 Editar
-                                                            </button>
-                                                            <button @click="onDeleteComment(comment)"
-                                                                    type="button"
-                                                                    class="text-gray-900 font-medium">
+                                                            </span>
+                                                            <span @click="onDeleteComment(comment)"
+                                                                  type="button"
+                                                                  class="text-gray-600 font-medium cursor-pointer">
                                                                 Eliminar
-                                                            </button>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -554,11 +568,15 @@
                                 <div class="form-group">
                                     <label for="title" class="block text-base font-medium text-gray-700">
                                         Titulo de la Publicación
-                                        <span class="text-gray-500 font-light text-xs">(opcional)</span>
+                                        <span class="optional">(opcional)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <input type="text" id="title" v-model="lostPetForm.title" class="lp-input">
                                     </div>
+                                    <p v-if="errors.title"
+                                       v-text="errors.title[0]"
+                                       class="text-red-500 font-medium"
+                                    ></p>
                                 </div>
                             </div>
                         </div>
@@ -568,12 +586,16 @@
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
                                     <label for="name" class="block text-base font-medium text-gray-700">
+                                        <strong class="required">*</strong>
                                         Nombre
-                                        <span class="text-gray-500 font-light text-xs">(opcional)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <input type="text" id="name" v-model="lostPetForm.pet.name" class="lp-input">
                                     </div>
+                                    <p v-if="errors.name"
+                                       v-text="errors.name[0]"
+                                       class="text-red-500 font-medium"
+                                    ></p>
                                 </div>
                             </div>
                             {{--Specie--}}
@@ -582,9 +604,8 @@
                                     <label for="specie_id" class="block text-base font-medium text-gray-700">
                                         <strong class="required">*</strong>
                                         Especie
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <select v-model="localLostPet.pet.specie"
                                                 id="specie_id"
                                                 class="lp-select">
@@ -596,6 +617,10 @@
                                             ></option>
                                         </select>
                                     </div>
+                                    <p v-if="errors.specie_id"
+                                       v-text="errors.specie_id[0]"
+                                       class="text-red-500 font-medium"
+                                    ></p>
                                 </div>
                             </div>
                             {{--Gender--}}
@@ -604,9 +629,8 @@
                                     <label for="gender" class="block text-base font-medium text-gray-700">
                                         <strong class="required">*</strong>
                                         Soy (macho/hembra)
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <select v-model="lostPetForm.pet.gender"
                                                 id="gender"
                                                 class="lp-select">
@@ -616,6 +640,10 @@
                                             <option value="female">Chica (hembra)</option>
                                         </select>
                                     </div>
+                                    <p v-if="errors.gender"
+                                       v-text="errors.gender[0]"
+                                       class="text-red-500 font-medium"
+                                    ></p>
                                 </div>
                             </div>
                         </div>
@@ -627,9 +655,8 @@
                                     <label for="size" class="block text-base font-medium text-gray-700">
                                         <strong class="required">*</strong>
                                         Tamaño
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <select v-model="lostPetForm.pet.size" id="size" class="lp-select">
                                             <option v-text="localLostPet.pet.size" selected disabled></option>
                                             <option value="Miniatura">Miniatura</option>
@@ -638,6 +665,10 @@
                                             <option value="Grande">Grande</option>
                                         </select>
                                     </div>
+                                    <p v-if="errors.size"
+                                       v-text="errors.size[0]"
+                                       class="text-red-500 font-medium"
+                                    ></p>
                                 </div>
                             </div>
                             {{--Age--}}
@@ -678,10 +709,12 @@
                             <div v-if="localLostPet.postType === 'rescuer'" class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
                                     <label for="rescued_at" class="block text-base font-medium text-gray-700">
+                                        <strong class="required">*</strong>
                                         Fecha y hora de rescate
                                     </label>
-                                    <div class="mt-2 relative rounded-md shadow-sm">
+                                    <div class="mt-1 relative rounded-md shadow-sm">
                                         <datetime v-model="lostPetForm.rescuedAt"
+                                                  class="lp-input"
                                                   type="datetime"
                                                   format="dd-MM-yyyy HH:mm"
                                                   :value-zone="'America/Tijuana'"
@@ -701,8 +734,9 @@
                                         <strong class="required">*</strong>
                                         Fecha y hora de extravío
                                     </label>
-                                    <div class="mt-2 relative rounded-md shadow-sm">
+                                    <div class="mt-1 relative rounded-md shadow-sm">
                                         <datetime v-model="lostPetForm.lostAt"
+                                                  class="lp-input"
                                                   type="datetime"
                                                   format="dd-MM-yyyy HH:mm"
                                                   :value-zone="'America/Tijuana'"
@@ -720,10 +754,10 @@
                         <div class="w-full my-6 md:-mx-2 md:mt-0 lg:mt-2">
                             <div class="form-group md:mx-2">
                                 <label for="description">Información Adicional</label>
-                                <span class="text-gray-500 font-light text-xs">(opcional)</span>
-                                <div class="mt-2">
+                                <span class="optional">(opcional)</span>
+                                <div class="mt-1">
                                 <textarea id="description"
-                                          class="block rounded-md shadow-sm w-full outline-none border-emerald-200 bg-gray-100 focus:bg-white border-none"
+                                          class="lp-input"
                                           rows="5"
                                           v-model="lostPetForm.description"
                                 >@{{ lostPetForm.description }}</textarea>
@@ -736,12 +770,12 @@
                 <template #footer>
                     <button @click="closeModal"
                             type="button"
-                            class="btn">
+                            class="lp-btn">
                         Cancelar
                     </button>
                     <button @click="update"
                             :disabled="isLoading"
-                            class="btn btn-primary">
+                            class="lp-btn-success">
                         Actualizar
                     </button>
                 </template>

@@ -20,7 +20,8 @@ class VeterinariesTest extends TestCase
     {
         $this->signIn();
 
-        $veterinary = $this->create(Veterinary::class);
+        $veterinary = $this->create(Veterinary::class, [], 'published');
+        $this->create(Veterinary::class);
 
         $response = $this->getJson(route($this->routePrefix . 'index'));
         $response->assertOk();
@@ -31,8 +32,19 @@ class VeterinariesTest extends TestCase
                     'user' => ['id' => $veterinary->user->id],
                     'name' => $veterinary->name,
                     'services' => $veterinary->services,
+                    'specialty' => $veterinary->specialty,
                     'phone' => $veterinary->phone,
+                    'email' => $veterinary->email,
                     'isOpenAtNight' => $veterinary->is_open_at_night,
+                    'facebookProfile' => $veterinary->facebook_profile,
+                    'site' => $veterinary->site,
+                    'about' => $veterinary->about,
+                    'status' => $veterinary->status,
+                    'logo' => $veterinary->logo,
+                    'meta' => [
+                        'profile' => $veterinary->profile(),
+                        'updatedAt' => $veterinary->updated_at->diffForHumans()
+                    ]
                 ]
             ]
         ]);
@@ -55,7 +67,6 @@ class VeterinariesTest extends TestCase
         $response->assertJson([
             'data' => ['name' => $veterinary->name]
         ]);
-
         $this->assertDatabaseHas(
             'veterinaries',
             Arr::except($veterinary->toArray(), ['user_id', 'services'])
@@ -71,7 +82,6 @@ class VeterinariesTest extends TestCase
      *  */
     public function authenticated_user_can_update_a_veterinary()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $existingVeterinary = $this->create(Veterinary::class);

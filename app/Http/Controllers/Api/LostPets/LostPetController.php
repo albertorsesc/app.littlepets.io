@@ -18,9 +18,9 @@ class LostPetController extends Controller
         return LostPetResource::collection(
             LostPet::isPublished()
                    ->with([
-                       'location.state',
                        'pet.media',
                        'pet.specie',
+                       'location.state',
                        'pet.user:id,first_name,last_name,email',
                    ])
                    ->latest('updated_at')
@@ -44,6 +44,7 @@ class LostPetController extends Controller
                 $pet->lostPet()->create($request->all())
                     ->load([
                         'pet.specie',
+                        'location.state',
                         'pet.user:id,first_name,last_name,email',
                     ])
             ),
@@ -68,9 +69,9 @@ class LostPetController extends Controller
 
         return new LostPetResource(
             $lostPet->load([
-                'location.state',
                 'comments',
                 'pet.specie',
+                'location.state',
                 'pet.user:id,first_name,last_name,email',
             ])
         );

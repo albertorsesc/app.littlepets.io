@@ -24,38 +24,38 @@
                                             Hola! mi nombre es <span class="text-cyan-500 font-bold">@{{ localAdoption.pet.name }}</span>
                                         </h1>
                                     </div>
-                                    <dl class="mt-2 lg:mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
+                                    <dl class="mt-2 lg:mt-2 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
                                         <dd class="flex items-center text-sm text-gray-500 font-medium capitalize sm:mr-6">
-                                            <i class="fas fa-bullhorn mr-2"></i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                            </svg>
                                             <span v-text="localAdoption.title" class="text-gray-600 text-base font-semibold"></span>
                                         </dd>
                                     </dl>
                                 </div>
                             </div>
-                            <div class="mt-4 lg:mt-0 flex items-center align-middle lg:mr-48 align-middle md:-mb-8 md:space-x-3 md:mt-0">
+                            <div class="mt-4 lg:mt-0 md:-mb-8 lg:mr-48 flex justify-end items-center align-middle space-x-2 md:space-x-3">
                                 {{--Toggle Adoption--}}
                                 <span v-if="localAdoption.pet.user.id === auth"
-                                      class="rounded-md shadow-sm mr-2">
+                                      class="rounded-md shadow-sm md:mr-2">
                                     <button @click="toggleAdoption"
                                             type="button"
-                                            class="btn btn-primary -mt-1 items-center flex shadow-sm justify-center lg:w-full px-3 lg:px-10 py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-600 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                            title="Hacer publico esta Adopción...">
-                                        {{--<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
-                                        </svg>--}}
-                                        <span v-if="! localAdoption.meta.adoptedAt" class="ml-2 text-base">
-                                            Ha sido Adoptad@
+                                            class="lp-btn"
+                                            :title="localAdoption.meta.adoptedAt ? 'Marcar mascota como adoptada o disponible' : 'Establecer mascota como Adoptado.' + '...'">
+                                        <span v-if="localAdoption.meta.adoptedAt"
+                                              class="ml-2">
+                                            Disponible
                                         </span>
                                         <span v-else
-                                              class="ml-2 text-base">
-                                            No ha sido Adoptad@
+                                              class="ml-2">
+                                            Fue Adoptado
                                         </span>
                                     </button>
                                 </span>
                                 {{--Delete--}}
                                 <button v-if="localAdoption.pet.user.id === auth"
                                         @click="onDelete"
-                                        class="mr-2 inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
+                                        class="md:mr-2 inline-flex items-center justify-center px-3 py-2 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150"
                                         title="Eliminar Adopción">
                                     <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
@@ -63,7 +63,7 @@
                                 <report :model-id="localAdoption.uuid" model-name="adoptions" inline-template>
                                     <div>
                                         <button @click="openModal('report')"
-                                                class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
+                                                class="inline-flex items-center justify-center px-3 py-2 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150"
                                                 title="Reportar Adopción...">
                                             <svg class="text-yellow-500 hover:text-yellow-600" width="25" height="25" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                                         </button>
@@ -107,11 +107,11 @@
                                             </template>
                                             <template #footer>
                                                 <button @click="closeModal()"
-                                                        type="button" class="btn">
+                                                        type="button" class="lp-btn">
                                                     Cancelar
                                                 </button>
                                                 <button @click="submitReport"
-                                                        class="btn btn-primary">
+                                                        class="lp-btn-success">
                                                     Guardar
                                                 </button>
                                             </template>
@@ -134,19 +134,24 @@
                             </alert>
 
                             <div class="w-full mb-2 md:flex mt-4">
-                                <div class="md:hidden">
-                                    <div v-if="localAdoption.pet.user.id === auth"
-                                         class="flex justify-end md:hidden mx-2 md:-mx-3 mt-1 mb-2">
+                                {{--Mobile--}}
+                                <div v-if="localAdoption.pet.user.id === auth"
+                                     class="md:hidden">
+                                    <div class="flex justify-end md:hidden mx-2 md:-mx-3 mt-1 mb-2">
                                         {{--Publish/Unpublish--}}
                                         <div v-if="localAdoption.location"
-                                             class="w-full md:w-1/3 mx-2 md:mx-3 mb-2 md:mb-0">
+                                             class="w-full md:w-1/3 mx-2 md:mx-3 mb-2 md:mb-0"
+                                             :class="! localAdoption.meta.publishedAt ? 'animate-bounce' : ''">
                                             <span class="rounded-md shadow-sm">
                                                 <button @click="toggle"
                                                         :disabled="isLoading"
                                                         type="button"
                                                         class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
-                                                        :title="localAdoption.status ? 'Ocultar esta Adopción del publico...' : 'Hacer publico esta Adopción...'">
-                                                    <span class="text-green-300 hover:text-green-400">Publicar</span>
+                                                        :title="localAdoption.meta.publishedAt ? 'Ocultar esta Adopción del publico...' : 'Hacer publico esta Adopción...'">
+                                                    <span v-if="localAdoption.meta.publishedAt"
+                                                          class="text-gray-300"
+                                                    >Ocultar</span>
+                                                    <span v-else class="text-gray-300">Publicar</span>
                                                 </button>
                                             </span>
                                         </div>
@@ -187,11 +192,11 @@
                                             <span class="rounded-md shadow-sm">
                                                 <button @click="toggle"
                                                         type="button"
-                                                        :class="[status.btnClass]"
-                                                        class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                                        :class="[status.btnClass, ! localAdoption.meta.publishedAt ? 'animate-bounce' : '']"
+                                                        class="-mt-1 flex shadow-sm justify-center w-full py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border focus:border-cyan-300 active:bg-gray-50 active:text-gray-800"
                                                         :title="localAdoption.meta.publishedAt ? 'Ocultar esta Adopción del publico...' : 'Hacer publico esta Adopción...'">
-                                                        <span v-if="! localAdoption.meta.publishedAt" class="text-green-300 hover:text-green-400">Publicar</span>
-                                                        <span v-if="localAdoption.meta.publishedAt" class="text-gray-300 hover:text-gray-400">Ocultar</span>
+                                                        <span v-if="! localAdoption.meta.publishedAt" class="text-gray-300 hover:text-cyan-500">Publicar</span>
+                                                        <span v-else class="text-gray-300 hover:text-gray-500">Ocultar</span>
                                                     </button>
                                             </span>
                                         </div>
@@ -202,9 +207,9 @@
                                             <span class="rounded-md shadow-sm">
                                                 <button @click="openModal('put')"
                                                         type="button"
-                                                        class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+                                                        class="-mt-1 items-center shadow-sm w-full py-3 flex justify-center border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border focus:border-cyan-300 active:bg-gray-50 active:text-gray-800"
                                                         title="Actualizar Datos de la Adopción...">
-                                                    <span class="text-gray-300">Editar</span>
+                                                    <span class="text-gray-300 hover:text-gray-500">Editar</span>
                                                 </button>
                                             </span>
                                         </div>
@@ -212,9 +217,10 @@
 
                                     {{--Specs List--}}
                                     <div class="md:flex md:justify-between mb-2">
-                                        <div class="w-full bg-white shadow-sm overflow-hidden sm:rounded-md h-auto">
+                                        <div class="w-full bg-white shadow-sm pb-1 overflow-hidden sm:rounded-md h-auto">
                                             <ul>
-                                                <li class="mt-2" title="Estatus de la Publicación">
+                                                <li class="mt-2"
+                                                    title="Estatus de la Publicación">
                                                     <div class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                                                         <div class="px-4 py-2 sm:px-6">
                                                             <div class="flex items-center justify-between">
@@ -224,7 +230,9 @@
                                                                 <div v-if="localAdoption.meta.publishedAt"
                                                                      class="ml-2 flex-shrink-0 flex">
                                                                     <svg class="h-5 w-5 text-green-500"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                                                    <span class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500">Publicado</span>
+                                                                    <span class="px-2 inline-flex text-base leading-5 font-semibold rounded-full text-gray-500">
+                                                                        Publicado
+                                                                    </span>
                                                                 </div>
                                                                 <div v-else
                                                                      class="ml-2 flex-shrink-0 flex">
@@ -400,8 +408,10 @@
                                 <div class="bg-gray-50 px-4 py-4 sm:px-6">
                                     <div v-if="auth"
                                          class="flex space-x-3">
-                                        <div class="flex-shrink-0">
-                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80" alt="">
+                                        <div class="hidden md:flex-shrink-0">
+                                            <img class="h-8 w-8 rounded-full"
+                                                 src="{{ auth()->user()->getAvatar() }}"
+                                                 alt="{{ auth()->user()->fullName() }} avatar">
                                         </div>
                                         <div class="min-w-0 flex-1">
                                             <form @submit.prevent>
@@ -409,29 +419,29 @@
                                                     <label for="comment" class="sr-only">Comments</label>
                                                     <textarea id="comment"
                                                               v-model="selectedComment.body"
-                                                              rows="3"
-                                                              class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md"
-                                                              placeholder="Anade un comentario"
+                                                              rows="4"
+                                                              class="lp-input"
+                                                              placeholder="Añade un comentario"
                                                     ></textarea>
                                                     <p v-if="errors.body"
                                                        v-text="errors.body[0]"
                                                        class="text-red-500 font-medium"
                                                     ></p>
                                                 </div>
-                                                <div class="mt-3 flex items-center justify-between">
+                                                <div class="mt-1 md:mt-3 md:flex items-center justify-between">
                                                     <span class="md:-mt-8 group inline-flex items-start text-sm space-x-2 text-gray-500 hover:text-gray-900">
-                                                        Seamos respetuosos con los demas, todos queremos lo mejor para estos angelitos.
+                                                        Seamos respetuosos con los demás, todos queremos lo mejor para estos angelitos.
                                                     </span>
                                                     <button v-if="updatingComment"
                                                             @click="updateComment"
                                                             type="submit"
-                                                            class="btn">
+                                                            class="lp-btn-success mt-2 w-full md:w-auto">
                                                         Actualizar
                                                     </button>
                                                     <button v-else
                                                             @click="comment"
                                                             type="submit"
-                                                            class="btn">
+                                                            class="lp-btn-success mt-2 w-full md:w-auto">
                                                         Comentar
                                                     </button>
                                                 </div>
@@ -453,9 +463,11 @@
                                             <li v-if="! localAdoption.comments.length">Sin comentarios</li>
                                             <li v-for="comment in localAdoption.comments"
                                                 :key="comment.id">
-                                                <div class="flex space-x-3">
+                                                <div class="flex space-x-3 my-2">
                                                     <div class="flex-shrink-0">
-                                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                        <img class="h-14 w-14 rounded-full"
+                                                             src="{{ auth()->user()->getAvatar() }}"
+                                                             alt="{{ auth()->user()->fullName() }} avatar">
                                                     </div>
                                                     <div>
                                                         <div class="text-sm">
@@ -471,16 +483,16 @@
                                                                   v-text="comment.updatedAt"
                                                             ></span>
                                                             <span class="text-gray-500 font-medium">&middot;</span>
-                                                            <button @click="onUpdateComment(comment)"
+                                                            <span @click="onUpdateComment(comment)"
                                                                     type="button"
-                                                                    class="text-gray-900 font-medium">
+                                                                    class="text-gray-600 font-medium cursor-pointer">
                                                                 Editar
-                                                            </button>
-                                                            <button @click="onDeleteComment(comment)"
+                                                            </span>
+                                                            <span @click="onDeleteComment(comment)"
                                                                     type="button"
-                                                                    class="text-gray-900 font-medium">
+                                                                    class="text-gray-600 font-medium cursor-pointer">
                                                                 Eliminar
-                                                            </button>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -490,7 +502,6 @@
                                 </div>
                             </div>
                         </section>
-
                     </div>
                 </div>
             </main>
@@ -508,7 +519,7 @@
                                         Titulo de la Publicación
                                         <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <input type="text" id="title" v-model="adoptionForm.title" class="lp-input">
                                     </div>
                                 </div>
@@ -521,9 +532,8 @@
                                     <label for="name">
                                         <strong class="required">*</strong>
                                         Nombre
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <input type="text" id="name" v-model="adoptionForm.pet.name" class="lp-input">
                                     </div>
                                 </div>
@@ -533,9 +543,8 @@
                                     <label for="specie_id">
                                         <strong class="required">*</strong>
                                         Especie
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <select v-model="adoptionForm.pet.specie"
                                                 id="specie_id"
                                                 class="lp-select">
@@ -553,9 +562,8 @@
                                     <label for="gender">
                                         <strong class="required">*</strong>
                                         Soy (macho/hembra)
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <select v-model="adoptionForm.pet.gender"
                                                 id="gender"
                                                 class="lp-select">
@@ -575,9 +583,8 @@
                                     <label for="size">
                                         <strong class="required">*</strong>
                                         Tamaño
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
-                                    <div class="mt-2">
+                                    <div class="mt-1">
                                         <select v-model="adoptionForm.pet.size" id="size" class="lp-select">
                                             <option v-text="localAdoption.pet.size" selected disabled></option>
                                             <option value="Miniatura">Miniatura</option>
@@ -591,7 +598,7 @@
                             <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0 mb-4">
                                 <div class="form-group">
                                     <label for="age">Mi Edad:</label>
-                                    <div class="mt-2 relative rounded-md shadow-sm">
+                                    <div class="mt-1 relative rounded-md shadow-sm">
                                         <div class="absolute inset-y-0 left-0 flex items-center">
                                             <label for="age_range" class="sr-only">Age range</label>
                                             <select id="age_range"
@@ -626,10 +633,10 @@
                         <div class="w-full my-6 md:-mx-2 md:mt-0">
                             <div class="form-group md:mx-2">
                                 <label for="comments">Bio</label>
-                                <span class="text-gray-500 font-light text-xs">(opcional)</span>
-                                <div class="mt-2">
+                                <span class="optional">(opcional)</span>
+                                <div class="mt-1">
                                 <textarea id="comments"
-                                          class="block rounded-md shadow-sm w-full outline-none border-emerald-200 bg-gray-100 focus:bg-white border-none"
+                                          class="lp-input"
                                           rows="5"
                                           v-model="adoptionForm.bio"
                                 >@{{ adoptionForm.bio }}</textarea>
@@ -640,11 +647,11 @@
                         <div class="w-full my-6 md:-mx-2 md:mt-0">
                             <div class="form-group md:mx-2">
                                 <label for="comments">Historia</label>
-                                <span class="text-gray-500 font-light text-xs">(opcional)</span>
-                                <div class="mt-2">
+                                <span class="optional">(opcional)</span>
+                                <div class="mt-1">
                                 <textarea id="comments"
                                           v-model="adoptionForm.story"
-                                          class="block rounded-md shadow-sm w-full outline-none border-emerald-200 bg-gray-100 focus:bg-white border-none"
+                                          class="lp-input"
                                           rows="5"
                                 ></textarea>
                                 </div>
@@ -656,12 +663,12 @@
                 <template #footer>
                     <button @click="closeModal"
                             type="button"
-                            class="btn">
+                            class="lp-btn">
                         Cancelar
                     </button>
                     <button @click="update"
                             :disabled="isLoading"
-                            class="btn btn-primary">
+                            class="lp-btn-success">
                         Actualizar
                     </button>
                 </template>

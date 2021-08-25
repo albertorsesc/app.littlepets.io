@@ -3,17 +3,19 @@
         <divider title="Ubicación"></divider>
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="flex justify-between px-4 py-5 sm:px-6 items-center">
-                <h3 class="flex text-lg leading-6 font-medium text-emerald-600">
-                    <svg class="mr-2 h-5 w-5 text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <h3 class="flex text-lg leading-6 font-medium text-gray-500">
+                    <svg class="mr-2 h-5 w-5 text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     Ubicación de la Adopción
                 </h3>
                 <div v-if="adoption.pet.user.id === auth">
-                    <button @click="openModal" class="h-link bg-white -mt-1 shadow rounded-md py-2 px-2 float-left hover:text-emerald-500 focus:outline-none focus:shadow-outline-blue active:bg-emerald-50 active:text-emerald-800"
+                    <button @click="openModal"
+                            class="lp-link bg-white -mt-1 shadow rounded-md py-2 px-2 float-left hover:text-cyan-500 focus:outline-none active:bg-cyan-50 active:text-cyan-800"
+                            :class="! adoption.location ? 'animate-bounce' : ''"
                             title="Registrar Ubicación de la Adopción">
-                        <svg class="text-emerald-400 hover:text-emerald-600" width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="text-cyan-400 hover:text-cyan-600" width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </button>
@@ -28,7 +30,7 @@
                             </svg>
                             Estado
                         </dt>
-                        <dd class="mt-1 text-base text-teal-600"
+                        <dd class="mt-1 text-base text-cyan-600"
                             v-text="location.state.name"
                         ></dd>
                     </div>
@@ -39,7 +41,7 @@
                             </svg>
                             Ciudad
                         </dt>
-                        <dd class="mt-1 text-base text-teal-600"
+                        <dd class="mt-1 text-base text-cyan-600"
                             v-text="location.city"
                         ></dd>
                     </div>
@@ -50,7 +52,7 @@
                             </svg>
                             Fraccionamiento/Colonia
                         </dt>
-                        <dd class="mt-1 text-base text-teal-600"
+                        <dd class="mt-1 text-base text-cyan-600"
                             v-text="location.neighborhood"
                         ></dd>
                     </div>
@@ -61,7 +63,7 @@
                             </svg>
                             Dirección
                         </dt>
-                        <dd class="mt-1 text-base text-teal-600"
+                        <dd class="mt-1 text-base text-cyan-600"
                             v-text="location.address"
                         ></dd>
                     </div>
@@ -72,7 +74,7 @@
                             </svg>
                             Código Postal
                         </dt>
-                        <dd class="mt-1 text-base text-teal-600"
+                        <dd class="mt-1 text-base text-cyan-600"
                             v-text="location.zipCode"
                         ></dd>
                     </div>
@@ -93,7 +95,7 @@
                                     <div class="form-group">
                                         <label for="address">
                                             Dirección
-                                            <span class="text-gray-500 font-light text-xs">(opcional)</span>
+                                            <span class="optional">(opcional)</span>
                                         </label>
                                         <div class="mt-1">
                                             <input type="text"
@@ -114,7 +116,6 @@
                                     <label for="state_id">
                                         <strong class="required">*</strong>
                                         Estado
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
                                     <div class="mt-1">
                                         <vue-multiselect v-model="adoptionLocationForm.state"
@@ -137,6 +138,7 @@
                                             </template>
                                         </vue-multiselect>
                                     </div>
+                                    <errors :error="errors.state_id"></errors>
                                 </div>
                             </div>
                             <!--City-->
@@ -145,7 +147,6 @@
                                     <label for="city">
                                         <strong class="required">*</strong>
                                         Ciudad
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
                                     <div class="mt-1">
                                         <vue-multiselect v-model="adoptionLocationForm.city"
@@ -162,6 +163,7 @@
                                                          @select="getNeighborhoods"
                                         ></vue-multiselect>
                                     </div>
+                                    <errors :error="errors.city"></errors>
                                 </div>
                             </div>
                             <!--Neighborhood-->
@@ -170,7 +172,6 @@
                                     <label for="neighborhood">
                                         <strong class="required">*</strong>
                                         Fraccionamiento/Colonia
-                                        <span class="text-gray-500 font-light text-xs">(requerido)</span>
                                     </label>
                                     <div class="mt-1">
                                         <vue-multiselect v-model="adoptionLocationForm.neighborhood"
@@ -186,6 +187,7 @@
                                                          placeholder="Fraccionamiento/Colonia..."
                                         ></vue-multiselect>
                                     </div>
+                                    <errors :error="errors.neighborhood"></errors>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +198,7 @@
                                 <div class="form-group">
                                     <label for="zip_code">
                                         Código Postal
-                                        <span class="text-gray-500 font-light text-xs">(opcional)</span>
+                                        <span class="optional">(opcional)</span>
                                     </label>
                                     <div class="mt-1">
                                         <input type="text"
@@ -207,6 +209,8 @@
                                     <errors :error="errors.zip_code"></errors>
                                 </div>
                             </div>
+                            <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0"></div>
+                            <div class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0"></div>
                         </div>
 
                     </form>
@@ -214,11 +218,11 @@
                 <template #footer>
                     <button @click="closeModal"
                             type="button"
-                            class="ml-3 h-link inline-flex items-center justify-center px-4 py-2 bg-white border border-gray-200 border border-gray-200 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:font-semibold focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-primary transition ease-in-out duration-150">
+                            class="lp-btn">
                         Cancelar
                     </button>
                     <button @click="submit"
-                            class="ml-3 h-link inline-flex items-center justify-center px-4 py-2 bg-white border border-gray-200 rounded-md font-semibold text-xs text-emerald-500 uppercase tracking-widest hover:font-semibold hover:shadow-lg hover:bg-teal-500 hover:text-white focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-primary transition ease-in-out duration-150">
+                            class="lp-btn-success">
                         Guardar
                     </button>
                 </template>

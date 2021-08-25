@@ -18,8 +18,9 @@ class VeterinaryController extends Controller
         return view('veterinaries.show', [
             'veterinary' => new VeterinaryResource(
                 $veterinary->load([
-//                    'user:id,first_name,last_name,email',
-//                    'comments.user:id,first_name,last_name,email',
+                    'location.state',
+                    'user:id,first_name,last_name,email',
+                    'likes:id,likeable_type,likeable_id,liked,liked_by',
                 ])
             )
         ]);

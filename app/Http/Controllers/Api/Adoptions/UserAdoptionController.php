@@ -18,6 +18,7 @@ class UserAdoptionController extends Controller
                     'pet.user',
                     'pet.media',
                     'pet.specie',
+                    'location.state',
                 ])
         );
     }

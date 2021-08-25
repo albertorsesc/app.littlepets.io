@@ -244,12 +244,14 @@ export default {
         this.getSpecies()
 
         window.Event.$on('SweetAlert:destroy', () => { this.destroy() })
+        window.Event.$on('lost-pets.location', location => this.lostPet.location = location)
 
         this.formattedLostAt = DateTime.fromISO(this.localLostPet.meta.lostAt).setLocale('es').toFormat('MMM d y, hh:mm')
         this.formattedRescuedAt = DateTime.fromISO(this.localLostPet.meta.rescuedAt).setLocale('es').toFormat('MMM d y, HH:mm')
     },
     components: {
         Datetime,
+        Alert: () => import(/* webpackChunkName: "alert" */ '../../components/Alert'),
         Modal: () => import(/* webpackChunkName: "modal" */ '../../components/Modal'),
         Report: () => import(/* webpackChunkName: "report" */ '../../components/Report'),
         Divider: () => import(/* webpackChunkName: "divider" */ '../../components/Divider'),

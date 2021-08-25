@@ -19,6 +19,7 @@ class AdoptionController extends Controller
                     ->with([
                         'pet.media',
                         'pet.specie',
+                        'location.state',
                         'pet.user:id,first_name,last_name,email',
                     ])->latest()
                     ->get()
@@ -44,10 +45,9 @@ class AdoptionController extends Controller
                     'bio' => $request->bio,
                     'story' => $request->story,
                 ])->load([
-                    'pet.user:id,first_name,last_name,email',
-                    'pet.specie',
                     'pet.media',
-//                    'comments.user:id,first_name,last_name,email',
+                    'pet.specie',
+                    'pet.user:id,first_name,last_name,email',
                 ])
             )
         ], 201);
@@ -74,8 +74,8 @@ class AdoptionController extends Controller
             $adoption->load([
                 'pet.media',
                 'pet.specie',
+                'location.state',
                 'pet.user:id,first_name,last_name,email',
-//                'comments.user:id,first_name,last_name,email',
             ])
         );
     }

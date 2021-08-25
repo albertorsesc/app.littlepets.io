@@ -5,6 +5,13 @@ window.Event = new Vue()
 window.baseURL = process.env.MIX_APP_URL
 window.dd = console.log
 
+if (process.env.MIX_NODE_ENV === 'production') {
+    Vue.config.devtools = false;
+    Vue.config.debug = false;
+    Vue.config.silent = true;
+    Vue.config.productionTip = true
+}
+
 Vue.component('app', require('./views/App').default);
 
 Vue.component('adoptions', require('./views/Adoptions/Adoptions').default);
@@ -15,6 +22,9 @@ Vue.component('lost-pets', require('./views/LostPets/LostPets').default);
 Vue.component('lost-pet-profile', require('./views/LostPets/LostPetProfile').default);
 
 Vue.component('shelters', require('./views/Shelters/Shelters').default);
+
+Vue.component('veterinaries', require('./views/Veterinaries/Veterinaries').default);
+Vue.component('veterinary-profile', require('./views/Veterinaries/VeterinaryProfile').default);
 
 Vue.component('profile', require('./views/User/Profile').default);
 

@@ -14,13 +14,16 @@
                     <div class="col-span-6 sm:col-span-6">
                         <label for="title"
                                class="block text-sm font-medium text-gray-700">
+                            <strong class="required">*</strong>
                             Título de la Publicación
                         </label>
-                        <input type="text"
-                               v-model="adoptionForm.title"
-                               id="title"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                               :class="errors.title ? 'border-2 border-red-400' : ''">
+                        <div class="mt-1">
+                            <input type="text"
+                                   v-model="adoptionForm.title"
+                                   id="title"
+                                   class="lp-input"
+                                   :class="errors.title ? 'border-2 border-red-400' : ''">
+                        </div>
                         <p v-if="errors.title"
                            v-text="errors.title[0]"
                            class="text-red-500 font-medium"
@@ -28,12 +31,17 @@
                     </div>
 
                     <div class="col-span-6 sm:col-span-2">
-                        <label for="name" class="block text-sm font-medium text-gray-700">Me llamo:</label>
-                        <input type="text"
-                               v-model="adoptionForm.pet.name"
-                               id="name"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                               :class="errors.name ? 'border-2 border-red-400' : ''">
+                        <label for="name" class="block text-sm font-medium text-gray-700">
+                            <strong class="required">*</strong>
+                            Me llamo
+                        </label>
+                        <div class="mt-1">
+                            <input type="text"
+                                   v-model="adoptionForm.pet.name"
+                                   id="name"
+                                   class="lp-input"
+                                   :class="errors.name ? 'border-2 border-red-400' : ''">
+                        </div>
                         <p v-if="errors.name"
                            v-text="errors.name[0]"
                            class="text-red-500 font-medium"
@@ -41,16 +49,21 @@
                     </div>
 
                     <div class="col-span-6 sm:col-span-2">
-                        <label for="specie_id" class="block text-sm font-medium text-gray-700">Especie:</label>
-                        <select id="specie_id"
-                                v-model="adoptionForm.pet.specie"
-                                class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <option v-for="specie in species"
-                                    :key="specie.id"
-                                    :value="specie"
-                                    v-text="specie.display_name"
-                            ></option>
-                        </select>
+                        <label for="specie_id" class="block text-sm font-medium text-gray-700">
+                            <strong class="required">*</strong>
+                            Especie
+                        </label>
+                        <div class="mt-1">
+                            <select id="specie_id"
+                                    v-model="adoptionForm.pet.specie"
+                                    class="lp-select">
+                                <option v-for="specie in species"
+                                        :key="specie.id"
+                                        :value="specie"
+                                        v-text="specie.display_name"
+                                ></option>
+                            </select>
+                        </div>
                         <p v-if="errors.specie_id"
                            v-text="errors.specie_id[0]"
                            class="text-red-500 font-medium"
@@ -58,28 +71,37 @@
                     </div>
 
                     <div class="col-span-6 sm:col-span-2">
-                        <label for="country" class="block text-sm font-medium text-gray-700">Género:</label>
-                        <select id="country"
-                                v-model="adoptionForm.pet.gender"
-                                class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                :class="errors.gender ? 'border-2 border-red-400' : ''">
-                            <option value="female">Chica (hembra)</option>
-                            <option value="male">Chico (macho)</option>
-                        </select>
+                        <label for="country" class="block text-sm font-medium text-gray-700">
+                            <strong class="required">*</strong>
+                            Género
+                        </label>
+                        <div class="mt-1">
+                            <select id="country"
+                                    v-model="adoptionForm.pet.gender"
+                                    class="lp-select"
+                                    :class="errors.gender ? 'border-2 border-red-400' : ''">
+                                <option value="female">Chica (hembra)</option>
+                                <option value="male">Chico (macho)</option>
+                            </select>
+                        </div>
                         <p v-if="errors.gender"
                            v-text="errors.gender[0]"
                            class="text-red-500 font-medium"
                         ></p>
                     </div>
 
+                    <!--Age-->
                     <div class="col-span-6 sm:col-span-2">
-                        <label for="age" class="block text-sm font-medium text-gray-700">Mi Edad:</label>
+                        <label for="age" class="block text-sm font-medium text-gray-700">
+                            Mi Edad
+                            <span class="optional">(opcional)</span>
+                        </label>
                         <div class="mt-1 relative rounded-md shadow-sm">
                             <div class="absolute inset-y-0 left-0 flex items-center">
                                 <label for="age_range" class="sr-only">Age range</label>
                                 <select id="age_range"
                                         v-model="adoptionForm.pet.ageRange"
-                                        class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-3 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                                        class="focus:ring-cyan-500 focus:border-cyan-500 h-full py-0 pl-3 pr-7 border border-cyan-200 text-gray-500 sm:text-sm rounded-md"
                                         :class="errors.age_range ? 'border-2 border-red-400' : ''">
                                     <option value="días">Días</option>
                                     <option value="semanas">Semanas</option>
@@ -90,7 +112,7 @@
                             <input type="number"
                                    v-model="adoptionForm.pet.age"
                                    id="age"
-                                   class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-28 sm:text-sm border-gray-300 rounded-md"
+                                   class="focus:ring-cyan-500 focus:border-cyan-500 border border-cyan-200 block w-full pl-28 sm:text-sm border-gray-300 rounded-md"
                                    :class="errors.age ? 'border-2 border-red-400' : ''">
                         </div>
                         <p v-if="errors.age"
@@ -103,30 +125,42 @@
                         ></p>
                     </div>
 
+                    <!--Size-->
                     <div class="col-span-6 sm:col-span-2">
-                        <label for="size" class="block text-sm font-medium text-gray-700">De Tamaño</label>
-                        <select id="size"
-                                v-model="adoptionForm.pet.size"
-                                class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                :class="errors.size ? 'border-2 border-red-400' : ''">
-                            <option value="Miniatura">Miniatura</option>
-                            <option value="Pequeño">Pequeño</option>
-                            <option value="Mediano">Mediano</option>
-                            <option value="Grande">Grande</option>
-                        </select>
+                        <label for="size" class="block text-sm font-medium text-gray-700">
+                            <strong class="required">*</strong>
+                            De Tamaño
+                        </label>
+                        <div class="mt-1">
+                            <select id="size"
+                                    v-model="adoptionForm.pet.size"
+                                    class="lp-select"
+                                    :class="errors.size ? 'border-2 border-red-400' : ''">
+                                <option value="Miniatura">Miniatura</option>
+                                <option value="Pequeño">Pequeño</option>
+                                <option value="Mediano">Mediano</option>
+                                <option value="Grande">Grande</option>
+                            </select>
+                        </div>
                         <p v-if="errors.size"
                            v-text="errors.size[0]"
                            class="text-red-500 font-medium"
                         ></p>
                     </div>
 
+                    <!--Phone-->
                     <div class="col-span-6 sm:col-span-2">
-                        <label for="size" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                        <input type="text"
-                               v-model="adoptionForm.phone"
-                               id="phone"
-                               class="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                               :class="errors.phone ? 'border-2 border-red-400' : ''">
+                        <label for="size" class="block text-sm font-medium text-gray-700">
+                            Teléfono
+                            <span class="optional">(opcional)</span>
+                        </label>
+                        <div class="mt-1">
+                            <input type="text"
+                                   v-model="adoptionForm.phone"
+                                   id="phone"
+                                   class="lp-input"
+                                   :class="errors.phone ? 'border-2 border-red-400' : ''">
+                        </div>
                         <p v-if="errors.phone"
                            v-text="errors.phone[0]"
                            class="text-red-500 font-medium"
@@ -137,13 +171,13 @@
                         <div>
                             <label for="bio" class="block text-sm font-medium text-gray-700">
                                 Cuéntanos sobre
+                                <span class="optional">(opcional)</span>
                             </label>
                             <div class="mt-1">
                                 <textarea id="bio"
                                           v-model="adoptionForm.bio"
                                           rows="3"
-                                          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                          :placeholder="adoptionForm.pet.name ? `${adoptionForm.pet.name} es muy carinoso y ...` : ''"
+                                          class="lp-input"
                                 ></textarea>
                             </div>
                             <p v-if="adoptionForm.pet.name" class="mt-2 text-sm text-gray-500">
@@ -156,13 +190,13 @@
                         <div>
                             <label for="story" class="block text-sm font-medium text-gray-700">
                                 Su Historia
+                                <span class="optional">(opcional)</span>
                             </label>
                             <div class="mt-1">
                                 <textarea id="story"
                                           v-model="adoptionForm.story"
                                           rows="3"
-                                          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                          :placeholder="`Cuantanos un poco sobre la historia de ${adoptionForm.pet.name}.`"
+                                          class="lp-input"
                                 ></textarea>
                             </div>
                             <p v-if="adoptionForm.pet.name" class="mt-2 text-sm text-gray-500">
@@ -177,7 +211,7 @@
                 <button type="submit"
                         @click="store"
                         :disabled="isLoading"
-                        class="btn text-lg font-medium hover:bg-cyan-500 hover:text-white hover:font-semibold">
+                        class="lp-btn-success">
                     Guardar
                 </button>
             </div>

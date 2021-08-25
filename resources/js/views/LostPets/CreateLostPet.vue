@@ -4,17 +4,6 @@
         <form @submit.prevent>
             <div class="space-y-4 ">
                 <div v-if="! postTypeTab" class="w-full md:w-2/3 lg:-mx-2 lg:flex lg:justify-between lg:justify-center align-middle items-center">
-<!--                    <div @click="postTypeTab = 'owner'"
-                         class="lg:mx-2 bg-white shadow sm:rounded-md h-32 w-full text-center items-center align-middle rounded-lg shadow-md py-4 px-6 text-2xl font-medium cursor-pointer"
-                         :class="[postTypeTab === 'owner' ? 'border-2 border-cyan-200 text-cyan-400' : 'text-gray-700 border border-gray-200 hover:bg-gray-50 hover:text-cyan-400 hover:font-semibold hover:shadow-inner']">
-                        <span class="items-center align-middle my-auto">Dueños buscando su mascota</span>
-                    </div>
-                    <div @click="postTypeTab = 'rescuer'"
-                         class="lg:mx-2 bg-white shadow sm:rounded-md h-32 w-full text-center items-center align-middle rounded-lg shadow-md py-4 px-6 text-2xl font-medium cursor-pointer"
-                         :class="[postTypeTab === 'rescuer' ? 'border-2 border-cyan-200 text-cyan-400' : 'text-gray-700 border border-gray-200 hover:bg-gray-50 hover:text-cyan-400 hover:font-semibold hover:shadow-inner']">
-                        <span class="items-center align-middle my-auto">Encontre una mascota</span>
-                    </div>-->
-
                     <!--Owner-->
                     <div @click="postTypeTab = 'owner'"
                          class="lg:mx-2 bg-white shadow-lg rounded-xl cursor-pointer hover:bg-gray-50 active:bg-gray-50 active:shadow-inner hover:shadow-inner transition hover:transform active:transform">
@@ -78,11 +67,16 @@
                         <div class="mt-4 grid grid-cols-6 gap-6">
 
                             <div class="col-span-6 sm:col-span-2">
-                                <label for="name" class="block text-sm font-medium text-gray-700">Me llamo:</label>
-                                <input type="text"
-                                       v-model="lostPetForm.pet.name"
-                                       id="name"
-                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <label for="name" class="block text-sm font-medium text-gray-700">
+                                    <strong class="required">*</strong>
+                                    Me llamo
+                                </label>
+                                <div class="mt-1">
+                                    <input type="text"
+                                           v-model="lostPetForm.pet.name"
+                                           id="name"
+                                           class="lp-input">
+                                </div>
                                 <p v-if="errors.name"
                                    v-text="errors.name[0]"
                                    class="text-red-500 font-medium"
@@ -90,16 +84,21 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-2">
-                                <label for="specie_id" class="block text-sm font-medium text-gray-700">Especie</label>
-                                <select id="specie_id"
-                                        v-model="lostPetForm.pet.specie"
-                                        class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option v-for="specie in species"
-                                            :key="specie.id"
-                                            :value="specie"
-                                            v-text="specie.display_name"
-                                    ></option>
-                                </select>
+                                <label for="specie_id" class="block text-sm font-medium text-gray-700">
+                                    <strong class="required">*</strong>
+                                    Especie
+                                </label>
+                                <div class="mt-1">
+                                    <select id="specie_id"
+                                            v-model="lostPetForm.pet.specie"
+                                            class="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm">
+                                        <option v-for="specie in species"
+                                                :key="specie.id"
+                                                :value="specie"
+                                                v-text="specie.display_name"
+                                        ></option>
+                                    </select>
+                                </div>
                                 <p v-if="errors.specie_id"
                                    v-text="errors.specie_id[0]"
                                    class="text-red-500 font-medium"
@@ -107,13 +106,18 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-2">
-                                <label for="country" class="block text-sm font-medium text-gray-700">Genero:</label>
-                                <select id="country"
-                                        v-model="lostPetForm.pet.gender"
-                                        class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="female">Chica (hembra)</option>
-                                    <option value="male">Chico (macho)</option>
-                                </select>
+                                <label for="country" class="block text-sm font-medium text-gray-700">
+                                    <strong class="required">*</strong>
+                                    Genero
+                                </label>
+                                <div class="mt-1">
+                                    <select id="country"
+                                            v-model="lostPetForm.pet.gender"
+                                            class="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm">
+                                        <option value="female">Chica (hembra)</option>
+                                        <option value="male">Chico (macho)</option>
+                                    </select>
+                                </div>
                                 <p v-if="errors.gender"
                                    v-text="errors.gender[0]"
                                    class="text-red-500 font-medium"
@@ -121,13 +125,13 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-2">
-                                <label for="age" class="block text-sm font-medium text-gray-700">Mi Edad:</label>
+                                <label for="age" class="block text-sm font-medium text-gray-700">Mi Edad</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 flex items-center">
                                         <label for="age_range" class="sr-only">Age range</label>
                                         <select id="age_range"
                                                 v-model="lostPetForm.pet.ageRange"
-                                                class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-3 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                                                class="h-full py-0 pl-3 pr-7 text-gray-500 sm:text-sm rounded-md outline-none border border-cyan-200 focus:outline-none focus:ring focus:ring-cyan-500 focus:shadow focus:border-none"
                                                 :class="errors.age_range ? 'border-2 border-red-400' : ''">
                                             <option value="días">Días</option>
                                             <option value="semanas">Semanas</option>
@@ -138,7 +142,7 @@
                                     <input type="number"
                                            v-model="lostPetForm.pet.age"
                                            id="age"
-                                           class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-28 sm:text-sm border-gray-300 rounded-md"
+                                           class="block w-full pl-28 sm:text-sm rounded-md outline-none border border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:shadow focus:border-none"
                                            :class="errors.age ? 'border-2 border-red-400' : ''">
                                 </div>
                                 <p v-if="errors.age"
@@ -152,15 +156,20 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-2">
-                                <label for="size" class="block text-sm font-medium text-gray-700">De Tamaño</label>
-                                <select id="size"
-                                        v-model="lostPetForm.pet.size"
-                                        class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="Miniatura">Miniatura</option>
-                                    <option value="Pequeño">Pequeño</option>
-                                    <option value="Mediano">Mediano</option>
-                                    <option value="Grande">Grande</option>
-                                </select>
+                                <label for="size" class="block text-sm font-medium text-gray-700">
+                                    <strong class="required">*</strong>
+                                    Tamaño
+                                </label>
+                                <div class="mt-1">
+                                    <select id="size"
+                                            v-model="lostPetForm.pet.size"
+                                            class="lp-select">
+                                        <option value="Miniatura">Miniatura</option>
+                                        <option value="Pequeño">Pequeño</option>
+                                        <option value="Mediano">Mediano</option>
+                                        <option value="Grande">Grande</option>
+                                    </select>
+                                </div>
                                 <p v-if="errors.size"
                                    v-text="errors.size[0]"
                                    class="text-red-500 font-medium"
@@ -169,10 +178,12 @@
 
                             <div class="col-span-6 sm:col-span-2">
                                 <label for="phone" class="block text-sm font-medium text-gray-700">Contacto</label>
-                                <input type="text"
-                                       v-model="lostPetForm.phone"
-                                       id="phone"
-                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <div class="mt-1">
+                                    <input type="text"
+                                           v-model="lostPetForm.phone"
+                                           id="phone"
+                                           class="lp-input">
+                                </div>
                                 <p v-if="errors.phone"
                                    v-text="errors.phone[0]"
                                    class="text-red-500 font-medium"
@@ -183,10 +194,12 @@
                                 <label for="lost_at" class="block text-sm font-medium text-gray-700">
                                     Me perdi el (Fecha y hora de extravio)
                                 </label>
-                                <input type="datetime-local"
-                                       v-model="lostPetForm.lostAt"
-                                       id="lost_at"
-                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <div class="mt-1">
+                                    <input type="datetime-local"
+                                           v-model="lostPetForm.lostAt"
+                                           id="lost_at"
+                                           class="lp-input">
+                                </div>
                                 <p v-if="errors.lost_at"
                                    v-text="errors.lost_at[0]"
                                    class="text-red-500 font-medium"
@@ -196,11 +209,14 @@
                             <div v-if="postTypeTab === 'rescuer'" class="col-span-6 sm:col-span-2">
                                 <label for="rescued_at" class="block text-sm font-medium text-gray-700">
                                     Me encontraron el (Fecha y hora de rescate)
+                                    <strong class="required">*</strong>
                                 </label>
-                                <input type="datetime-local"
-                                       v-model="lostPetForm.rescuedAt"
-                                       id="rescued_at"
-                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <div class="mt-1">
+                                    <input type="datetime-local"
+                                           v-model="lostPetForm.rescuedAt"
+                                           id="rescued_at"
+                                           class="lp-input">
+                                </div>
                                 <p v-if="errors.rescued_at"
                                    v-text="errors.rescued_at[0]"
                                    class="text-red-500 font-medium"
@@ -216,7 +232,7 @@
                                 <textarea id="bio"
                                           v-model="lostPetForm.bio"
                                           rows="3"
-                                          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                          class="lp-input"
                                           :placeholder="[lostPetForm.pet.name ? `${lostPetForm.pet.name} tiene una mancha en el ojo izquierdo y ...` : '']"
                                 ></textarea>
                                     </div>
@@ -232,7 +248,7 @@
                         <button type="submit"
                                 @click="store"
                                 :disabled="isLoading"
-                                class="btn text-lg font-medium hover:bg-cyan-500 hover:text-white hover:font-semibold">
+                                class="lp-btn-success">
                             Guardar
                         </button>
                     </div>

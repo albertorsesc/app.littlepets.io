@@ -30,7 +30,7 @@
                                     </dl>
                                 </div>
                             </div>
-                            <div class="md:flex items-center align-middle lg:space-x-3 lg:ml-24 lg:-mb-8 mt-3 lg:mt-0">
+                            <div class="md:flex lg:ml-24 items-center align-middle lg:-mb-8 lg:space-x-3 mt-3 lg:mt-2">
                                 <a @click="activeTab = 'explore-adoptions'"
                                    href="#"
                                    class="text-cyan-500 text-lg md:text-base hover:text-cyan-700 border-cyan-300 mx-1"

@@ -162,7 +162,7 @@ export default {
                 .put(`/adoptions/${this.localAdoption.uuid}/adopted`)
                 .then(response => {
                     this.localAdoption.meta.adoptedAt = response.data
-                    let adopted = this.localAdoption.meta.adoptedAt ? 'Adoptad@' : 'Sin Adoptar'
+                    let adopted = this.localAdoption.meta.adoptedAt ? 'Adoptado' : 'Disponible'
                     SweetAlert.success(`Marcado como: ${adopted}`)
                     this.isLoading = false
                 })
