@@ -49,6 +49,7 @@ class AuthServiceProvider extends ServiceProvider
                 now()->addMinutes(60),
                 ['id' => $notifiable->id, 'hash' => sha1($notifiable->email)]
             );
+
             return (new MailMessage)
                 ->subject('[LittlePets.io] Correo Electrónico de verificación')
                 ->greeting('Bienvenido a LittlePets.io!')

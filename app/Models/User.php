@@ -108,6 +108,17 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Route notifications for the Slack channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return string
+     */
+    public function routeNotificationForSlack($notification) : string
+    {
+        return config('logging.channels.slack.url');
+    }
+
+    /**
      * Send a password reset notification to the user.
      *
      * @param  string  $token

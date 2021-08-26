@@ -30,12 +30,21 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
-        return User::create([
+        $newUser = User::create([
             'first_name' => $input['first_name'],
             'last_name' => $input['last_name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        \Log::info(
+            'Nuevo Usuario!: ' . PHP_EOL .
+            'Nombre: ' . $newUser->fullName() . '**' . PHP_EOL .
+            'Email: ' . $newUser->email . '**' . PHP_EOL .
+            'Verificado: ' . false
+        );
+
+        return $newUser;
 
         /*return DB::transaction(function () use ($input) {
             return tap(User::create([
