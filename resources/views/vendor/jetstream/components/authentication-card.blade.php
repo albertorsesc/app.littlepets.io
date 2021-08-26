@@ -88,7 +88,7 @@
     </div>
     <div class="hidden lg:block relative w-0 flex-1 shadow-md">
         <img class="absolute inset-0 h-full w-full object-cover"
-             src="https://scontent-lax3-1.xx.fbcdn.net/v/t1.6435-9/220754781_118240240522287_6318266176017699850_n.png?_nc_cat=110&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeExqAuxLBf8-xbuywOEtx0hHZ1nnMtEUwkdnWecy0RTCfw35Nz-sjXjl021dpY1A8l2OZ-dY6GIPub6TZlccBqK&_nc_ohc=Z7aJjcgL6k0AX--iO_4&_nc_ht=scontent-lax3-1.xx&oh=019bcbaaa0fc8c345ca8e1f84e00bfce&oe=6125669C" alt="">
+             src="/img/littlepets_profile.png" alt="">
     </div>
 </div>
 
