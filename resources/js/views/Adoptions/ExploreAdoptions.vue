@@ -89,17 +89,17 @@
             </li>
         </ul>
         <!--Banner-->
-        <div v-else class="w-2/3 my-8">
+        <div v-else class="w-full lg:w-2/3 my-4 lg:my-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mx-auto flex justify-center">
-                    <h2 class="text-gray-700 text-2xl font-medium w-2/3 mb-8 text-justify">
+                    <h2 class="text-gray-700 text-2xl font-medium w-full lg:w-2/3 mb-0 lg:mb-8 text-center lg:text-justify">
                         Registra una <span class="text-cyan-500">adopción</span> en
-                        <span class="text-cyan-500">"Mis Adopciones"</span> <br>y
+                        <span class="text-cyan-500">"Mis Adopciones"</span> <br class="hidden md:block">y
                         encontremos un hogar digno para tu mascota.
                     </h2>
                 </div>
-                <div class="max-w-3xl mx-auto">
-                    <img src="/img/dog_with_home.svg" class="h-96 w-auto" alt="">
+                <div class="max-w-3xl mx-auto mt-6 md:mt-0">
+                    <img src="/img/dog_with_home.svg" class="h-auto md:h-96 w-auto" alt="">
                 </div>
             </div>
         </div>

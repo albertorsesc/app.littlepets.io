@@ -33,7 +33,7 @@
                     </div>
 
                     <!--Services-->
-                    <div class="col-span-6 sm:col-span-2 md:col-span-6 lg:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="services" class="block text-sm font-medium text-gray-700">
                             Servicios
                             <strong class="required">*</strong>
@@ -63,7 +63,7 @@
                     </div>
 
                     <!--Specialty-->
-                    <div class="col-span-6 sm:col-span-2 md:col-span-6 lg:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="specialty" class="block text-sm font-medium text-gray-700">
                             Especialidad
                             <span class="optional">(opcional)</span>
@@ -82,7 +82,7 @@
                     </div>
 
                     <!--Phone-->
-                    <div class="col-span-6 sm:col-span-2 md:col-span-6 lg:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="phone" class="block text-sm font-medium text-gray-700">
                             Teléfono
                             <strong class="required">*</strong>
@@ -101,7 +101,7 @@
                     </div>
 
                     <!--Email-->
-                    <div class="col-span-6 sm:col-span-2 md:col-span-6 lg:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="email" class="block text-sm font-medium text-gray-700">
                             Correo Electrónico
                             <span class="optional">(opcional)</span>
@@ -120,7 +120,7 @@
                     </div>
 
                     <!--Facebook-->
-                    <div class="col-span-6 sm:col-span-2 md:col-span-6 lg:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="facebook_profile" class="block text-sm font-medium text-gray-700">
                             Perfil de Facebook
                             <span class="optional">(opcional)</span>
@@ -139,7 +139,7 @@
                     </div>
 
                     <!--Site-->
-                    <div class="col-span-6 sm:col-span-2 md:col-span-6 lg:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="site" class="block text-sm font-medium text-gray-700">
                             Sitio Web
                             <span class="optional">(opcional)</span>
@@ -158,7 +158,7 @@
                     </div>
 
                     <!--OpenAtNight-->
-                    <div class="col-span-6 sm:col-span-2 md:col-span-6 lg:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <div class="relative flex items-start items-center mt-2">
                             <div class="flex items-center h-5">
                                 <input id="is_open_at_night"
@@ -182,7 +182,7 @@
                         ></p>
                     </div>
 
-                    <div class="col-span-6 sm:col-span-4 md:col-span-6 lg:col-span-4">
+                    <div class="col-span-6 ">
                         <div>
                             <label for="about" class="block text-sm font-medium text-gray-700">
                                 Comentarios

@@ -13,6 +13,11 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'facebook' => [
+        'client_id' => env('FACEBOOK_ID'),
+        'client_secret' => env('FACEBOOK_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT_URL'),
+    ],
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
@@ -28,6 +33,12 @@ return [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+    ],
+
+    /* Services supported for Social Media Login */
+    'login_services' => [
+        'facebook',
+        'google',
     ],
 
 ];

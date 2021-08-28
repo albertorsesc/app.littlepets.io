@@ -13,16 +13,16 @@
         </ul>
         <div v-else
              v-cloak
-             class="w-2/3 my-8">
+             class="w-full lg:w-2/3 my-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mx-auto flex justify-center">
-                    <h2 class="text-gray-700 text-2xl font-medium w-2/3 mb-8 text-center">
-                        Registra tu <span class="text-cyan-500">veterinaria</span> en <br>
+                    <h2 class="text-gray-700 text-2xl font-medium w-full lg:w-2/3 mb-8 text-center">
+                        Registra tu <span class="text-cyan-500">veterinaria</span> en <br class="hidden md:block">
                         <span class="text-cyan-500">"Mis Veterinarias"</span> y deja que tus pacientes te encuentren en un solo lugar.
                     </h2>
                 </div>
                 <div class="max-w-3xl mx-auto flex justify-center">
-                    <img src="/img/vets.svg" class="h-96 w-auto" alt="">
+                    <img src="/img/vets.svg" class="h-auto lg:h-96 w-auto" alt="">
                 </div>
             </div>
         </div>

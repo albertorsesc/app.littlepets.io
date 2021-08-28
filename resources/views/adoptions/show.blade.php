@@ -20,8 +20,11 @@
                                 <div>
                                     {{--Title--}}
                                     <div class="flex items-center align-middle my-auto">
-                                        <h1 class="lg:ml-3 text-2xl font-medium leading-7 text-gray-900 sm:leading-9 sm:truncate">
+                                        <h1 class="hidden lg:block lg:ml-3 text-2xl font-medium leading-7 text-gray-900 sm:leading-9 sm:truncate">
                                             Hola! mi nombre es <span class="text-cyan-500 font-bold">@{{ localAdoption.pet.name }}</span>
+                                        </h1>
+                                        <h1 class="block lg:hidden lg:ml-3 text-2xl font-medium leading-7 text-gray-900 sm:leading-9 sm:truncate">
+                                            Hola! soy <span class="text-cyan-500 font-bold">@{{ localAdoption.pet.name }}</span>
                                         </h1>
                                     </div>
                                     <dl class="mt-2 lg:mt-2 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
@@ -460,7 +463,9 @@
                                         <ul id="comment-list"
                                             class="space-y-4 h-auto overflow-y-auto"
                                             :class="localAdoption.comments.length > 5 ? 'h-96' : 'h-auto'">
-                                            <li v-if="! localAdoption.comments.length">Sin comentarios</li>
+                                            <li v-if="! localAdoption.comments.length" class="text-center flex justify-center text-gray-400 font-semibold">
+                                                Dejanos tus comentarios
+                                            </li>
                                             <li v-for="comment in localAdoption.comments"
                                                 :key="comment.id">
                                                 <div class="flex space-x-3 my-2">

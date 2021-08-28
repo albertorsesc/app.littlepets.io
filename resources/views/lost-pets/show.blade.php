@@ -39,18 +39,20 @@
                                 </div>
                             </div>
                             @if(auth()->check() && $lostPet->pet->user->id === auth()->id())
-                                <div class="md:flex items-center align-middle mr-48 align-middle md:-mb-8 md:space-x-3 md:mt-0">
+                                <div class="flex items-center align-middle lg:mr-48 align-middle md:-mb-8 space-x-3 md:mt-0">
                                     {{--togglePetFound--}}
                                     <span class="rounded-md shadow-sm">
                                     <button @click="togglePetFound"
                                             type="button"
                                             class="btn btn-primary -mt-1 items-center flex shadow-sm justify-center w-full px-10 py-3 border border-gray-100 text-sm leading-5 font-medium rounded-md text-gray-600 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
                                             title="Marcar Publicación como Encontrad@...">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="hidden md:block h-6 w-6 text-pink-400 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
                                         </svg>
-                                        <span v-if="! localLostPet.meta.foundAt" class="ml-2 text-base">
-                                            Marcar como Encontrad@
+                                        <span v-if="! localLostPet.meta.foundAt"
+                                              class="ml-2 text-base">
+                                            <span class="hidden md:block">Marcar como Encontrad@</span>
+                                            <span class="block md:hidden">He sido Encontrad@</span>
                                         </span>
                                         <span v-else
                                               class="ml-2 text-base">
@@ -60,7 +62,7 @@
                                 </span>
                                     {{--OnDelete--}}
                                     <button @click="onDelete"
-                                            class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
+                                            class="mt-1 md:mt-0 inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150"
                                             title="Eliminar Publicación">
                                         <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                     </button>
@@ -68,7 +70,7 @@
                                     <report :model-id="localLostPet.uuid" model-name="lost-pets" inline-template>
                                         <div>
                                             <button @click="openModal('report')"
-                                                    class="inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150 -mt-2"
+                                                    class="mt-1 md:mt-0 inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150"
                                                     title="Reportar Publicación...">
                                                 <svg class="text-yellow-500 hover:text-yellow-600" width="25" height="25" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                                             </button>
@@ -510,7 +512,9 @@
                                         <ul id="comment-list"
                                             class="space-y-4 h-auto overflow-y-auto"
                                             :class="localLostPet.comments.length > 5 ? 'h-96' : 'h-auto'">
-                                            <li v-if="! localLostPet.comments.length">Sin comentarios</li>
+                                            <li v-if="! localLostPet.comments.length" class="text-center flex justify-center text-gray-400 font-semibold">
+                                                Dejanos tus comentarios
+                                            </li>
                                             <li v-for="comment in localLostPet.comments"
                                                 :key="comment.id">
                                                 <div class="flex space-x-3 my-2">

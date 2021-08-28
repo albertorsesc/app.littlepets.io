@@ -1,15 +1,19 @@
 <?php
 
-    use App\Http\Controllers\Api\Veterinaries\Actions\UploadLogoController;
     use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\Auth\SocialLoginController;
     use Illuminate\Foundation\Auth\EmailVerificationRequest;
     use App\Http\Controllers\Web\LostPets\LostPetController;
     use App\Http\Controllers\Web\Adoptions\AdoptionController;
     use App\Http\Controllers\Web\Veterinaries\VeterinaryController;
+    use App\Http\Controllers\Api\Veterinaries\Actions\UploadLogoController;
 
     Route::get('/', function () {
         return redirect()->route('home');
     });
+
+    Route::get('/oauth/login/{driver}/redirect', [SocialLoginController::class, 'redirectToProvider'])->name('social-login.redirect');
+    Route::get('/oauth/login/{driver}/callback', [SocialLoginController::class, 'handleProviderCallback'])->name('social-login.callback');
 
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();

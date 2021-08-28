@@ -30,7 +30,7 @@
                         ></p>
                     </div>
 
-                    <div class="col-span-6 sm:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="name" class="block text-sm font-medium text-gray-700">
                             <strong class="required">*</strong>
                             Me llamo
@@ -48,7 +48,7 @@
                         ></p>
                     </div>
 
-                    <div class="col-span-6 sm:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="specie_id" class="block text-sm font-medium text-gray-700">
                             <strong class="required">*</strong>
                             Especie
@@ -70,7 +70,7 @@
                         ></p>
                     </div>
 
-                    <div class="col-span-6 sm:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="country" class="block text-sm font-medium text-gray-700">
                             <strong class="required">*</strong>
                             Género
@@ -91,7 +91,7 @@
                     </div>
 
                     <!--Age-->
-                    <div class="col-span-6 sm:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="age" class="block text-sm font-medium text-gray-700">
                             Mi Edad
                             <span class="optional">(opcional)</span>
@@ -126,7 +126,7 @@
                     </div>
 
                     <!--Size-->
-                    <div class="col-span-6 sm:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="size" class="block text-sm font-medium text-gray-700">
                             <strong class="required">*</strong>
                             De Tamaño
@@ -149,7 +149,7 @@
                     </div>
 
                     <!--Phone-->
-                    <div class="col-span-6 sm:col-span-2">
+                    <div class="col-span-6 md:col-span-2">
                         <label for="size" class="block text-sm font-medium text-gray-700">
                             Teléfono
                             <span class="optional">(opcional)</span>

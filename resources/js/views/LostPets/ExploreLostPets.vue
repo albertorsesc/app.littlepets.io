@@ -115,17 +115,17 @@
                 </a>
             </li>
         </ul>
-        <div v-else class="w-2/3 my-8">
+        <div v-else class="w-full lg:w-2/3 mt-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mx-auto flex justify-center">
-                    <h2 class="text-gray-700 text-2xl font-medium w-2/3 mb-8 text-center">
-                        Publica una <span class="text-cyan-500">mascota extraviada</span> en <br>
+                    <h2 class="text-gray-700 text-2xl font-medium w-full md:w-2/3 mb-8 text-center lg:text-justify">
+                        Publica una <span class="text-cyan-500">mascota extraviada</span> en <br class="hidden md:block">
                         <span class="text-cyan-500">"Mis Mascotas Registradas"</span> y
-                        encontremos juntos a su humano.
+                        juntos encontremos a su humano.
                     </h2>
                 </div>
                 <div class="max-w-3xl mx-auto flex justify-center">
-                    <img src="/img/pet_found_its_human.svg" class="h-96 w-auto" alt="">
+                    <img src="/img/pet_found_its_human.svg" class="h-auto lg:h-96 w-auto" alt="">
                 </div>
             </div>
         </div>

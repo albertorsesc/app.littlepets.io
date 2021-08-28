@@ -123,8 +123,8 @@
 
             <main class="w-full">
                 <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-                    <div class="w-full lg:w-2/3 py-6 sm:px-0">
-                        <div class="w-full lg:w-2/3">
+                    <div class="w-full xl:w-2/3 py-6 sm:px-0">
+                        <div class="w-full xl:w-2/3">
                             <alert v-if="localVeterinary.user.id === auth && ! localVeterinary.location"
                                    :type="'warning'">
                                 Para Publicar la veterinaria es necesario registrar su Dirección

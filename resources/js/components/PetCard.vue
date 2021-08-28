@@ -54,6 +54,12 @@
                     </div>
                 </div>
                 <div class="flex justify-center pb-2 border-t border-gray-200"></div>
+                <p v-if="! localData.location"
+                   class="mt-2 text-sm text-gray-600">
+                    <span class="rounded-full p-2 bg-yellow-100 ring-yellow-200 text-yellow-700 text-xs p-1">
+                        La Ubicación es requerida.
+                    </span>
+                </p>
 <!--                <div class="flex justify-start text-sm font-medium items-center align-middle">
                     <div class="flex items-center">
                         <div class="bg-white py-2 px-3 shadow-sm tracking-wide border text-gray-600 rounded-full inline-flex items-center space-x-1">

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="items-center flex justify-start w-1/6" v-cloak>
-            <button @click="showForm = ! showForm" class="btn py-4 btn-primary">
+        <div class="items-center flex justify-start w-full" v-cloak>
+            <button @click="showForm = ! showForm" class="lp-btn py-4">
                 <span v-if="! showForm">Registra una nueva veterinaria</span>
                 <span v-if="showForm">Regresar</span>
             </button>
