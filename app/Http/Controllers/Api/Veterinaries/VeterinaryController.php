@@ -15,7 +15,8 @@ class VeterinaryController extends Controller
     public function index() : AnonymousResourceCollection
     {
         return VeterinaryResource::collection(
-            Veterinary::isPublished()
+            Veterinary::query()
+                      ->isPublished()
                       ->with([
                           'user',
                           'location.state',

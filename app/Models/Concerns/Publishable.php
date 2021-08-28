@@ -32,6 +32,6 @@ trait Publishable
 
     public function unpublish ()
     {
-        $this->update(['status' => false]);
+        $this->update(['published_at' => null]);
     }
 }
