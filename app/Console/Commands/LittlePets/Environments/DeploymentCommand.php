@@ -48,6 +48,8 @@ class DeploymentCommand extends Command
 
         $this->newLine();
 
+        $this->call('migrate', ['--force']);
+
         $this->line('<green>-- Installing Composer Dependencies --</green>');
         exec('composer install --no-interaction --prefer-dist --optimize-autoloader');
         exec('composer dump-autoload');
