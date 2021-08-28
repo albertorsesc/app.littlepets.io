@@ -60,6 +60,7 @@ class SocialLoginController extends Controller
             return redirect('inicio');
 
         } catch (\Exception $exception) {
+            logger()->error($exception);
             return redirect('login')->with('error', 'Algo sucedió, también puedes registrarte para iniciar sesión.');
         }
     }
