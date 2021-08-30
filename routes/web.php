@@ -1,6 +1,7 @@
 <?php
 
     use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\SuggestionController;
     use App\Http\Controllers\Auth\SocialLoginController;
     use Illuminate\Foundation\Auth\EmailVerificationRequest;
     use App\Http\Controllers\Web\LostPets\LostPetController;
@@ -38,6 +39,9 @@
             'veterinaries/{veterinary:slug}/image',
             UploadLogoController::class
         )->name('veterinaries.logo.store');
+
+        Route::view('sugerencias', 'suggestions')->name('web.suggestions.index');
+        Route::post('suggestions', SuggestionController::class)->name('suggestions.store');
 
     });
 
