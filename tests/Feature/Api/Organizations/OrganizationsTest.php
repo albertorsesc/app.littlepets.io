@@ -6,20 +6,16 @@ use Tests\TestCase;
 use App\Models\Organizations\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-
 class OrganizationsTest extends TestCase
 {
     use RefreshDatabase;
 
     private string $routePrefix = 'api.organizations.';
-
     /**
      * @test
      */
     public function authenticated_user_can_get_all_organizations()
     {
-        $this->withoutExceptionHandling();
-
         $this->signIn();
 
         $organization = $this->create(Organization::class);
@@ -34,10 +30,9 @@ class OrganizationsTest extends TestCase
                     'phone' => $organization->phone,
                     'facebook_profile' => $organization->facebook_profile,
                     'about' => $organization->about,
-                    'capacity' => $organization->capacity,
+                    'animal_capacity' => $organization->animal_capacity,
                 ],
             ]
         ]);
-
     }
 }

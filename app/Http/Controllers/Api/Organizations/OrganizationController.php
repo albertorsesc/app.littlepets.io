@@ -14,6 +14,5 @@ class OrganizationController extends Controller
         return response()->json([
             'data' => Organization::query()->latest()->get()
         ]);
-
     }
 }

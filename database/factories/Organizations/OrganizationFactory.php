@@ -5,7 +5,6 @@ namespace Database\Factories\Organizations;
 use App\Models\Organizations\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-
 class OrganizationFactory extends Factory
 {
     /**
@@ -14,7 +13,6 @@ class OrganizationFactory extends Factory
      * @var string
      */
     protected $model = Organization::class;
-
     /**
      * Define the model's default state.
      *
@@ -27,7 +25,7 @@ class OrganizationFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'facebook_profile' => $this->faker->url,
             'about' => $this->faker->paragraph,
-            'capacity' => $this->faker->numberBetween(10, 1000),
+            'animal_capacity' => $this->faker->numberBetween(10, 1000),
         ];
     }
 }

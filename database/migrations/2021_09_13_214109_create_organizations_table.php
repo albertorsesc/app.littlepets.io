@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateOrganizationsTable extends Migration
 {
@@ -15,15 +15,14 @@ class CreateOrganizationsTable extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('phone');
-            $table->string('facebook_profile');
-            $table->string('about');
-            $table->string('capacity');
+            $table->string('name',255);
+            $table->string('phone',50);
+            $table->string('facebook_profile',255);
+            $table->text('about');
+            $table->unsignedInteger('animal_capacity');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
