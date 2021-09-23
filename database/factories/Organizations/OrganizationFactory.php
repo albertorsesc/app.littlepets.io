@@ -25,7 +25,7 @@ class OrganizationFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'facebook_profile' => $this->faker->url,
             'about' => $this->faker->paragraph,
-            'animal_capacity' => $this->faker->numberBetween(10, 1000),
+            'animal_capacity' => $this->faker->biasedNumberBetween(1, 100),
         ];
     }
 }

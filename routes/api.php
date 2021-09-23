@@ -95,4 +95,5 @@ use App\Http\Controllers\Api\Sepomex\NeighborhoodByCityController;
 
         /* Organizations */
         Route::get('organizations', [OrganizationController::class, 'index'])->name('api.organizations.index');
+        Route::post('organizations', [OrganizationController::class, 'store'])->name('api.organizations.store');
     });

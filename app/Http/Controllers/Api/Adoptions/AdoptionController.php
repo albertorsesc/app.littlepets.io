@@ -16,13 +16,13 @@ class AdoptionController extends Controller
     {
         return AdoptionResource::collection(
             Adoption::isPublished()
-                    ->with([
-                        'pet.media',
-                        'pet.specie',
-                        'location.state',
-                        'pet.user:id,first_name,last_name,email',
-                    ])->latest()
-                    ->get()
+                ->with([
+                    'pet.media',
+                    'pet.specie',
+                    'location.state',
+                    'pet.user:id,first_name,last_name,email',
+                ])->latest()
+                ->get()
         );
     }
 

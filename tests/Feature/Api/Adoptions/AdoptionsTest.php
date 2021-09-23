@@ -60,7 +60,7 @@ class AdoptionsTest extends AdoptionTestCase
 
         $response = $this->postJson(
             route($this->routePrefix . 'store'),
-            $this->getAdoptionData($adoption)
+            $this->getAdoptionData($adoption, ['title' => $adoption->title])
         );
         $response->assertCreated();
         $response->assertJson([

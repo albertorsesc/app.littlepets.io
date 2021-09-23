@@ -11,6 +11,7 @@ class OrganizationsTest extends TestCase
     use RefreshDatabase;
 
     private string $routePrefix = 'api.organizations.';
+
     /**
      * @test
      */
@@ -35,4 +36,26 @@ class OrganizationsTest extends TestCase
             ]
         ]);
     }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+
+    public function authenticated_user_can_store_an_organization()
+    {
+        $this->signIn();
+
+        $organization = $this->make(Organization::class);
+
+        $response = $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        );
+        $response->assertCreated();
+        $response->assertJson([
+            'data' => ['name' => $organization->name]
+        ]);
+    }
 }
+
