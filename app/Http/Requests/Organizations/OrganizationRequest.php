@@ -26,9 +26,8 @@ class OrganizationRequest extends FormRequest
         return [
             'name' => ['required', 'max:100'],
             'phone' => ['required', 'max:50'],
-            'facebook_profile' => ['max:255'],
-            'about' => ['max:255'],
-            'animal_capacity' => ['required', 'gt:0'],
+            'facebook_profile' => ['url','max:255'],
+            'animal_capacity' => ['integer', 'gt:0']
         ];
     }
 }

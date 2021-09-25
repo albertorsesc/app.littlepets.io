@@ -19,7 +19,6 @@ class VeterinaryTest extends TestCase
      * @test
     */
     public function veterinary_belongs_to_user()
-
     {
         $this->signIn();
         $veterinary = $this->create(Veterinary::class);

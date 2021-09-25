@@ -9,7 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrganizationRequestTest extends TestCase
 {
-
     use RefreshDatabase;
 
     private string $routePrefix = 'api.organizations.';
@@ -96,10 +95,10 @@ class OrganizationRequestTest extends TestCase
      * @test
      * @throws \Throwable
      */
-    public function facebook_profile_must_not_exceed_255_characters()
+    public function facebook_profile_must_be_url()
     {
         $validatedField = 'facebook_profile';
-        $brokenRule = Str::random(256);
+        $brokenRule = 'no-url';
         $organization = $this->make(Organization::class, [
             $validatedField => $brokenRule
         ]);
@@ -114,9 +113,9 @@ class OrganizationRequestTest extends TestCase
      * @test
      * @throws \Throwable
      */
-    public function about_must_not_exceed_255_characters()
+    public function facebook_profile_must_not_exceed_255_characters()
     {
-        $validatedField = 'about';
+        $validatedField = 'facebook_profile';
         $brokenRule = Str::random(256);
         $organization = $this->make(Organization::class, [
             $validatedField => $brokenRule
@@ -136,6 +135,24 @@ class OrganizationRequestTest extends TestCase
     {
         $validatedField = 'animal_capacity';
         $brokenRule = 0;
+        $organization = $this->make(Organization::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function animal_capacity_must_be_an_integer()
+    {
+        $validatedField = 'animal_capacity';
+        $brokenRule = 'hello';
         $organization = $this->make(Organization::class, [
             $validatedField => $brokenRule
         ]);
