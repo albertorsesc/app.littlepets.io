@@ -131,6 +131,24 @@ class OrganizationRequestTest extends TestCase
      * @test
      * @throws \Throwable
      */
+    public function animal_capacity_is_required()
+    {
+        $validatedField = 'animal_capacity';
+        $brokenRule = null;
+        $organization = $this->make(Organization::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
     public function animal_capacity_must_be_greater_than_0()
     {
         $validatedField = 'animal_capacity';
