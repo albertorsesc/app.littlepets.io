@@ -97,4 +97,5 @@ use App\Http\Controllers\Api\Sepomex\NeighborhoodByCityController;
         Route::get('organizations', [OrganizationController::class, 'index'])->name('api.organizations.index');
         Route::post('organizations', [OrganizationController::class, 'store'])->name('api.organizations.store');
         Route::put('organizations/{organization}', [OrganizationController::class, 'update'])->name('api.organizations.update');
+        Route::delete('organizations/{organization}', [OrganizationController::class, 'destroy'])->name('api.organizations.destroy');
     });

@@ -35,4 +35,11 @@ class OrganizationController extends Controller
                 ->update($request->all())
         );
     }
+
+    public function destroy(Organization $organization)
+    {
+        $organization->delete();
+
+        return response([], 204);
+    }
 }

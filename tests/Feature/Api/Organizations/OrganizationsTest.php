@@ -85,5 +85,21 @@ class OrganizationsTest extends TestCase
             Arr::except($newOrganization->toArray(), ['id'])
         );
     }
+
+    /**
+     * @test
+     *  */
+    public function authenticated_user_can_delete_an_organization()
+    {
+        $this->signIn();
+
+        $organization = $this->create(Organization::class);
+
+        $this->deleteJson(
+            route($this->routePrefix . 'destroy', $organization)
+        )->assertStatus(204);
+
+        $this->assertDatabaseMissing('organizations', $organization->toArray());
+    }
 }
 
