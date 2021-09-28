@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api\Organizations;
 
 use Tests\TestCase;
+use Illuminate\Support\Arr;
 use App\Models\Organizations\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -41,7 +42,6 @@ class OrganizationsTest extends TestCase
      * @test
      * @throws \Throwable
      */
-
     public function authenticated_user_can_store_an_organization()
     {
         $this->signIn();
@@ -56,6 +56,34 @@ class OrganizationsTest extends TestCase
         $response->assertJson([
             'data' => ['name' => $organization->name]
         ]);
+    }
+
+    /**
+     * @test
+     *  */
+    public function authenticated_user_can_update_an_organization()
+    {
+        $this->signIn();
+
+        $existingOrganization = $this->create(Organization::class);
+        $newOrganization = $this->make(Organization::class);
+
+        $response = $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $newOrganization->toArray()
+        );
+        $response->assertOk();
+        $response->assertJson([
+            'data' => [
+                'id' => $existingOrganization->id,
+                'name' => $newOrganization->name
+            ]
+        ]);
+
+        $this->assertDatabaseHas(
+            'organizations',
+            Arr::except($newOrganization->toArray(), ['id'])
+        );
     }
 }
 

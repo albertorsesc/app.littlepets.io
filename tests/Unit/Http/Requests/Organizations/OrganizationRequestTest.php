@@ -35,6 +35,12 @@ class OrganizationRequestTest extends TestCase
             route($this->routePrefix . 'store'),
             $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
+
+        $existingOrganization = $this->create(Organization::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $this->make(organization::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
     }
 
     /**
@@ -52,6 +58,12 @@ class OrganizationRequestTest extends TestCase
         $this->postJson(
             route($this->routePrefix . 'store'),
             $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingOrganization = $this->create(Organization::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $this->make(Organization::class, [$validatedField => $brokenRule])->toArray()
         )->assertJsonValidationErrors($validatedField);
     }
 
@@ -71,6 +83,12 @@ class OrganizationRequestTest extends TestCase
             route($this->routePrefix . 'store'),
             $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
+
+        $existingOrganization = $this->create(Organization::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $this->make(Organization::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
     }
 
     /**
@@ -88,6 +106,12 @@ class OrganizationRequestTest extends TestCase
         $this->postJson(
             route($this->routePrefix . 'store'),
             $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingOrganization = $this->create(Organization::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $this->make(Organization::class, [$validatedField => $brokenRule])->toArray()
         )->assertJsonValidationErrors($validatedField);
     }
 
@@ -107,6 +131,12 @@ class OrganizationRequestTest extends TestCase
             route($this->routePrefix . 'store'),
             $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
+
+        $existingOrganization = $this->create(Organization::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $this->make(Organization::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
     }
 
     /**
@@ -124,6 +154,12 @@ class OrganizationRequestTest extends TestCase
         $this->postJson(
             route($this->routePrefix . 'store'),
             $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingOrganization = $this->create(Organization::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $this->make(Organization::class, [$validatedField => $brokenRule])->toArray()
         )->assertJsonValidationErrors($validatedField);
     }
 
@@ -143,6 +179,12 @@ class OrganizationRequestTest extends TestCase
             route($this->routePrefix . 'store'),
             $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
+
+        $existingOrganization = $this->create(Organization::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $this->make(Organization::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
     }
 
     /**
@@ -161,6 +203,12 @@ class OrganizationRequestTest extends TestCase
             route($this->routePrefix . 'store'),
             $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
+
+        $existingOrganization = $this->create(Organization::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $this->make(Organization::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
     }
 
     /**
@@ -178,6 +226,12 @@ class OrganizationRequestTest extends TestCase
         $this->postJson(
             route($this->routePrefix . 'store'),
             $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingOrganization = $this->create(Organization::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingOrganization),
+            $this->make(Organization::class, [$validatedField => $brokenRule])->toArray()
         )->assertJsonValidationErrors($validatedField);
     }
 }

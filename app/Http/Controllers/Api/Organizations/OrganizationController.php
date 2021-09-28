@@ -27,4 +27,12 @@ class OrganizationController extends Controller
             201
         );
     }
+
+    public function update(OrganizationRequest $request, Organization $organization) : OrganizationResource
+    {
+        return new OrganizationResource(
+            tap($organization)
+                ->update($request->all())
+        );
+    }
 }
