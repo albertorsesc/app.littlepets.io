@@ -1,5 +1,6 @@
 <?php
 
+    use App\Http\Controllers\Web\Events\EventController;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\SuggestionController;
     use App\Http\Controllers\Auth\SocialLoginController;
@@ -43,11 +44,14 @@
         Route::view('sugerencias', 'suggestions')->name('web.suggestions.index');
         Route::post('suggestions', SuggestionController::class)->name('suggestions.store');
 
+        Route::view('eventos', 'events.index')->name('web.events.index');
+        Route::get('eventos/{event}', [EventController::class, 'show'])->name('web.events.show');
+
     });
 
     /*Route::get('resize', function () {
-        \Intervention\Image\Facades\Image::make('img/lost-pets.png')
+        \Intervention\Image\Facades\Image::make('img/events.png')
                                          ->filter(new \App\Models\Concerns\InterventionImage\Filters\MediumFilter())
-                                         ->save('img/lost-pets_medium.png');
+                                         ->save('img/events_medium.png');
     });*/
 

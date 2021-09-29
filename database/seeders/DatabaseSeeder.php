@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Adoptions\Adoption;
+use App\Models\Events\Event;
 use App\Models\LostPets\LostPet;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -33,6 +34,9 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now()->toDateTimeString(),
             'created_at' => now()->toDateTimeString(),
         ]);
+        Auth::login($user);
+        Event::factory()->count(3)->create();
+
         /*Auth::login($user);
         $user->adoptions()->create(Adoption::factory()->make()->toArray());
         $user->lostPets()->create(LostPet::factory()->make()->toArray());*/

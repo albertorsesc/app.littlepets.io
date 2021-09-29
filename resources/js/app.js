@@ -15,16 +15,16 @@ if (process.env.MIX_NODE_ENV === 'production') {
 Vue.component('app', require('./views/App').default);
 
 Vue.component('adoptions', require('./views/Adoptions/Adoptions').default);
-Vue.component('my-adoptions', require('./views/Adoptions/MyAdoptions').default);
 Vue.component('adoption-profile', require('./views/Adoptions/AdoptionProfile').default);
 
 Vue.component('lost-pets', require('./views/LostPets/LostPets').default);
 Vue.component('lost-pet-profile', require('./views/LostPets/LostPetProfile').default);
 
-Vue.component('shelters', require('./views/Shelters/Shelters').default);
-
 Vue.component('veterinaries', require('./views/Veterinaries/Veterinaries').default);
 Vue.component('veterinary-profile', require('./views/Veterinaries/VeterinaryProfile').default);
+
+Vue.component('events', require('./views/Events/Events').default);
+Vue.component('event-profile', require('./views/Events/EventProfile').default);
 
 Vue.component('profile', require('./views/User/Profile').default);
 

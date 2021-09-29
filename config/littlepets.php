@@ -11,7 +11,9 @@
             ],
         ],
 
-        // Pet Sizes
+        /**
+         * Pets
+        */
         'sizes' => [
             'mini' => 'Miniatura',
             'small' => 'Pequeño',
@@ -45,6 +47,18 @@
             'semanas',
             'meses',
             'años'
+        ],
+
+        /**
+         * Events
+         */
+        'event_types' => [
+            'Activista',
+            'Adopción',
+            'Informativo',
+            'Salud',
+            'Vacunación',
+            'Social',
         ],
 
         /*

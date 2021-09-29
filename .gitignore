@@ -18,3 +18,6 @@ package-lock.json
 public/mix-manifest.json
 public/css/app.css
 public/js/
+public/css/sweetalert2.css
+public/css/vue-datetime.css
+public/css/vue-multiselect.min.css

@@ -7,7 +7,6 @@ export default {
             headerTitle: 'Adopciones',
             activeTab: 'explore-adoptions',
 
-
             isFormShown: false,
             isSlideOverShown: false,
         }
@@ -29,7 +28,7 @@ export default {
         }
     },
     components: {
-        CreateAdoption: () => import(/* webpackChunkName: "create-adoption" */ '../../views/Adoptions/CreateAdoption'),
+        MyAdoptions: () => import(/* webpackChunkName: "my-adoptions" */ '../../views/Adoptions/MyAdoptions'),
         ExploreAdoptions: () => import(/* webpackChunkName: "explore-adoption" */ '../../views/Adoptions/ExploreAdoptions'),
     }
 }

@@ -3,7 +3,9 @@
     use App\Http\Controllers\Api\StateController;
     use App\Http\Controllers\Api\SpecieController;
     use App\Http\Controllers\Api\CountryController;
+    use App\Http\Controllers\Api\Events\EventController;
     use App\Http\Controllers\Api\Pets\PetImageController;
+    use App\Http\Controllers\Api\Events\UserEventController;
     use App\Http\Controllers\Api\LostPets\LostPetController;
     use App\Http\Controllers\Api\Adoptions\AdoptionController;
     use App\Http\Controllers\Api\Sepomex\CityByStateController;
@@ -91,4 +93,12 @@
 
         Route::post('veterinaries/{veterinary:slug}/like', [LikeController::class, 'store'])->name('api.veterinaries.likes.store');
         Route::delete('veterinaries/{veterinary:slug}/dislike', [LikeController::class, 'destroy'])->name('api.veterinaries.likes.destroy');
+
+        /* Events */
+        Route::get('events', [EventController::class, 'index'])->name('api.events.index');
+        Route::post('events', [EventController::class, 'store'])->name('api.events.store');
+        Route::put('events/{event}', [EventController::class, 'update'])->name('api.events.update');
+        Route::delete('events/{event}', [EventController::class, 'destroy'])->name('api.events.destroy');
+
+        Route::get('my-events', UserEventController::class)->name('api.user.events.index');
     });

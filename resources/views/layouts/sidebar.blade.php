@@ -52,6 +52,13 @@
                 </div>
                 <div class="mt-6 pt-6">
                     <div class="px-2 space-y-1">
+                        <a href="{{ route('web.events.index') }}"
+                           class="@if(request()->routeIs('web.events.index') || request()->segment(1) === 'eventos')) bg-cyan-800 @endif text-white group flex items-center px-2 py-2 text-base font-medium rounded-md" aria-current="page">
+                            <svg class="mr-4 flex-shrink-0 h-6 w-6 text-cyan-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            Eventos
+                        </a>
                         <a href="{{ route('web.suggestions.index') }}"
                            class="@if(request()->routeIs('web.suggestions.index') || request()->segment(1) === 'sugerencias')) bg-cyan-800 @endif text-white group flex items-center px-2 py-2 text-base font-medium rounded-md" aria-current="page">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 flex-shrink-0 text-cyan-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -205,6 +212,13 @@
                 </div>
                 <div class="mt-6 pt-6">
                     <div class="px-2 space-y-1">
+                        <a href="{{ route('web.events.index') }}"
+                           class="@if(request()->routeIs('web.events.index') || request()->segment(1) === 'eventos') bg-cyan-800 @endif text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
+                            <svg class="mr-4 flex-shrink-0 h-6 w-6 text-cyan-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            Eventos
+                        </a>
                         <a href="{{ route('web.suggestions.index') }}"
                            class="@if(request()->routeIs('web.suggestions.index') || request()->segment(1) === 'sugerencias') bg-cyan-800 @endif text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 flex-shrink-0 text-cyan-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">

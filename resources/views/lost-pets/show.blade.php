@@ -710,7 +710,8 @@
                             </div>
 
                             {{--RescuedAt--}}
-                            <div v-if="localLostPet.postType === 'rescuer'" class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
+                            <div v-if="localLostPet.postType === 'rescuer'"
+                                 class="w-full md:w-1/3 md:mx-2 mt-3 md:mt-0">
                                 <div class="form-group">
                                     <label for="rescued_at" class="block text-base font-medium text-gray-700">
                                         <strong class="required">*</strong>

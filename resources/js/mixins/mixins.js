@@ -1,3 +1,4 @@
+const {DateTime} = require("luxon");
 module.exports = {
     computed: {
         baseUrl() {
@@ -46,6 +47,9 @@ module.exports = {
         },
         formatNumber(number) {
             return parseInt(number).toFixed().replace(/\d(?=(\d{3}))/g, '$&,')
+        },
+        toDateTime(date) {
+            return DateTime.fromISO(date).setLocale('es').toFormat('MMM d y, hh:mm')
         },
         isObject(value) {
             return value && typeof value === 'object' && value.constructor === Object;

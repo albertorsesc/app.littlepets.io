@@ -262,7 +262,7 @@ span.optional {
 
 /* Vue-Datetime */
 .vdatetime-input {
-    @layer lp-input;
+    @apply block rounded-md shadow-sm w-full bg-white outline-none border border-cyan-200;
 }
 .vdatetime-popup__header {
     background: #0E7490 !important;

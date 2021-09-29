@@ -17,6 +17,7 @@ mix.extract([
     'tailwindcss',
     'laravel-mix',
     'vue2-dropzone',
+    'vue-datetime',
     'vue-multiselect',
     '@chenfengyuan/vue-carousel',
 ])

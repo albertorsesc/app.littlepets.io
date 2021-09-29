@@ -163,7 +163,9 @@
             'lost_at' => 'Fecha de extravío',
             'owner' => 'Dueño',
 
-            /* Pets */
+            /* Events */
+            'starts_at' => 'Inicia',
+            'ends_at' => 'Finaliza',
 
         ],
 

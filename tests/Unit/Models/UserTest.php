@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Events\Event;
 use Tests\TestCase;
 use App\Models\LostPets\LostPet;
 use Database\Seeders\SpecieSeeder;
@@ -42,5 +43,18 @@ class UserTest extends TestCase
         $this->create(LostPet::class);
 
         $this->assertInstanceOf(LostPet::class, auth()->user()->lostPets()->first());
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function user_has_many_events()
+    {
+        $this->signIn();
+
+        $this->create(Event::class);
+
+        $this->assertInstanceOf(Event::class, auth()->user()->events()->first());
     }
 }

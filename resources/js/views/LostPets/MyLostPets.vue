@@ -8,7 +8,7 @@
         </div>
 
         <div v-if="showForm" class="my-8">
-            <create-lost-pet></create-lost-pet>
+            <create-lost-pet />
         </div>
 
         <div v-else>

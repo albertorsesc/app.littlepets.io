@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Events\Event;
 use Laravel\Jetstream\HasTeams;
 use App\Models\LostPets\LostPet;
 use Laravel\Sanctum\HasApiTokens;
@@ -95,6 +96,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function socialAccounts() : HasMany
     {
         return $this->hasMany(SocialAccount::class);
+    }
+
+    public function events() : HasMany
+    {
+        return $this->hasMany(Event::class);
     }
 
     /* Helpers */
