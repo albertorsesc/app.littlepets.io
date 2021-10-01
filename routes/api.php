@@ -5,6 +5,7 @@
     use App\Http\Controllers\Api\CountryController;
     use App\Http\Controllers\Api\Pets\PetImageController;
     use App\Http\Controllers\Api\LostPets\LostPetController;
+    use App\Http\Controllers\Api\Blog\BlogCategoryController;
     use App\Http\Controllers\Api\Adoptions\AdoptionController;
     use App\Http\Controllers\Api\Sepomex\CityByStateController;
     use App\Http\Controllers\Api\LostPets\UserLostPetController;
@@ -91,4 +92,7 @@
 
         Route::post('veterinaries/{veterinary:slug}/like', [LikeController::class, 'store'])->name('api.veterinaries.likes.store');
         Route::delete('veterinaries/{veterinary:slug}/dislike', [LikeController::class, 'destroy'])->name('api.veterinaries.likes.destroy');
+
+        // Blog Routes
+        Route::get('blog/admin/categories', [BlogCategoryController::class, 'index'])->name('api.blog.categories.index');
     });

@@ -1,5 +1,7 @@
 <?php
 
+    use App\Http\Controllers\Web\Blog\BlogCategoryController;
+    use App\Http\Controllers\Web\Blog\BlogController;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\SuggestionController;
     use App\Http\Controllers\Auth\SocialLoginController;
@@ -43,6 +45,9 @@
         Route::view('sugerencias', 'suggestions')->name('web.suggestions.index');
         Route::post('suggestions', SuggestionController::class)->name('suggestions.store');
 
+        /* Blog */
+        Route::get('blog', [BlogController::class, 'index'])->name('web.blog.index');
+        Route::get('blog/categorias', [BlogCategoryController::class, 'index'])->name('web.blog.categories.index');
     });
 
     /*Route::get('resize', function () {
