@@ -1,4 +1,4 @@
-<nav class="bg-cyan-600 border-b border-cyan-300 border-opacity-25 lg:border-none">
+<nav class="bg-cyan-600 border-b border-cyan-300 border-opacity-25 lg:border-none" v-cloak>
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div class="relative h-16 flex items-center justify-between lg:border-b lg:border-cyan-400 lg:border-opacity-25">
             <div class="px-2 flex items-center lg:px-0">
@@ -10,25 +10,32 @@
                 <div class="hidden lg:block lg:ml-10">
                     <div class="flex space-x-4">
                         <!-- Current: "bg-cyan-700 text-white", Default: "text-white hover:bg-cyan-500 hover:bg-opacity-75" -->
-                        <a href="#" class="bg-cyan-700 text-white rounded-md py-2 px-3 text-sm font-medium" aria-current="page">
-                            Dashboard
+                        <a href="{{ route('web.blog.index') }}" class="@if(request()->routeIs('web.blog.index')) bg-cyan-700 @endif text-white rounded-md py-2 px-3 text-sm font-medium" aria-current="page">
+                            Inicio
                         </a>
 
-                        <a href="#" class="text-white hover:bg-cyan-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium">
-                            Team
+                        <!-- Profile dropdown -->
+                        <a href="#" @click="isAdminDropdownOpen = true" class="text-white hover:bg-cyan-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium">
+                            Admin
                         </a>
+                        <div class="ml-3 relative flex-shrink-0">
+                            <div v-show="isAdminDropdownOpen"
+                                 class="fixed inset-0 transform transition-all"
+                                 @click="isAdminDropdownOpen = false">
+                                <div class="absolute inset-0 bg-transparent opacity-75"></div>
+                            </div>
 
-                        <a href="#" class="text-white hover:bg-cyan-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium">
-                            Projects
-                        </a>
-
-                        <a href="#" class="text-white hover:bg-cyan-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium">
-                            Calendar
-                        </a>
-
-                        <a href="#" class="text-white hover:bg-cyan-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium">
-                            Reports
-                        </a>
+                            <transition name="dropdown" :duration="1500" appear>
+                                <div v-show="isAdminDropdownOpen" class="origin-top-right absolute right-0 -ml-12 mt-10 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                                    <a href="{{ route('web.blog.admin.articles.index') }}" class="hover:bg-gray-100 block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                                        Articulos
+                                    </a>
+                                    <a href="{{ route('web.blog.categories.index') }}" class="hover:bg-gray-100 block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                                        Categorias
+                                    </a>
+                                </div>
+                            </transition>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,30 +103,22 @@
                             <div class="absolute inset-0 bg-transparent opacity-75"></div>
                         </div>
 
-                        <!--
-                          Dropdown menu, show/hide based on menu state.
+                        <transition name="dropdown" :duration="1500" appear>
+                            <div v-show="isDropdownOpen" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                                <!-- Active: "bg-gray-100", Not Active: "" -->
+                                <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                                    Your Profile
+                                </a>
 
-                          Entering: "transition ease-out duration-100"
-                            From: "transform opacity-0 scale-95"
-                            To: "transform opacity-100 scale-100"
-                          Leaving: "transition ease-in duration-75"
-                            From: "transform opacity-100 scale-100"
-                            To: "transform opacity-0 scale-95"
-                        -->
-                        <div class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                            <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                                Your Profile
-                            </a>
+                                <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
+                                    Settings
+                                </a>
 
-                            <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
-                                Settings
-                            </a>
-
-                            <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                                Sign out
-                            </a>
-                        </div>
+                                <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                                    Sign out
+                                </a>
+                            </div>
+                        </transition>
                     </div>
                 </div>
             </div>

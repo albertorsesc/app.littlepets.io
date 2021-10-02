@@ -6,6 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta property="og:site_name" content="LittlePets.io">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @yield('metas')
+<!--    <meta name="description" content="asdasdasda">
+    <link rel="canonical" href="https://blogged.binarytorch.com.my/blog/php/asdasdasd">
+    <meta name="twitter:card" value="summary">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="adasd">
+    <meta property="og:url" content="https://blogged.binarytorch.com.my/blog/php/asdasdasd">
+    <meta property="og:image" content="/storage/blogged/images/K88MiuZ2Gjx7TYND5sRNVw6yJDeLazoyIZXkOMOc.jpeg">
+    <meta property="og:description" content="asdasdasda">-->
     <link rel="icon" href="/logos/favicon.png">
 
     <title>@yield('title') | Blog Oficial de {{ config('app.name') }} | Haciendo todo lo posible por encontrarle hogar a cada angelito perdido.</title>
@@ -26,50 +35,57 @@
 @livewireScripts
 
 <div id="app">
-    <App inline-template>
-        <div class="bg-cyan-600 pb-32">
-            @include('blog.layouts.nav')
+    <blog-app inline-template>
+        <div>
+            <div class="bg-cyan-600 pb-32">
+                @include('blog.layouts.nav')
 
-            <header class="pt-10 pb-4">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between">
-                        <h1 class="text-3xl font-bold text-white">
-                            Blog
-                        </h1>
-                        <div class="">
-                            <button class="lp-btn">
-                                Regresar a LittlePets
-                            </button>
+                <header class="pt-10 pb-4">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="flex justify-between">
+                            <h1 class="text-3xl font-bold text-white">
+                                Blog
+                            </h1>
+                            <div class="">
+                                <button class="lp-btn">
+                                    Regresar a LittlePets
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </header>
-        </div>
+                </header>
+            </div>
 
-        <main class="-mt-24 pb-8">
-            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                <h1 class="sr-only">Page title</h1>
+            <main class="-mt-24 pb-8">
+                <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                    <h1 class="sr-only">Page title</h1>
 
-                <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
-                    <div class="grid grid-cols-1 gap-4 lg:col-span-9">
-                        <section aria-labelledby="section-1-title">
-                            <h2 class="sr-only" id="section-1-title">Section title</h2>
-                            <div class="rounded-lg bg-white overflow-hidden shadow">
-                                <div class="py-6 px-12">
-                                    <div class="flex flex-col gap-y-8 lg:flex-row lg:gap-x-8 lg:mb-16">
-                                        @yield('blog.content')
+                    <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+                        <div class="grid grid-cols-1 gap-4 lg:col-span-9">
+                            <section aria-labelledby="section-1-title">
+                                <h2 class="sr-only" id="section-1-title">Section title</h2>
+                                <div class="rounded-lg bg-white overflow-hidden shadow">
+                                    <div class="py-6 px-12">
+                                        <div class="flex flex-col gap-y-8 lg:flex-row lg:gap-x-8 lg:mb-16">
+                                            @yield('blog.content')
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
                     </div>
-                </div>
 
-                @yield('blog.content.bottom')
-            </div>
-        </main>
-    </App>
+                    @yield('blog.content.bottom')
+                </div>
+            </main>
+        </div>
+    </blog-app>
 </div>
 
+<script src="{{ mix('js/manifest.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ mix('js/vendor.js') }}"></script>
+@yield('scripts')
+{{--Styles extracted from Laravel.io blog by Dries Vints--}}
 </body>
 </html>
