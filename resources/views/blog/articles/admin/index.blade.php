@@ -51,11 +51,17 @@
                                        class="text-indigo-600 hover:text-indigo-900"
                                     >Editar</a>
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <form action="{{ route('web.blog.admin.articles.destroy', $article) }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit"
+                                                class="text-indigo-600 hover:text-indigo-900 bg-transparent"
+                                        >Eliminar</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
-
-
-                        <!-- More people... -->
                         </tbody>
                     </table>
                 </div>

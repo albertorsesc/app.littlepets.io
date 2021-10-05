@@ -40,4 +40,11 @@ class ArticleController extends Controller
 
         return redirect()->route('web.blog.articles.show', $article);
     }
+
+    public function destroy(Article $article)
+    {
+        $article->delete();
+
+        return redirect()->route('web.blog.admin.articles.index');
+    }
 }

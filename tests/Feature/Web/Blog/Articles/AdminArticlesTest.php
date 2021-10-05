@@ -75,7 +75,6 @@ class AdminArticlesTest extends TestCase
      */
     public function authenticated_user_can_update_a_blog_article()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $existingArticle = $this->create(Article::class);
@@ -85,7 +84,7 @@ class AdminArticlesTest extends TestCase
             route($this->routePrefix . 'update', $existingArticle),
             $newArticle->toArray()
         );
-        $response->assertRedirect(route('web.blog.articles.show', $existingArticle));
+        $response->assertRedirect(route('web.blog.articles.show', $existingArticle->fresh()));
 
         $this->assertDatabaseHas('articles', [
             'id' => $existingArticle->id,
@@ -94,5 +93,21 @@ class AdminArticlesTest extends TestCase
             'excerpt' => $newArticle->excerpt,
             'body' => $newArticle->body,
         ]);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function authenticated_user_can_delete_a_blog_article()
+    {
+        $this->signIn();
+
+        $existingArticle = $this->create(Article::class);
+
+        $response = $this->delete(route($this->routePrefix . 'destroy', $existingArticle));
+        $response->assertRedirect(route('web.blog.admin.articles.index'));
+
+        $this->assertDatabaseMissing('articles', $existingArticle->toArray());
     }
 }

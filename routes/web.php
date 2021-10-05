@@ -56,6 +56,7 @@
         Route::post('blog/editor/articulos', [ArticleController::class, 'store'])->name('web.blog.admin.articles.store');
         Route::get('blog/editor/articulos/{article}/editar', [ArticleController::class, 'edit'])->name('web.blog.admin.articles.edit');
         Route::put('blog/editor/articulos/{article}', [ArticleController::class, 'update'])->name('web.blog.admin.articles.update');
+        Route::delete('blog/editor/articulos/{article}', [ArticleController::class, 'destroy'])->name('web.blog.admin.articles.destroy');
 
         // Blog::Categories
         Route::get('blog/categorias', [BlogCategoryController::class, 'index'])->name('web.blog.categories.index');

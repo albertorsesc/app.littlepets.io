@@ -11,6 +11,9 @@ trait Sluggable
         static::creating(function ($model) {
             $model->slug = $model->generateUniqueSlug($model->title);
         });
+        static::updating(function ($model) {
+            $model->slug = $model->generateUniqueSlug($model->title);
+        });
     }
 
     public static function findBySlug(string $slug): self
@@ -23,7 +26,7 @@ trait Sluggable
         $slug = $originalSlug = Str::slug($value) ?: Str::random(5);
         $counter = 0;
 
-        while ($this->slugExists($slug, $this->exists ? $this->id() : null)) {
+        while ($this->slugExists($slug, $this->exists ? $this->id : null)) {
             $counter++;
             $slug = $originalSlug.'-'.$counter;
         }
