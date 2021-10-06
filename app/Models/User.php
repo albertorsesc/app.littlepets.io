@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    use HasTeams;
     use HasAvatar;
     use HasFactory;
     use Notifiable;
