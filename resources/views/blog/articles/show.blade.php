@@ -66,7 +66,7 @@
                     <div
                         class="prose prose-lg text-gray-800 prose-lio"
                     >
-                        {{ $article->body }}
+                        {!! $article->body !!}
                     </div>
 
                     <div class="flex items-center gap-x-6 pt-6 pb-10">

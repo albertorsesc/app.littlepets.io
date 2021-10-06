@@ -2,6 +2,15 @@
 
 @section('title', 'Admin::Nuevo Articulo')
 
+@section('scripts')
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'body', {
+            height:350,
+        });
+    </script>
+@endsection
+
 @section('blog.content')
 
     <form method="POST"
