@@ -43,6 +43,8 @@
         Route::view('sugerencias', 'suggestions')->name('web.suggestions.index');
         Route::post('suggestions', SuggestionController::class)->name('suggestions.store');
 
+        /* Teams (Organizaciones) */
+        Route::view('organizaciones', 'organizations.index');
     });
 
     /*Route::get('resize', function () {
