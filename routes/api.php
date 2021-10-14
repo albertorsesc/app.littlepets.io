@@ -92,7 +92,4 @@
 
         Route::post('veterinaries/{veterinary:slug}/like', [LikeController::class, 'store'])->name('api.veterinaries.likes.store');
         Route::delete('veterinaries/{veterinary:slug}/dislike', [LikeController::class, 'destroy'])->name('api.veterinaries.likes.destroy');
-
-        // Blog Routes
-        Route::get('blog/admin/categories', [BlogCategoryController::class, 'index'])->name('api.blog.categories.index');
     });
