@@ -9,5 +9,6 @@ class BlogCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title',];
+    public $timestamps = false;
+    protected $fillable = ['name', 'display_name'];
 }

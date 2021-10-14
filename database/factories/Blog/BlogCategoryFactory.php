@@ -22,7 +22,8 @@ class BlogCategoryFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence,
+            'name' => $name = $this->faker->word,
+            'display_name' => ucwords($name),
         ];
     }
 }

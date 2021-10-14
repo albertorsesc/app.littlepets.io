@@ -7,14 +7,6 @@
     <meta property="og:site_name" content="LittlePets.io">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('metas')
-<!--    <meta name="description" content="asdasdasda">
-    <link rel="canonical" href="https://blogged.binarytorch.com.my/blog/php/asdasdasd">
-    <meta name="twitter:card" value="summary">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="adasd">
-    <meta property="og:url" content="https://blogged.binarytorch.com.my/blog/php/asdasdasd">
-    <meta property="og:image" content="/storage/blogged/images/K88MiuZ2Gjx7TYND5sRNVw6yJDeLazoyIZXkOMOc.jpeg">
-    <meta property="og:description" content="asdasdasda">-->
     <link rel="icon" href="/logos/favicon.png">
 
     <title>@yield('title') | Blog Oficial de {{ config('app.name') }} | Haciendo todo lo posible por encontrarle hogar a cada angelito perdido.</title>
@@ -47,7 +39,7 @@
                                 Blog
                             </h1>
                             <div class="">
-                                <button class="lp-btn">
+                                <button onclick="window.location.href = '/inicio'" class="lp-btn">
                                     Regresar a LittlePets
                                 </button>
                             </div>

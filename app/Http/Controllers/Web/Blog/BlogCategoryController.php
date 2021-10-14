@@ -8,10 +8,15 @@ use Illuminate\Http\Request;
 
 class BlogCategoryController extends Controller
 {
+    public function __construct ()
+    {
+        $this->authorizeResource(BlogCategory::class, 'category');
+    }
+
     public function index()
     {
         return view('blog.categories.index', [
-            'categories' => BlogCategory::query()->orderBy('title')->get()
+            'categories' => BlogCategory::query()->orderBy('display_name')->get()
         ]);
     }
 
@@ -24,6 +29,6 @@ class BlogCategoryController extends Controller
     {
         BlogCategory::create($request->all());
 
-        return redirect()->route('web.blog.categories.index');
+        return redirect()->route('web.blog.admin.categories.index');
     }
 }

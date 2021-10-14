@@ -2,27 +2,38 @@
 
 namespace App\Http\Controllers\Web\Blog\Articles\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Blog\Article;
-use Illuminate\Http\Request;
+use App\Models\Blog\BlogCategory;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\ArticleRequest;
 
 class ArticleController extends Controller
 {
+    public function __construct ()
+    {
+        $this->authorizeResource(Article::class, 'article');
+    }
+
     public function index()
     {
         return view('blog.articles.admin.index', [
-            'articles' => Article::query()->latest()->get(),
+            'articles' => Article::query()->latest()->paginate(10),
         ]);
     }
 
     public function create()
     {
-        return view('blog.articles.admin.create');
+        return view('blog.articles.admin.create', [
+            'categories' => BlogCategory::query()->orderBy('display_name')->get()
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        Article::create($request->all());
+        $article = Article::create($request->all());
+        $article->categories()->sync($request->categories);
+
+        $article->uploadImage($request->file('image'));
 
         return redirect()->route('web.blog.admin.articles.index');
     }
@@ -30,15 +41,27 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         return view('blog.articles.admin.edit', [
-            'article' => $article
+            'article' => $article,
+            'categories' => BlogCategory::query()->orderBy('display_name')->get()
         ]);
     }
 
-    public function update(Request $request, Article $article)
+    public function update(ArticleRequest $request, Article $article)
     {
         $article->update($request->all());
 
-        return redirect()->route('web.blog.articles.show', $article);
+        if ($request->hasFile('image') && $article->media()->count()) {
+            $article->deleteMedia(
+                $article->getMedia()->first()->id
+            );
+            $article->uploadImage($request->file('image'));
+        }
+
+        if ($request->has('categories')) {
+            $article->categories()->sync($request->categories);
+        }
+
+        return redirect()->route('web.blog.admin.articles.index', $article);
     }
 
     public function destroy(Article $article)

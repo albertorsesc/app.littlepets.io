@@ -6,7 +6,7 @@
 
     <div class="flex-1 max-w-3xl">
         <div class="flex justify-end mb-4">
-            <a href="{{ route('web.blog.categories.create') }}" class="lp-btn rounded-lg shadow-sm">Nueva Categoria</a>
+            <a href="{{ route('web.blog.admin.categories.create') }}" class="lp-btn rounded-lg shadow-sm">Nueva Categoría</a>
         </div>
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -17,9 +17,6 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Nombre
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Estatus
-                            </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Editar</span>
                             </th>
@@ -29,16 +26,11 @@
                         @foreach($categories as $category)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">{{ $category->title }}</div>
+                                    <div class="text-sm text-gray-900">{{ $category->display_name }}</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                      Activa
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<!--                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                </td>
+                                </td>-->
                             </tr>
                         @endforeach
 

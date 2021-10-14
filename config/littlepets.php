@@ -9,6 +9,9 @@
             'root' => [
                 'alberto.rsesc@protonmail.com',
             ],
+            'editor' => array_merge([
+                'aniluczf@gmail.com',
+            ], explode(',', env('BLOG_EDITORS'))),
         ],
 
         // Pet Sizes

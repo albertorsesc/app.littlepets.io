@@ -59,9 +59,9 @@
         Route::delete('blog/editor/articulos/{article}', [ArticleController::class, 'destroy'])->name('web.blog.admin.articles.destroy');
 
         // Blog::Categories
-        Route::get('blog/categorias', [BlogCategoryController::class, 'index'])->name('web.blog.categories.index');
-        Route::post('blog/categorias', [BlogCategoryController::class, 'store'])->name('web.blog.categories.store');
-        Route::get('blog/categorias/crear', [BlogCategoryController::class, 'create'])->name('web.blog.categories.create');
+        Route::get('blog/editor/categorias', [BlogCategoryController::class, 'index'])->name('web.blog.admin.categories.index');
+        Route::post('blog/editor/categorias', [BlogCategoryController::class, 'store'])->name('web.blog.admin.categories.store');
+        Route::get('blog/editor/categorias/crear', [BlogCategoryController::class, 'create'])->name('web.blog.admin.categories.create');
 
         // Blog::Articles
         Route::get('blog/articulos/{article}', [PublicArticleController::class, 'show'])->name('web.blog.articles.show');

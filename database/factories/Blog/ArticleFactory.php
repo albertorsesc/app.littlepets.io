@@ -3,7 +3,9 @@
 namespace Database\Factories\Blog;
 
 use App\Models\Blog\Article;
+use App\Models\Blog\BlogCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
 class ArticleFactory extends Factory
@@ -27,6 +29,17 @@ class ArticleFactory extends Factory
             'slug' => Str::slug($title),
             'excerpt' => $this->faker->paragraph,
             'body' => $this->faker->paragraph,
+            'image' => UploadedFile::fake()->image('img.png', '10', '10'),
+            'published_at' => null,
         ];
+    }
+
+    public function published() : ArticleFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'published_at' => $this->faker->dateTime,
+            ];
+        });
     }
 }

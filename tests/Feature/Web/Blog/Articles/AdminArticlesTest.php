@@ -3,26 +3,40 @@
 namespace Tests\Feature\Web\Blog\Articles;
 
 use Tests\TestCase;
+use Illuminate\Support\Arr;
 use App\Models\Blog\Article;
+use App\Models\Blog\BlogCategory;
+use Database\Seeders\BlogCategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdminArticlesTest extends TestCase
 {
     use RefreshDatabase;
 
+    private array $categories;
     private string $routePrefix = 'web.blog.admin.articles.';
+
+    protected function setUp () : void
+    {
+        parent::setUp();
+        $this->loadSeeders([BlogCategorySeeder::class]);
+        $this->categories = BlogCategory::query()
+                                        ->limit(3)
+                                        ->pluck('id')
+                                        ->toArray();
+        $this->signIn([
+            'email' => env('BLOG_EDITORS')
+        ]);
+    }
 
     /**
      * @test
      * @throws \Throwable
      */
-    public function authenticated_user_can_visit_blog_article_index()
+    public function authorized_user_can_visit_blog_article_index()
     {
-        $this->signIn();
-
         $response = $this->get(route($this->routePrefix . 'index'));
         $response->assertViewIs('blog.articles.admin.index');
-
     }
 
     /**
@@ -31,8 +45,6 @@ class AdminArticlesTest extends TestCase
      */
     public function authenticated_user_can_visit_blog_article_create()
     {
-        $this->signIn();
-
         $response = $this->get(route($this->routePrefix . 'create'));
         $response->assertViewIs('blog.articles.admin.create');
 
@@ -44,14 +56,18 @@ class AdminArticlesTest extends TestCase
      */
     public function authenticated_user_can_create_a_blog_article()
     {
-        $this->signIn();
-
         $article = $this->make(Article::class);
 
-        $response = $this->post(route($this->routePrefix . 'store'), $article->toArray());
+        $response = $this->post(
+            route($this->routePrefix . 'store'),
+            array_merge($article->toArray(), [
+                'categories' => $this->categories
+            ])
+        );
         $response->assertRedirect(route('web.blog.admin.articles.index'));
 
-        $this->assertDatabaseHas('articles', $article->toArray());
+        $this->assertDatabaseHas('articles', Arr::except($article->toArray(), 'image'));
+        $this->assertCount(3, Article::latest()->first()->categories);
     }
 
     /**
@@ -60,8 +76,6 @@ class AdminArticlesTest extends TestCase
      */
     public function authenticated_user_can_visit_edit_blog_article()
     {
-        $this->signIn();
-
         $article = $this->create(Article::class);
 
         $response = $this->get(route($this->routePrefix . 'edit', $article));
@@ -75,16 +89,16 @@ class AdminArticlesTest extends TestCase
      */
     public function authenticated_user_can_update_a_blog_article()
     {
-        $this->signIn();
-
         $existingArticle = $this->create(Article::class);
         $newArticle = $this->make(Article::class);
 
         $response = $this->put(
             route($this->routePrefix . 'update', $existingArticle),
-            $newArticle->toArray()
+            array_merge($newArticle->toArray(), [
+                'categories' => $this->categories
+            ])
         );
-        $response->assertRedirect(route('web.blog.articles.show', $existingArticle->fresh()));
+        $response->assertRedirect(route('web.blog.admin.articles.index', $existingArticle->fresh()));
 
         $this->assertDatabaseHas('articles', [
             'id' => $existingArticle->id,
@@ -93,6 +107,7 @@ class AdminArticlesTest extends TestCase
             'excerpt' => $newArticle->excerpt,
             'body' => $newArticle->body,
         ]);
+        $this->assertCount(3, $existingArticle->categories);
     }
 
     /**
@@ -101,13 +116,45 @@ class AdminArticlesTest extends TestCase
      */
     public function authenticated_user_can_delete_a_blog_article()
     {
-        $this->signIn();
-
         $existingArticle = $this->create(Article::class);
+        $existingArticle->categories()->sync($this->categories);
 
         $response = $this->delete(route($this->routePrefix . 'destroy', $existingArticle));
         $response->assertRedirect(route('web.blog.admin.articles.index'));
 
         $this->assertDatabaseMissing('articles', $existingArticle->toArray());
+        $this->assertDatabaseMissing('article_category', $existingArticle->categories->toArray());
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function unauthorized_user_cannot_visit_admin_routes()
+    {
+        $this->signIn();
+
+        $this->get(
+            route($this->routePrefix . 'index')
+        )->assertForbidden();
+
+        $this->get(
+            route($this->routePrefix . 'create')
+        )->assertForbidden();
+
+        $this->post(
+            route($this->routePrefix . 'store'),
+            []
+        )->assertForbidden();
+
+        $existingArticle = $this->create(Article::class);
+        $this->put(
+            route($this->routePrefix . 'update', $existingArticle),
+            []
+        )->assertForbidden();
+
+        $this->delete(
+            route($this->routePrefix . 'destroy', $existingArticle),
+        )->assertForbidden();
     }
 }

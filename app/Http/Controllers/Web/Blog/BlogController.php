@@ -10,8 +10,13 @@ class BlogController extends Controller
 {
     public function index()
     {
+        $articles = Article::query()
+                           ->isPublished()
+                           ->latest();
+
         return view('blog.index', [
-            'articles' => Article::all()
+            'articles' => $articles->paginate(5),
+            'articleCount' => $articles->count()
         ]);
     }
 }
