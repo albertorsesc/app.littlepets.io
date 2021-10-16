@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Api\Veterinaries;
 
-use Illuminate\Support\Arr;
 use Tests\TestCase;
+use Illuminate\Support\Arr;
 use App\Models\Veterinaries\Veterinary;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

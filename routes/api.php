@@ -1,21 +1,22 @@
 <?php
 
-    use App\Http\Controllers\Api\StateController;
-    use App\Http\Controllers\Api\SpecieController;
-    use App\Http\Controllers\Api\CountryController;
-    use App\Http\Controllers\Api\Pets\PetImageController;
-    use App\Http\Controllers\Api\LostPets\LostPetController;
-    use App\Http\Controllers\Api\Adoptions\AdoptionController;
-    use App\Http\Controllers\Api\Sepomex\CityByStateController;
-    use App\Http\Controllers\Api\LostPets\UserLostPetController;
-    use App\Http\Controllers\Api\Adoptions\UserAdoptionController;
-    use App\Http\Controllers\Api\LostPets\LostPetCommentController;
-    use App\Http\Controllers\Api\Veterinaries\VeterinaryController;
-    use App\Http\Controllers\Api\LostPets\LostPetLocationController;
-    use App\Http\Controllers\Api\Veterinaries\Actions\LikeController;
-    use App\Http\Controllers\Api\Adoptions\AdoptionCommentController;
-    use App\Http\Controllers\Api\Adoptions\AdoptionLocationController;
-    use App\Http\Controllers\Api\Sepomex\NeighborhoodByCityController;
+use App\Http\Controllers\Api\StateController;
+use App\Http\Controllers\Api\SpecieController;
+use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Api\Pets\PetImageController;
+use App\Http\Controllers\Api\LostPets\LostPetController;
+use App\Http\Controllers\Api\Adoptions\AdoptionController;
+use App\Http\Controllers\Api\Sepomex\CityByStateController;
+use App\Http\Controllers\Api\LostPets\UserLostPetController;
+use App\Http\Controllers\Api\Adoptions\UserAdoptionController;
+use App\Http\Controllers\Api\LostPets\LostPetCommentController;
+use App\Http\Controllers\Api\Veterinaries\VeterinaryController;
+use App\Http\Controllers\Api\LostPets\LostPetLocationController;
+use App\Http\Controllers\Api\Veterinaries\Actions\LikeController;
+use App\Http\Controllers\Api\Adoptions\AdoptionCommentController;
+use App\Http\Controllers\Api\Organizations\OrganizationController;
+use App\Http\Controllers\Api\Adoptions\AdoptionLocationController;
+use App\Http\Controllers\Api\Sepomex\NeighborhoodByCityController;
     use App\Http\Controllers\Api\Veterinaries\UserVeterinaryController;
     use App\Http\Controllers\Api\LostPets\Actions\MarkAsFoundController;
     use App\Http\Controllers\Api\LostPets\Actions\ReportLostPetController;
@@ -91,4 +92,10 @@
 
         Route::post('veterinaries/{veterinary:slug}/like', [LikeController::class, 'store'])->name('api.veterinaries.likes.store');
         Route::delete('veterinaries/{veterinary:slug}/dislike', [LikeController::class, 'destroy'])->name('api.veterinaries.likes.destroy');
+
+        /* Organizations */
+        Route::get('organizations', [OrganizationController::class, 'index'])->name('api.organizations.index');
+        Route::post('organizations', [OrganizationController::class, 'store'])->name('api.organizations.store');
+        Route::put('organizations/{organization}', [OrganizationController::class, 'update'])->name('api.organizations.update');
+        Route::delete('organizations/{organization}', [OrganizationController::class, 'destroy'])->name('api.organizations.destroy');
     });

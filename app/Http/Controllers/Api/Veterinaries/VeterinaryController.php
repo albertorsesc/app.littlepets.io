@@ -27,7 +27,8 @@ class VeterinaryController extends Controller
         );
     }
 
-    public function store(VeterinaryRequest $request) : JsonResponse {
+    public function store(VeterinaryRequest $request) : JsonResponse
+    {
         return response()->json([
             'data' => new VeterinaryResource(
                 Veterinary::create($request->all())
