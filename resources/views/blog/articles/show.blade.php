@@ -58,7 +58,7 @@
                             </span>
 
                             <span class="text-sm">
-                                8 min read
+                                {{ $article->readTime() }} min. de lectura
                             </span>
                         </div>
                     </div>
