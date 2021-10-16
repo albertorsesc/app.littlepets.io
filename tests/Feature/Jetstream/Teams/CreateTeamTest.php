@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Jetstream;
+namespace Tests\Feature\Jetstream\Teams;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +12,7 @@ class CreateTeamTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function teams_can_be_created()
+    public function test_teams_can_be_created()
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 

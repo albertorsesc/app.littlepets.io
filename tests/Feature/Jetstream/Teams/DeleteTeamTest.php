@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Jetstream;
+namespace Tests\Feature\Jetstream\Teams;
 
 use App\Models\Team;
 use App\Models\User;
@@ -14,7 +14,7 @@ class DeleteTeamTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function teams_can_be_deleted()
+    public function test_teams_can_be_deleted()
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
@@ -33,7 +33,7 @@ class DeleteTeamTest extends TestCase
         $this->assertCount(0, $otherUser->fresh()->teams);
     }
 
-    public function personal_teams_cant_be_deleted()
+    public function test_personal_teams_cant_be_deleted()
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 

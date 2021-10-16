@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Jetstream;
+namespace Tests\Feature\Jetstream\Teams;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +12,7 @@ class UpdateTeamNameTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function team_names_can_be_updated()
+    public function test_team_names_can_be_updated()
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 

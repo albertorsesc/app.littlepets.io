@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Jetstream;
+namespace Tests\Feature\Jetstream\Teams;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +14,7 @@ class InviteTeamMemberTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function team_members_can_be_invited_to_team()
+    public function test_team_members_can_be_invited_to_team()
     {
         Mail::fake();
 
@@ -31,7 +31,7 @@ class InviteTeamMemberTest extends TestCase
         $this->assertCount(1, $user->currentTeam->fresh()->teamInvitations);
     }
 
-    public function team_member_invitations_can_be_cancelled()
+    public function test_team_member_invitations_can_be_cancelled()
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Jetstream;
+namespace Tests\Feature\Jetstream\Teams;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,7 +12,7 @@ class UpdateTeamMemberRoleTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function team_member_roles_can_be_updated()
+    public function test_team_member_roles_can_be_updated()
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
@@ -30,7 +30,7 @@ class UpdateTeamMemberRoleTest extends TestCase
         ));
     }
 
-    public function only_team_owner_can_update_team_member_roles()
+    public function test_only_team_owner_can_update_team_member_roles()
     {
         $user = User::factory()->withPersonalTeam()->create();
 
