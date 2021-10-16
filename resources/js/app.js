@@ -21,10 +21,11 @@ Vue.component('adoption-profile', require('./views/Adoptions/AdoptionProfile').d
 Vue.component('lost-pets', require('./views/LostPets/LostPets').default);
 Vue.component('lost-pet-profile', require('./views/LostPets/LostPetProfile').default);
 
-Vue.component('shelters', require('./views/Shelters/Shelters').default);
-
 Vue.component('veterinaries', require('./views/Veterinaries/Veterinaries').default);
 Vue.component('veterinary-profile', require('./views/Veterinaries/VeterinaryProfile').default);
+
+Vue.component('organizations', require('./views/Organizations/Organizations').default);
+Vue.component('organization-profile', require('./views/Organizations/OrganizationProfile').default);
 
 Vue.component('profile', require('./views/User/Profile').default);
 

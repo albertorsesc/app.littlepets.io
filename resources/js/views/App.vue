@@ -5,6 +5,7 @@ export default {
         return {
             isMenuOpen: false,
             isDropdownOpen: false,
+            isTeamsDropDownOpen: false,
         }
     }
 }

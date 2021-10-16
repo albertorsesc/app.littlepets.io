@@ -23,8 +23,10 @@ class TeamFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->company(),
             'user_id' => User::factory(),
+            'name' => $this->faker->unique()->company(),
+            'type' => $this->faker->randomElement(config('littlepets.organizations.types')),
+            'capacity' => $this->faker->randomNumber(2),
             'personal_team' => true,
         ];
     }

@@ -32,22 +32,12 @@ class User extends Authenticatable implements MustVerifyEmail
     use SerializeTimestamps;
     use TwoFactorAuthenticatable;
 
-    protected static function boot ()
-    {
-        parent::boot();
-        self::deleting(function ($user) {
-            $user->adoptions()->each(fn ($adoption) => $adoption->delete());
-            $user->lostPets()->each(fn ($lostPet) => $lostPet->delete());
-            \Storage::delete($user->getProfilePhotoUrlAttribute());
-        });
-    }
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['first_name', 'last_name', 'email', 'password', 'email_verified_at'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'password', 'email_verified_at', 'current_team_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -69,6 +59,17 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $appends = ['profile_photo_url',];
+
+    protected static function boot ()
+    {
+        parent::boot();
+        self::deleting(function ($user) {
+            $user->adoptions()->each(fn ($adoption) => $adoption->delete());
+            $user->lostPets()->each(fn ($lostPet) => $lostPet->delete());
+            \Storage::delete($user->getProfilePhotoUrlAttribute());
+        });
+    }
+
 
     /* Relations */
 

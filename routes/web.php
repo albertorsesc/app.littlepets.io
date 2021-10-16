@@ -7,6 +7,7 @@
     use App\Http\Controllers\Web\LostPets\LostPetController;
     use App\Http\Controllers\Web\Adoptions\AdoptionController;
     use App\Http\Controllers\Web\Veterinaries\VeterinaryController;
+    use App\Http\Controllers\Web\Organizations\OrganizationController;
     use App\Http\Controllers\Api\Veterinaries\Actions\UploadLogoController;
 
     Route::get('/', function () {
@@ -44,7 +45,8 @@
         Route::post('suggestions', SuggestionController::class)->name('suggestions.store');
 
         /* Teams (Organizaciones) */
-        Route::view('organizaciones', 'organizations.index');
+        Route::view('organizaciones', 'organizations.index')->name('web.organizations.index');
+        Route::get('organizaciones/team', [OrganizationController::class, 'show'])->name('web.organizations.show');
     });
 
     /*Route::get('resize', function () {

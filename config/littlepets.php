@@ -47,6 +47,15 @@
             'años'
         ],
 
+        /* Organizations */
+        'organizations' => [
+            'types' => [
+                'Refugio',
+                'Santuario',
+                'Control Animal'
+            ],
+        ],
+
         /*
          * Reporting Causes
         */

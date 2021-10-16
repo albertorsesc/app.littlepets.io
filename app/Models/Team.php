@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Laravel\Jetstream\Events\TeamCreated;
-use Laravel\Jetstream\Events\TeamDeleted;
-use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Jetstream\Events\{TeamCreated, TeamDeleted, TeamUpdated};
 
 class Team extends JetstreamTeam
 {
@@ -28,6 +26,8 @@ class Team extends JetstreamTeam
      */
     protected $fillable = [
         'name',
+        'type',
+        'capacity',
         'personal_team',
     ];
 
@@ -41,4 +41,14 @@ class Team extends JetstreamTeam
         'updated' => TeamUpdated::class,
         'deleted' => TeamDeleted::class,
     ];
+
+    protected static function boot ()
+    {
+        parent::boot();
+        self::creating(function ($organization) {
+            $organization->user_id = auth()->id();
+        });
+    }
+
+
 }

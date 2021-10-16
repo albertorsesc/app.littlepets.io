@@ -9,12 +9,12 @@
     use App\Http\Controllers\Api\Sepomex\CityByStateController;
     use App\Http\Controllers\Api\LostPets\UserLostPetController;
     use App\Http\Controllers\Api\Adoptions\UserAdoptionController;
-    use App\Http\Controllers\Api\LostPets\LostPetCommentController;
-    use App\Http\Controllers\Api\Teams\TeamController;
     use App\Http\Controllers\Api\Veterinaries\VeterinaryController;
+    use App\Http\Controllers\Api\LostPets\LostPetCommentController;
     use App\Http\Controllers\Api\LostPets\LostPetLocationController;
     use App\Http\Controllers\Api\Veterinaries\Actions\LikeController;
     use App\Http\Controllers\Api\Adoptions\AdoptionCommentController;
+    use App\Http\Controllers\Api\Organizations\OrganizationController;
     use App\Http\Controllers\Api\Adoptions\AdoptionLocationController;
     use App\Http\Controllers\Api\Sepomex\NeighborhoodByCityController;
     use App\Http\Controllers\Api\Veterinaries\UserVeterinaryController;
@@ -93,6 +93,9 @@
         Route::post('veterinaries/{veterinary:slug}/like', [LikeController::class, 'store'])->name('api.veterinaries.likes.store');
         Route::delete('veterinaries/{veterinary:slug}/dislike', [LikeController::class, 'destroy'])->name('api.veterinaries.likes.destroy');
 
-        /* Teams */
-        Route::post('teams', [TeamController::class, 'store'])->name('api.teams.store');
+        /* Organizations */
+        Route::get('organizations', [OrganizationController::class, 'index'])->name('api.organizations.index');
+        Route::post('organizations', [OrganizationController::class, 'store'])->name('api.organizations.store');
+        Route::put('organizations/{team}', [OrganizationController::class, 'update'])->name('api.organizations.update');
+        Route::delete('organizations/{team}', [OrganizationController::class, 'destroy'])->name('api.organizations.destroy');
     });

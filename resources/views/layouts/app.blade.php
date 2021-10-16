@@ -117,6 +117,66 @@
                                 </svg>
                             </button>--}}
 
+                            {{--Teams Dropdown--}}
+                            @if(! is_null(auth()->user()->current_team_id))
+                                <div class="ml-3 relative">
+                                    <div>
+                                        <button @click="isTeamsDropDownOpen = true" type="button" class="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                        <!--                                        <img class="h-8 w-8 rounded-full"
+                                             src="{{ auth()->user()->getAvatar() }}" alt="">-->
+                                            <span class="hidden ml-3 text-gray-700 text-sm font-medium lg:block">
+                                            <span class="sr-only">Open team menu for </span>
+                                                {{ auth()->user()->currentTeam()->name }}
+                                            </span>
+                                            <!-- Heroicon name: solid/chevron-down -->
+                                            <svg class="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <div v-show="isTeamsDropDownOpen"
+                                         class="fixed inset-0 transform transition-all"
+                                         @click="isTeamsDropDownOpen = false">
+                                        <div class="absolute inset-0 bg-transparent opacity-75"></div>
+                                    </div>
+
+                                    <transition name="dropdown" :duration="1500" appear>
+                                        <div v-show="isTeamsDropDownOpen"
+                                             class="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transform transition-all"
+                                             role="menu"
+                                             aria-orientation="vertical"
+                                             aria-labelledby="user-menu-button"
+                                             tabindex="-1">
+                                            <a href="/user/profile"
+                                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100"
+                                               role="menuitem"
+                                               tabindex="-1"
+                                               id="user-menu-item-0">
+                                                Mi Perfil
+                                            </a>
+                                            {{--<a href="#" class="block px-4 py-2 text-sm text-gray-700"
+                                               role="menuitem"
+                                               tabindex="-1"
+                                               id="user-menu-item-1">
+                                                Settings
+                                            </a>--}}
+                                            <form method="POST" action="{{ route('logout') }}" >
+                                                @csrf
+                                                <a href="#"
+                                                   onclick="event.preventDefault();this.closest('form').submit();"
+                                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100"
+                                                   role="menuitem"
+                                                   tabindex="-1"
+                                                   id="user-menu-item-2">
+                                                    Cerrar Sesión
+                                                </a>
+                                            </form>
+                                        </div>
+                                    </transition>
+                                </div>
+                            @endif
+
                             <!-- Profile dropdown -->
                             <div class="ml-3 relative">
                                 <div>
