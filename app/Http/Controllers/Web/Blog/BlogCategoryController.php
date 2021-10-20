@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\BlogCategoryRequest;
 use App\Models\Blog\BlogCategory;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class BlogCategoryController extends Controller
         return view('blog.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(BlogCategoryRequest $request)
     {
         BlogCategory::create($request->all());
 
