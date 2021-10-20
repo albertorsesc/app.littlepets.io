@@ -33,7 +33,9 @@ class ArticleController extends Controller
         $article = Article::create($request->all());
         $article->categories()->sync($request->categories);
 
-        $article->uploadImage($request->file('image'));
+        if ($request->hasFile('image')) {
+            $article->uploadImage($request->file('image'));
+        }
 
         return redirect()->route('web.blog.admin.articles.index');
     }
