@@ -19,14 +19,18 @@
     use App\Http\Controllers\Api\Sepomex\NeighborhoodByCityController;
     use App\Http\Controllers\Api\Veterinaries\UserVeterinaryController;
     use App\Http\Controllers\Api\LostPets\Actions\MarkAsFoundController;
+    use App\Http\Controllers\Api\Organizations\UserOrganizationController;
+    use App\Http\Controllers\Api\Organizations\OrganizationTypeController;
     use App\Http\Controllers\Api\LostPets\Actions\ReportLostPetController;
     use App\Http\Controllers\Api\Veterinaries\VeterinaryServiceController;
     use App\Http\Controllers\Api\Veterinaries\VeterinaryLocationController;
     use App\Http\Controllers\Api\LostPets\Actions\PublishLostPetController;
     use App\Http\Controllers\Api\Adoptions\Actions\MarkAsAdoptedController;
     use App\Http\Controllers\Api\Adoptions\Actions\ReportAdoptionController;
+    use App\Http\Controllers\Api\Organizations\PublishOrganizationController;
     use App\Http\Controllers\Api\Adoptions\Actions\PublishAdoptionController;
     use App\Http\Controllers\Api\Veterinaries\Actions\PublishVeterinaryController;
+    use App\Http\Controllers\Api\Organizations\Actions\VerifyOrganizationController;
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('countries', CountryController::class)->name('api.countries.index');
@@ -96,6 +100,12 @@
         /* Organizations */
         Route::get('organizations', [OrganizationController::class, 'index'])->name('api.organizations.index');
         Route::post('organizations', [OrganizationController::class, 'store'])->name('api.organizations.store');
-        Route::put('organizations/{team}', [OrganizationController::class, 'update'])->name('api.organizations.update');
-        Route::delete('organizations/{team}', [OrganizationController::class, 'destroy'])->name('api.organizations.destroy');
+        Route::put('organizations/{team:slug}', [OrganizationController::class, 'update'])->name('api.organizations.update');
+        Route::delete('organizations/{team:slug}', [OrganizationController::class, 'destroy'])->name('api.organizations.destroy');
+        Route::put('organizations/{team:slug}/toggle', PublishOrganizationController::class)->name('api.organizations.toggle');
+        Route::put('organizations/{team:slug}/verify', VerifyOrganizationController::class)->name('api.organizations.verify');
+
+        Route::get('user/organization', UserOrganizationController::class)->name('api.user.organizations.index');
+
+        Route::get('organization-types', OrganizationTypeController::class)->name('api.organizations.types.index');
     });

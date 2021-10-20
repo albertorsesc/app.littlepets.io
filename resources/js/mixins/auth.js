@@ -8,6 +8,9 @@ module.exports = {
         auth() {
             return window.me.i
         },
+        currentTeam() {
+            return window.me.org
+        },
         guest(){
             return ! this.isAuthenticated
         }

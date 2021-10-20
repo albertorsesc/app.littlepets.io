@@ -47,6 +47,7 @@
         /* Teams (Organizaciones) */
         Route::view('organizaciones', 'organizations.index')->name('web.organizations.index');
         Route::get('organizaciones/team', [OrganizationController::class, 'show'])->name('web.organizations.show');
+        Route::view('organizaciones/configuracion', 'organizations.settings')->name('web.organizations.settings');
     });
 
     /*Route::get('resize', function () {

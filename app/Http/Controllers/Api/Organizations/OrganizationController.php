@@ -32,7 +32,8 @@ class OrganizationController extends Controller
 
         $user->switchTeam(
             $organization = $user->ownedTeams()->create(
-                $request->all()
+                $request->all() +
+                ['personal_team' => true]
             )
         );
 

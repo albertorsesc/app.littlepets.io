@@ -34,8 +34,8 @@ class VeterinaryRequest extends FormRequest
             'phone' => ['required', 'max:50'],
             'email' => ['nullable', 'max:100', 'email'],
             'is_open_at_night' => ['boolean'],
-            'facebook_profile' => ['max:255'],
-            'site' => ['max:255'],
+            'facebook_profile' => ['max:255', 'url'],
+            'site' => ['max:255', 'url'],
         ];
     }
 }

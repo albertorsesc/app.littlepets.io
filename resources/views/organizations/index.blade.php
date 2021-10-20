@@ -66,11 +66,7 @@
                              class="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last">
                         <div class="mt-8">
                             <div class="px-4 sm:px-6 lg:px-8">
-                                <div class="">
-
-<!--                                    <explore-organizations
-                                        v-show="activeTab === 'explore-organizations'"
-                                    ></explore-organizations>-->
+                                <div>
 
                                     <my-organization
                                         v-show="activeTab === 'my-organization'"

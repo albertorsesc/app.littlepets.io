@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Storage;
 use Laravel\Jetstream\HasTeams;
 use App\Models\LostPets\LostPet;
 use Laravel\Sanctum\HasApiTokens;
@@ -66,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
         self::deleting(function ($user) {
             $user->adoptions()->each(fn ($adoption) => $adoption->delete());
             $user->lostPets()->each(fn ($lostPet) => $lostPet->delete());
-            \Storage::delete($user->getProfilePhotoUrlAttribute());
+            Storage::delete($user->getProfilePhotoUrlAttribute());
         });
     }
 
@@ -107,6 +108,11 @@ class User extends Authenticatable implements MustVerifyEmail
             $this->email,
             config('littlepets.roles.root')
         );
+    }
+
+    public function hasTeam() : bool
+    {
+        return $this->currentTeam()->exists();
     }
 
     public function fullName() : string

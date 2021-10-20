@@ -6,5 +6,16 @@ export default {
             activeTab: 'profile',
         }
     },
+    methods: {
+        verify() {
+            axios.put('/organizations/verify')
+                .then(response => {
+
+                })
+                .catch(error => {
+                    dd(error)
+                })
+        }
+    }
 }
 </script>

@@ -297,11 +297,59 @@ class VeterinaryRequestTest extends TestCase
      *   @test
      *   @throws \Throwable
      */
+    public function facebook_profile_must_have_a_valid_url_format()
+    {
+        $validatedField = 'facebook_profile';
+        $brokenRule = 'not-url.com';
+        $lostPet = $this->make(Veterinary::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $lostPet->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingVeterinary = $this->create(Veterinary::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingVeterinary),
+            $this->make(Veterinary::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
     public function site_must_not_exceed_255_characters()
     {
 
         $validatedField = 'site';
         $brokenRule = Str::random(256);
+        $lostPet = $this->make(Veterinary::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $lostPet->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingVeterinary = $this->create(Veterinary::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingVeterinary),
+            $this->make(Veterinary::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function site_must_have_a_valid_url_format()
+    {
+        $validatedField = 'site';
+        $brokenRule = 'not-url.com';
         $lostPet = $this->make(Veterinary::class, [
             $validatedField => $brokenRule
         ]);

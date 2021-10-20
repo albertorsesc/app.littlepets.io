@@ -32,28 +32,20 @@
                         ></p>
                     </div>
 
-                    <!--Services-->
+                    <!--Type-->
                     <div class="col-span-6 md:col-span-2">
                         <label for="type" class="block text-sm font-medium text-gray-700">
-                            Tipo de Organizacion
                             <strong class="required">*</strong>
+                            Tipo de Refugio
                         </label>
                         <div class="mt-2">
-                            <!--:multiple="true" :taggable="true"-->
-                            <vue-multiselect v-model="organizationForm.type"
-                                             value="Object"
-                                             :placeholder="''"
-                                             :options="organizationTypes"
-                                             :hide-selected="true"
-                                             id="type"
-                                             :searchable="true"
-                                             :close-on-select="false"
-                                             select-label=""
-                                             selected-label=""
-                                             deselect-label=""
-                                             :tag-placeholder="''"
-                                             placeholder="Selecciona el tipo de Organizacion..."
-                            ></vue-multiselect>
+                            <select v-model="organizationForm.type" id="type" class="lp-select">
+                                <option v-for="(type, index) in organizationTypes"
+                                        :key="index"
+                                        :value="type"
+                                        v-text="type"
+                                ></option>
+                            </select>
                         </div>
                         <p v-if="errors.type"
                            v-text="errors.type[0]"
@@ -61,30 +53,11 @@
                         ></p>
                     </div>
 
-                    <!--Specialty-->
-                    <div class="col-span-6 md:col-span-2">
-                        <label for="specialty" class="block text-sm font-medium text-gray-700">
-                            Especialidad
-                            <span class="optional">(opcional)</span>
-                        </label>
-                        <div class="mt-2">
-                            <input type="text"
-                                   v-model="organizationForm.specialty"
-                                   id="specialty"
-                                   class="lp-input"
-                                   :class="errors.specialty ? 'border-2 border-red-400' : ''">
-                        </div>
-                        <p v-if="errors.specialty"
-                           v-text="errors.specialty[0]"
-                           class="text-red-500 font-medium"
-                        ></p>
-                    </div>
-
                     <!--Phone-->
                     <div class="col-span-6 md:col-span-2">
                         <label for="phone" class="block text-sm font-medium text-gray-700">
-                            Teléfono
                             <strong class="required">*</strong>
+                            Teléfono
                         </label>
                         <div class="mt-2">
                             <input type="text"
@@ -106,7 +79,7 @@
                             <span class="optional">(opcional)</span>
                         </label>
                         <div class="mt-2">
-                            <input type="text"
+                            <input type="email"
                                    v-model="organizationForm.email"
                                    id="email"
                                    class="lp-input"
@@ -118,8 +91,27 @@
                         ></p>
                     </div>
 
-                    <!--Facebook-->
+                    <!--Capacity-->
                     <div class="col-span-6 md:col-span-2">
+                        <label for="email" class="block text-sm font-medium text-gray-700">
+                            <strong class="required">*</strong>
+                            Capacidad
+                        </label>
+                        <div class="mt-2">
+                            <input type="text"
+                                   v-model="organizationForm.capacity"
+                                   id="capacity"
+                                   class="lp-input"
+                                   :class="errors.capacity ? 'border-2 border-red-400' : ''">
+                        </div>
+                        <p v-if="errors.capacity"
+                           v-text="errors.capacity[0]"
+                           class="text-red-500 font-medium"
+                        ></p>
+                    </div>
+
+                    <!--Facebook-->
+                    <div class="col-span-6 md:col-span-3">
                         <label for="facebook_profile" class="block text-sm font-medium text-gray-700">
                             Perfil de Facebook
                             <span class="optional">(opcional)</span>
@@ -138,7 +130,7 @@
                     </div>
 
                     <!--Site-->
-                    <div class="col-span-6 md:col-span-2">
+                    <div class="col-span-6 md:col-span-3">
                         <label for="site" class="block text-sm font-medium text-gray-700">
                             Sitio Web
                             <span class="optional">(opcional)</span>
@@ -156,35 +148,10 @@
                         ></p>
                     </div>
 
-                    <!--OpenAtNight-->
-                    <div class="col-span-6 md:col-span-2">
-                        <div class="relative flex items-start items-center mt-2">
-                            <div class="flex items-center h-5">
-                                <input id="is_open_at_night"
-                                       aria-describedby="is_open_at_night_description"
-                                       v-model="organizationForm.isOpenAtNight"
-                                       type="checkbox"
-                                       class="focus:ring-cyan-500 h-6 w-6 text-cyan-600 border-gray-300 rounded">
-                            </div>
-                            <div class="ml-3 text-sm">
-                                <label for="is_open_at_night" class="font-medium text-gray-700">
-                                    Abierto 24hr?
-                                    <p id="is_open_at_night_description" class="text-gray-500">
-                                        Seleccione la casilla si su clínica esta abierta 24 horas por lo menos 3 dias a la semana.
-                                    </p>
-                                </label>
-                            </div>
-                        </div>
-                        <p v-if="errors.is_open_at_night"
-                           v-text="errors.is_open_at_night[0]"
-                           class="text-red-500 font-medium"
-                        ></p>
-                    </div>
-
                     <div class="col-span-6 ">
                         <div>
                             <label for="about" class="block text-sm font-medium text-gray-700">
-                                Comentarios
+                                Acerca de Nosotros
                                 <span class="optional">(opcional)</span>
                             </label>
                             <div class="mt-1">
@@ -194,9 +161,9 @@
                                           class="lp-input"
                                 ></textarea>
                             </div>
-<!--                            <p v-if="organizationForm.pet.name" class="mt-2 text-sm text-gray-500">
-                                Cuéntanos sobre {{ organizationForm.pet.name }} y que le gusta hacer.
-                            </p>-->
+                            <p v-if="organizationForm.about" class="mt-2 text-sm text-gray-500">
+                                Cuéntanos mas {{ organizationForm.about }} para que la comunidad de LittlePets los conozcan.
+                            </p>
                         </div>
                     </div>
 
@@ -219,21 +186,20 @@
 import VueMultiselect from 'vue-multiselect'
 
 export default {
-    name: "CreateVeterinary",
+    name: "CreateOrganization",
     data() {
         return {
             organizationForm: {
                 name: '',
-                services: [],
-                specialty: '',
+                type: '',
                 phone: '',
                 email: '',
-                isOpenAtNight: false,
                 facebookProfile: '',
                 site: '',
+                capacity: '',
                 about: '',
             },
-            veterinaryServices: [],
+            organizationTypes: [],
 
             isLoading: false,
             errors: [],
@@ -242,21 +208,20 @@ export default {
     methods: {
         store() {
             this.isLoading = true
-            axios.post('/veterinaries', {
+            axios.post('/organizations', {
                 name: this.organizationForm.name,
-                services: this.organizationForm.services,
-                specialty: this.organizationForm.specialty,
+                type: this.organizationForm.type,
                 phone: this.organizationForm.phone,
                 email: this.organizationForm.email,
-                is_open_at_night: this.organizationForm.isOpenAtNight,
                 facebook_profile: this.organizationForm.facebookProfile,
                 site: this.organizationForm.site,
+                capacity: this.organizationForm.capacity,
                 about: this.organizationForm.about,
             })
             .then(response => {
-                window.Event.$emit('veterinary-form:store', response.data.data)
+                window.Event.$emit('organization-form:store', response.data.data)
                 this.isLoading = false
-                this.organizationForm = {pet: {}}
+                this.organizationForm = {}
                 this.errors = []
             })
                 .catch(error => {
@@ -268,23 +233,21 @@ export default {
                     this.isLoading = false
                 })
         },
-        getVeterinaryServices() {
-            axios.get('/veterinary-services')
-                .then(response => {
-                    this.veterinaryServices = response.data.data
-                })
-                .catch(error => console.log(error))
+        getOrganizationTypes() {
+            axios.get('/organization-types')
+            .then(response => {
+                this.organizationTypes = response.data.data
+            })
+            .catch(error => {
+                console.log(error)
+            })
         },
+    },
+    created() {
+        this.getOrganizationTypes()
     },
     components: {
         VueMultiselect,
     },
-    created() {
-        this.getVeterinaryServices()
-    }
 }
 </script>
-
-<style scoped>
-
-</style>

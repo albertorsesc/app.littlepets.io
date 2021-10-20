@@ -10,7 +10,11 @@
     <title>@yield('title') | {{ config('app.name') }} | Haciendo todo lo posible por encontrarle hogar a cada angelito perdido.</title>
 
     <script>
-        window.me = @json(auth()->check() ? ['loggedIn' => auth()->check() ?? false, 'i' => auth()->id()] : false)
+        window.me = @json(auth()->check() ? [
+            'loggedIn' => true,
+            'i' => auth()->id(),
+            'org' => auth()->user()->currentTeam
+        ] : false)
     </script>
 
     <!-- Fonts -->
@@ -124,9 +128,9 @@
                                         <button @click="isTeamsDropDownOpen = true" type="button" class="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                         <!--                                        <img class="h-8 w-8 rounded-full"
                                              src="{{ auth()->user()->getAvatar() }}" alt="">-->
-                                            <span class="hidden ml-3 text-gray-700 text-sm font-medium lg:block">
+                                            <span class="hidden ml-3 text-gray-700 text-sm font-medium lg:block py-2">
                                             <span class="sr-only">Open team menu for </span>
-                                                {{ auth()->user()->currentTeam()->name }}
+                                                {{ auth()->user()->currentTeam->name }}
                                             </span>
                                             <!-- Heroicon name: solid/chevron-down -->
                                             <svg class="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

@@ -24,9 +24,13 @@ class OrganizationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:255', 'string'],
+            'name' => ['required', 'max:255', 'string', 'unique:teams,name'],
             'type' => ['required', 'in:' . implode(',', config('littlepets.organizations.types'))],
-            'capacity' => ['required', 'integer'],
+            'capacity' => ['required', 'integer', 'max:200'],
+            'phone' => ['required', 'max:50'],
+            'email' => ['required', 'email', 'max:150'],
+            'facebook_profile' => ['max:255', 'url'],
+            'site' => ['max:255', 'url'],
         ];
     }
 }

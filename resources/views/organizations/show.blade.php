@@ -30,23 +30,32 @@
 
                                 </div>
                                 <div class="flex justify-between items-center lg:-mt-8">
+                                    @if(auth()->user()->isRoot())
+                                        <button @click="verify()"
+                                                type="button"
+                                                class="mx-2 md:mx-1 items-center shadow-sm w-full py-2 px-3 flex justify-center border border-gray-200 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring focus:border-cyan-300 active:bg-gray-50 active:text-gray-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mx-1 h-8 w-8 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span class="text-gray-400"
+                                                  title="Verificar Organizacion.">Verificar</span>
+                                        </button>
+                                    @endif
                                     <button type="button"
-                                            class="mx-2 md:mx-1 items-center shadow-sm w-full py-3 px-3 flex justify-center border border-gray-200 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring focus:border-cyan-300 active:bg-gray-50 active:text-gray-800"
-                                    >
-                                                <span class="text-gray-400"
-                                                      title="Ocultar Veterinaria del Publico.">Ocultar</span>
-                                        <span v-else class="text-gray-400" title="Publicar Veterinaria.">Publicar</span>
+                                            class="mx-2 md:mx-1 items-center shadow-sm w-full py-3 px-3 flex justify-center border border-gray-200 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring focus:border-cyan-300 active:bg-gray-50 active:text-gray-800">
+                                        <span class="text-gray-400"
+                                              title="Ocultar Organizacion del Publico."
+                                        >Ocultar</span>
+{{--                                        <span v-else class="text-gray-400" title="Publicar Organizacion.">Publicar</span>--}}
                                     </button>
-                                    <button type="button"
+                                    <a href="/organizaciones/configuracion"
                                             class="mx-2 md:mx-1 items-center shadow-sm w-full py-3 px-3 flex justify-center border border-gray-200 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring focus:border-cyan-300 active:bg-gray-50 active:text-gray-800"
                                             :class="'w-1/2'">
-                                        <span class="text-gray-400 font-semibold">Editar</span>
-                                    </button>
-                                    {{--Delete--}}
-                                    <button class="mx-2 md:mx-1 inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150"
-                                            title="Eliminar Veterinaria">
-                                        <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                    </button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 font-semibold h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </a>
                                     {{--Report--}}
                                 </div>
                             </div>
@@ -134,7 +143,7 @@
                                                         <span class="block md:hidden">Perfil</span>
                                                     </h2>
                                                     <dt class="flex text-sm font-medium text-gray-500 items-center">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-cyan-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                         </svg>
                                                         Verificada
@@ -182,6 +191,13 @@
                                                             </dt>
                                                             <dd class="mt-1 text-sm text-gray-900"
                                                             >Organizacion ROsas</dd>
+                                                        </div>
+                                                        {{--Type--}}
+                                                        <div class="sm:col-span-1">
+                                                            <dt class="text-sm font-medium text-gray-500">
+                                                                Tipo de Organizacion
+                                                            </dt>
+                                                            <dd class="mt-1 text-sm text-gray-900">Refugio</dd>
                                                         </div>
                                                         {{--Phone--}}
                                                         <div class="sm:col-span-1">
@@ -237,6 +253,15 @@
                                                                 20/10/2021
                                                             </dd>
                                                         </div>
+                                                        {{--PublishedAt--}}
+                                                        <div class="sm:col-span-1">
+                                                            <dt class="flex items-center text-sm font-medium text-gray-500">
+                                                                Miembro verificado desde hace
+                                                            </dt>
+                                                            <dd class="mt-1 text-sm text-gray-900 hover:text-cyan-600 hover:text-base hover:font-medium hover:underline">
+                                                                20/10/2021
+                                                            </dd>
+                                                        </div>
                                                         {{--About--}}
                                                         <div class="sm:col-span-2">
                                                             <dt class="text-sm font-medium text-gray-500">
@@ -267,8 +292,8 @@
                                                     :class="localVeterinary.user.id === auth && localVeterinary.location && ! localVeterinary.meta.publishedAt ? 'animate-bounce' : ''">
                                                 <span v-if="localVeterinary.meta.publishedAt"
                                                       class="text-gray-300"
-                                                      title="Ocultar Veterinaria del Publico.">Ocultar</span>
-                                                <span v-else class="text-gray-300" title="Publicar Veterinaria.">Publicar</span>
+                                                      title="Ocultar Organizacion del Publico.">Ocultar</span>
+                                                <span v-else class="text-gray-300" title="Publicar Organizacion.">Publicar</span>
                                             </button>
                                             <button @click="openModal('put')"
                                                     type="button"

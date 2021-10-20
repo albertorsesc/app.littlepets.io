@@ -26,6 +26,7 @@ Vue.component('veterinary-profile', require('./views/Veterinaries/VeterinaryProf
 
 Vue.component('organizations', require('./views/Organizations/Organizations').default);
 Vue.component('organization-profile', require('./views/Organizations/OrganizationProfile').default);
+Vue.component('organization-settings', require('./views/Organizations/Settings/OrganizationSettings').default);
 
 Vue.component('profile', require('./views/User/Profile').default);
 

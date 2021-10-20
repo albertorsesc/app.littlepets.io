@@ -27,21 +27,33 @@ class OrganizationRequestTest extends TestCase
     {
         $validatedField = 'name';
         $brokenRule = null;
-        $lostPet = $this->make(Team::class, [
+        $organization = $this->make(Team::class, [
             $validatedField => $brokenRule
         ]);
 
         $this->postJson(
             route($this->routePrefix . 'store'),
-            $lostPet->toArray()
+            $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
+    }
 
-        $existingTeam = $this->create(Team::class);
-        $this->putJson(
-            route($this->routePrefix . 'update', $existingTeam),
-            $this->make(Team::class, [
-                $validatedField => $brokenRule
-            ])->toArray()
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function name_must_be_unique()
+    {
+        $this->fakeEvent();
+        $existingOrganization = $this->create(Team::class);
+        $validatedField = 'name';
+        $brokenRule = $existingOrganization->name;
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
     }
 
@@ -53,21 +65,13 @@ class OrganizationRequestTest extends TestCase
     {
         $validatedField = 'name';
         $brokenRule = 999;
-        $lostPet = $this->make(Team::class, [
+        $organization = $this->make(Team::class, [
             $validatedField => $brokenRule
         ]);
 
         $this->postJson(
             route($this->routePrefix . 'store'),
-            $lostPet->toArray()
-        )->assertJsonValidationErrors($validatedField);
-
-        $existingTeam = $this->create(Team::class);
-        $this->putJson(
-            route($this->routePrefix . 'update', $existingTeam),
-            $this->make(Team::class, [
-                $validatedField => $brokenRule
-            ])->toArray()
+            $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
     }
 
@@ -79,19 +83,13 @@ class OrganizationRequestTest extends TestCase
     {
         $validatedField = 'name';
         $brokenRule = Str::random(256);
-        $lostPet = $this->make(Team::class, [
+        $organization = $this->make(Team::class, [
             $validatedField => $brokenRule
         ]);
 
         $this->postJson(
             route($this->routePrefix . 'store'),
-            $lostPet->toArray()
-        )->assertJsonValidationErrors($validatedField);
-
-        $existingTeam = $this->create(Team::class);
-        $this->putJson(
-            route($this->routePrefix . 'update', $existingTeam),
-            $this->make(Team::class, [$validatedField => $brokenRule])->toArray()
+            $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
     }
 
@@ -103,13 +101,13 @@ class OrganizationRequestTest extends TestCase
     {
         $validatedField = 'type';
         $brokenRule = null;
-        $lostPet = $this->make(Team::class, [
+        $organization = $this->make(Team::class, [
             $validatedField => $brokenRule
         ]);
 
         $this->postJson(
             route($this->routePrefix . 'store'),
-            $lostPet->toArray()
+            $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
 
         $existingTeam = $this->create(Team::class);
@@ -129,13 +127,13 @@ class OrganizationRequestTest extends TestCase
     {
         $validatedField = 'type';
         $brokenRule = 'not-valid-type';
-        $lostPet = $this->make(Team::class, [
+        $organization = $this->make(Team::class, [
             $validatedField => $brokenRule
         ]);
 
         $this->postJson(
             route($this->routePrefix . 'store'),
-            $lostPet->toArray()
+            $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
 
         $existingTeam = $this->create(Team::class);
@@ -155,13 +153,13 @@ class OrganizationRequestTest extends TestCase
     {
         $validatedField = 'capacity';
         $brokenRule = null;
-        $lostPet = $this->make(Team::class, [
+        $organization = $this->make(Team::class, [
             $validatedField => $brokenRule
         ]);
 
         $this->postJson(
             route($this->routePrefix . 'store'),
-            $lostPet->toArray()
+            $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
 
         $existingTeam = $this->create(Team::class);
@@ -181,13 +179,13 @@ class OrganizationRequestTest extends TestCase
     {
         $validatedField = 'capacity';
         $brokenRule = 'non-integer';
-        $lostPet = $this->make(Team::class, [
+        $organization = $this->make(Team::class, [
             $validatedField => $brokenRule
         ]);
 
         $this->postJson(
             route($this->routePrefix . 'store'),
-            $lostPet->toArray()
+            $organization->toArray()
         )->assertJsonValidationErrors($validatedField);
 
         $existingTeam = $this->create(Team::class);
@@ -196,6 +194,228 @@ class OrganizationRequestTest extends TestCase
             $this->make(Team::class, [
                 $validatedField => $brokenRule
             ])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function capacity_must_not_exceed_200()
+    {
+        $validatedField = 'capacity';
+        $brokenRule = 201;
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingTeam = $this->create(Team::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingTeam),
+            $this->make(Team::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function phone_is_required()
+    {
+        $validatedField = 'phone';
+        $brokenRule = null;
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingTeam = $this->create(Team::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingTeam),
+            $this->make(Team::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function phone_must_not_exceed_50_characters()
+    {
+        $validatedField = 'phone';
+        $brokenRule = Str::random(51);
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingTeam = $this->create(Team::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingTeam),
+            $this->make(Team::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function email_must_not_exceed_150_characters()
+    {
+        $validatedField = 'email';
+        $brokenRule = Str::random(145) . '@email.com';
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingTeam = $this->create(Team::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingTeam),
+            $this->make(Team::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function email_must_have_a_valid_format()
+    {
+        $validatedField = 'email';
+        $brokenRule = Str::random(10);
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingTeam = $this->create(Team::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingTeam),
+            $this->make(Team::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function facebook_profile_must_not_exceed_255_characters()
+    {
+        $validatedField = 'facebook_profile';
+        $brokenRule = Str::random(256);
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingTeam = $this->create(Team::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingTeam),
+            $this->make(Team::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function facebook_profile_must_have_a_valid_url_format()
+    {
+        $validatedField = 'facebook_profile';
+        $brokenRule = 'not-url.com';
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingTeam = $this->create(Team::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingTeam),
+            $this->make(Team::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function site_must_not_exceed_255_characters()
+    {
+        $validatedField = 'site';
+        $brokenRule = Str::random(256);
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingTeam = $this->create(Team::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingTeam),
+            $this->make(Team::class, [$validatedField => $brokenRule])->toArray()
+        )->assertJsonValidationErrors($validatedField);
+    }
+
+    /**
+     *   @test
+     *   @throws \Throwable
+     */
+    public function site_must_have_a_valid_url_format()
+    {
+        $validatedField = 'site';
+        $brokenRule = 'not-url.com';
+        $organization = $this->make(Team::class, [
+            $validatedField => $brokenRule
+        ]);
+
+        $this->postJson(
+            route($this->routePrefix . 'store'),
+            $organization->toArray()
+        )->assertJsonValidationErrors($validatedField);
+
+        $existingTeam = $this->create(Team::class);
+        $this->putJson(
+            route($this->routePrefix . 'update', $existingTeam),
+            $this->make(Team::class, [$validatedField => $brokenRule])->toArray()
         )->assertJsonValidationErrors($validatedField);
     }
 }

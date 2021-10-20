@@ -17,6 +17,7 @@ class OrganizationsTest extends TestCase
     */
     public function authenticated_user_can_get_all_organizations()
     {
+        $this->fakeEvent();
         $this->signIn();
 
         $organization = $this->create(Team::class);
@@ -90,6 +91,7 @@ class OrganizationsTest extends TestCase
     */
     public function authenticated_user_can_delete_an_organization()
     {
+        $this->fakeEvent();
         $this->signIn();
 
         $organization = $this->create(Team::class);

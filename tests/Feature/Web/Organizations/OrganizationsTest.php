@@ -28,11 +28,28 @@ class OrganizationsTest extends TestCase
     */
     public function authenticated_user_can_visit_an_organization_profile()
     {
+        $this->fakeEvent();
         $this->signIn();
 
         $organization = $this->create(Team::class);
 
         $response = $this->get(route('web.organizations.show', $organization));
         $response->assertOk();
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function authenticated_user_can_visit_an_organization_settings()
+    {
+        $this->fakeEvent();
+        $this->signIn();
+
+        $organization = $this->create(Team::class);
+
+        $response = $this->get(route('web.organizations.settings', $organization));
+        $response->assertOk();
+        $response->assertViewIs('organizations.settings');
     }
 }
