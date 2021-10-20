@@ -17,7 +17,7 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->string('title', 255);
             $table->string('slug', 255);
-            $table->text('excerpt');
+            $table->string('excerpt', 255);
             $table->mediumText('body');
             $table->string('image')->nullable();
             $table->dateTime('published_at')->nullable();

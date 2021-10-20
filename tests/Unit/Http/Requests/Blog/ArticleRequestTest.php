@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Http\Requests\Blog;
 
+use Illuminate\Support\Str;
 use Tests\TestCase;
 use App\Models\Blog\Article;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,17 +30,132 @@ class ArticleRequestTest extends TestCase
         $validatedField = 'title';
         $brokenRule = null;
 
-        $this->postJson(
+        $this->post(
             route($this->routePrefix . 'store'),
             $this->make(Article::class, [
                 $validatedField => $brokenRule
             ])->toArray()
-        )->assertJsonValidationErrors($validatedField);
+        )->assertSessionHasErrors($validatedField);
 
         $existingArticle = $this->create(Article::class);
-        $this->putJson(
+        $this->put(
             route($this->routePrefix . 'update', $existingArticle),
             $this->make(Article::class, [$validatedField => $brokenRule])->toArray()
-        )->assertJsonValidationErrors($validatedField);
+        )->assertSessionHasErrors($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+    */
+    public function title_must_not_exceed_255_characters()
+    {
+        $validatedField = 'title';
+        $brokenRule = Str::random(256);
+
+        $this->post(
+            route($this->routePrefix . 'store'),
+            $this->make(Article::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertSessionHasErrors($validatedField);
+
+        $existingArticle = $this->create(Article::class);
+        $this->put(
+            route($this->routePrefix . 'update', $existingArticle),
+            $this->make(Article::class, [$validatedField => $brokenRule])->toArray()
+        )->assertSessionHasErrors($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function categories_is_required()
+    {
+        $validatedField = 'categories';
+        $brokenRule = [];
+
+        $this->post(
+            route($this->routePrefix . 'store'),
+            $this->make(Article::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertSessionHasErrors($validatedField);
+
+        $existingArticle = $this->create(Article::class);
+        $this->put(
+            route($this->routePrefix . 'update', $existingArticle),
+            $this->make(Article::class, [$validatedField => $brokenRule])->toArray()
+        )->assertSessionHasErrors($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function excerpt_is_required()
+    {
+        $validatedField = 'excerpt';
+        $brokenRule = [];
+
+        $this->post(
+            route($this->routePrefix . 'store'),
+            $this->make(Article::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertSessionHasErrors($validatedField);
+
+        $existingArticle = $this->create(Article::class);
+        $this->put(
+            route($this->routePrefix . 'update', $existingArticle),
+            $this->make(Article::class, [$validatedField => $brokenRule])->toArray()
+        )->assertSessionHasErrors($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function excerpt_must_not_exceed_255_characters()
+    {
+        $validatedField = 'excerpt';
+        $brokenRule = Str::random(256);
+
+        $this->post(
+            route($this->routePrefix . 'store'),
+            $this->make(Article::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertSessionHasErrors($validatedField);
+
+        $existingArticle = $this->create(Article::class);
+        $this->put(
+            route($this->routePrefix . 'update', $existingArticle),
+            $this->make(Article::class, [$validatedField => $brokenRule])->toArray()
+        )->assertSessionHasErrors($validatedField);
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
+    public function body_is_required()
+    {
+        $validatedField = 'body';
+        $brokenRule = [];
+
+        $this->post(
+            route($this->routePrefix . 'store'),
+            $this->make(Article::class, [
+                $validatedField => $brokenRule
+            ])->toArray()
+        )->assertSessionHasErrors($validatedField);
+
+        $existingArticle = $this->create(Article::class);
+        $this->put(
+            route($this->routePrefix . 'update', $existingArticle),
+            $this->make(Article::class, [$validatedField => $brokenRule])->toArray()
+        )->assertSessionHasErrors($validatedField);
     }
 }

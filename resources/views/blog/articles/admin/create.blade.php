@@ -38,6 +38,11 @@
                         <div class="mt-1">
                             <input type="text" name="title" id="title" autocomplete="title" class="lp-input">
                         </div>
+                        @error('title')
+                            <p class="text-red-500 font-medium">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6">
@@ -51,6 +56,11 @@
                                 @endforeach
                             </select>
                         </div>
+                        @error('categories')
+                        <p class="text-red-500 font-medium">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6">
@@ -60,6 +70,11 @@
                         <div class="mt-1">
                             <textarea name="excerpt" class="lp-input" id="excerpt" rows="2"></textarea>
                         </div>
+                        @error('excerpt')
+                        <p class="text-red-500 font-medium">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6">
@@ -69,6 +84,11 @@
                         <div class="mt-1">
                             <textarea name="body" class="lp-input" id="body" rows="10"></textarea>
                         </div>
+                        @error('body')
+                        <p class="text-red-500 font-medium">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6">

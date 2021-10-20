@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Blog;
 
+use App\Models\Blog\BlogCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleRequest extends FormRequest
@@ -24,7 +25,10 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required']
+            'title' => ['required', 'max:255'],
+            'categories' => ['required'],
+            'excerpt' => ['required', 'max:255'],
+            'body' => ['required'],
         ];
     }
 }

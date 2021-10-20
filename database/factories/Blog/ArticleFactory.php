@@ -42,4 +42,13 @@ class ArticleFactory extends Factory
             ];
         });
     }
+
+    public function withCategories() : ArticleFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'categories' => $this->faker->randomElements(BlogCategory::query()->inRandomOrder()->get()->toArray()),
+            ];
+        });
+    }
 }

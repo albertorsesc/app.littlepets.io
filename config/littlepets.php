@@ -34,10 +34,6 @@
             'Venta de accesorios',
         ],
 
-        'species' => [
-
-        ],
-
         'genders' => [
             'male',
             'female'
