@@ -28,11 +28,12 @@ class BlogCategoriesTest extends TestCase
     /**
      * @test
      * @throws \Throwable
+     * @only ['root']
      */
     public function authorized_user_can_create_a_blog_category()
     {
         $this->signIn([
-            'email' => env('BLOG_EDITORS')
+            'email' => implode(',', config('littlepets.roles.root'))
         ]);
 
         $category = $this->make(BlogCategory::class);

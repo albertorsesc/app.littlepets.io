@@ -13,7 +13,7 @@ class BlogCategoryPolicy
 
     public function before(User $user, $ability) : ?bool
     {
-        return $user->isEditor();
+        return $user->isRoot();
     }
 
     /**
