@@ -152,6 +152,7 @@
             'title' => 'Título',
             'name' => 'Nombre',
             'phone' => 'Teléfono',
+            'email' => 'Correo Electronico',
             'specie_id' => 'Especie',
             'size' => 'Tamaño',
             'gender' => 'Genero',
@@ -163,7 +164,10 @@
             'lost_at' => 'Fecha de extravío',
             'owner' => 'Dueño',
 
-            /* Pets */
+            /* Organizations */
+            'capacity' => 'Capacidad',
+            'facebook_profile' => 'Perfil de Facebook',
+            'site' => 'Sitio Web',
 
         ],
 

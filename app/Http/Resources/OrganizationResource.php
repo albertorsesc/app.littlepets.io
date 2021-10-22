@@ -19,10 +19,18 @@ class OrganizationResource extends JsonResource
             'slug' => $this->slug,
             'name' => $this->name,
             'type' => $this->type,
-            'capacity' => $this->capacity,
-            'owner' => $this->whenLoaded('owner'),
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'capacity' => (int) $this->capacity,
+            'facebookProfile' => $this->facebook_profile,
+            'site' => $this->site,
+            'about' => $this->about,
+            'owner' => $this->owner,
+            'logo' => $this->logo,
             'meta' => [
                 'profile' => $this->profile(),
+                'publishedAt' => optional($this->published_at)->diffForHumans(),
+                'verifiedAt' => optional($this->verified_at)->format('d-m-Y')
             ]
         ];
     }

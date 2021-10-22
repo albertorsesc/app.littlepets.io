@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Organizations;
 use App\Http\Requests\Organizations\OrganizationRequest;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Laravel\Jetstream\Jetstream;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
@@ -25,7 +26,7 @@ class OrganizationController extends Controller
     {
         $this->authorize(
             'create',
-            Jetstream::newTeamModel()
+            Team::class
         );
 
         AddingTeam::dispatch($user = auth()->user());

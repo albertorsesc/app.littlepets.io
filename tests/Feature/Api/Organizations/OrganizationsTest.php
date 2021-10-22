@@ -28,8 +28,21 @@ class OrganizationsTest extends TestCase
             'data' => [
                 [
                     'id' => $organization->id,
+                    'slug' => $organization->slug,
                     'name' => $organization->name,
                     'type' => $organization->type,
+                    'phone' => $organization->phone,
+                    'email' => $organization->email,
+                    'facebookProfile' => $organization->facebook_profile,
+                    'capacity' => $organization->capacity,
+                    'about' => $organization->about,
+                    'owner' => ['id' => $organization->owner->id],
+                    'logo' => $organization->logo,
+                    'meta' => [
+                        'profile' => $organization->profile(),
+                        'publishedAt' => optional($organization->published_at)->diffForHumans(),
+                        'verifiedAt' => optional($organization->verified_at)->format('d-m-Y')
+                    ]
                 ]
             ]
         ]);
@@ -40,6 +53,7 @@ class OrganizationsTest extends TestCase
      */
     public function authenticated_user_can_store_an_organization()
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
         $organization = $this->make(Team::class, [

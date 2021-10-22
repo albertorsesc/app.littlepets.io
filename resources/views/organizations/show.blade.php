@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Organizacion')
+@section('title', e($organization->name))
 
 @section('styles')
 @endsection
 
 @section('content')
 
-    <organization-profile inline-template>
+    <organization-profile :organization="{{ json_encode($organization) }}" inline-template>
         <div>
             <!-- Page header -->
             <div class="bg-white shadow">
@@ -20,7 +20,7 @@
                                     {{--Title--}}
                                     <div class="flex items-center align-middle my-auto">
                                         <h1 class="lg:ml-3 text-2xl font-medium leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                                            <span class="text-cyan-500 font-bold">Organizacion Rosas</span>
+                                            <span class="text-cyan-500 font-bold" v-text="organization.name"></span>
                                         </h1>
                                     </div>
                                 </div>
@@ -33,29 +33,30 @@
                                     @if(auth()->user()->isRoot())
                                         <button @click="verify()"
                                                 type="button"
-                                                class="mx-2 md:mx-1 items-center shadow-sm w-full py-2 px-3 flex justify-center border border-gray-200 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring focus:border-cyan-300 active:bg-gray-50 active:text-gray-800">
+                                                class="mx-2 md:mx-1 items-center shadow-sm w-full py-1 px-3 flex justify-center border border-gray-200 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring focus:border-cyan-300 active:bg-gray-50 active:text-gray-800">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mx-1 h-8 w-8 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
-                                            <span class="text-gray-400"
-                                                  title="Verificar Organizacion.">Verificar</span>
+                                            <span v-if="! organization.meta.verifiedAt"
+                                                  class="text-gray-400"
+                                                  title="Verificar Organizacion."
+                                            >Verificar</span>
+                                            <span v-if="organization.meta.verifiedAt"
+                                                  class="text-gray-400"
+                                                  title="Ocultas Organizacion del Publico."
+                                            >Eliminar Verificacion</span>
                                         </button>
                                     @endif
-                                    <button type="button"
-                                            class="mx-2 md:mx-1 items-center shadow-sm w-full py-3 px-3 flex justify-center border border-gray-200 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring focus:border-cyan-300 active:bg-gray-50 active:text-gray-800">
-                                        <span class="text-gray-400"
-                                              title="Ocultar Organizacion del Publico."
-                                        >Ocultar</span>
-{{--                                        <span v-else class="text-gray-400" title="Publicar Organizacion.">Publicar</span>--}}
-                                    </button>
-                                    <a href="/organizaciones/configuracion"
-                                            class="mx-2 md:mx-1 items-center shadow-sm w-full py-3 px-3 flex justify-center border border-gray-200 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring focus:border-cyan-300 active:bg-gray-50 active:text-gray-800"
-                                            :class="'w-1/2'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 font-semibold h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                    </a>
+                                    @if(auth()->id() === $organization->owner->id || auth()->user()->isRoot())
+                                        <a href="{{ route('web.organizations.settings', $organization) }}"
+                                           class="mx-2 md:mx-1 items-center shadow-sm w-full py-2 px-3 flex justify-center border border-gray-200 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:ring focus:border-cyan-300 active:bg-gray-50 active:text-gray-800"
+                                           :class="'w-1/2'">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 font-semibold h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </a>
+                                    @endif
                                     {{--Report--}}
                                 </div>
                             </div>
@@ -65,7 +66,7 @@
             </div>
 
             {{--Disclosure if not validated to non-team owner/member--}}
-            <div class="w-full rounded-md bg-blue-50 border border-blue-100 shadow-sm p-4">
+            <div v-if="! organization.meta.verifiedAt" class="w-full rounded-md bg-blue-50 border border-blue-100 shadow-sm p-4">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <!-- Heroicon name: solid/information-circle -->
@@ -74,12 +75,18 @@
                         </svg>
                     </div>
                     <div class="ml-3 flex-1 md:flex md:justify-between">
-                        <p class="text-base text-blue-700 flex items-center">
+                        <p class="hidden lg:flex text-base text-blue-700 items-center">
                             Antes de realizar un donativo a esta organizacion asegurate que posean esta insignia junto a su nombre
                             <svg xmlns="http://www.w3.org/2000/svg" class="mx-1 h-8 w-8 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             para validar su legitimidad, realiza tus investigaciones para confirmar.
+                        </p>
+                        <p class="block lg:hidden text-base text-blue-700 flex items-center">
+                            <span v-text="organization.name"></span> aun no ha sido verificada por LittlePets.
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mx-1 h-8 w-8 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                         </p>
                     </div>
                 </div>
@@ -190,29 +197,35 @@
                                                                 Nombre
                                                             </dt>
                                                             <dd class="mt-1 text-sm text-gray-900"
-                                                            >Organizacion ROsas</dd>
+                                                                v-text="organization.name"
+                                                            ></dd>
                                                         </div>
                                                         {{--Type--}}
                                                         <div class="sm:col-span-1">
                                                             <dt class="text-sm font-medium text-gray-500">
                                                                 Tipo de Organizacion
                                                             </dt>
-                                                            <dd class="mt-1 text-sm text-gray-900">Refugio</dd>
+                                                            <dd class="mt-1 text-sm text-gray-900"
+                                                                v-text="organization.type"
+                                                            ></dd>
                                                         </div>
                                                         {{--Phone--}}
                                                         <div class="sm:col-span-1">
                                                             <dt class="text-sm font-medium text-gray-500">
                                                                 Teléfono
                                                             </dt>
-                                                            <dd class="mt-1 text-sm text-gray-900">(686) 2894998</dd>
+                                                            <dd class="mt-1 text-sm text-gray-900"
+                                                                v-text="formatPhone(organization.phone)"
+                                                            ></dd>
                                                         </div>
                                                         {{--Email--}}
-                                                        <div class="sm:col-span-1">
+                                                        <div v-if="organization.email" class="sm:col-span-1">
                                                             <dt class="text-sm font-medium text-gray-500">
                                                                 Correo Electrónico
                                                             </dt>
                                                             <dd class="mt-1 text-sm text-gray-900"
-                                                            >email@algo.com</dd>
+                                                                v-text="organization.email"
+                                                            ></dd>
                                                         </div>
                                                         {{--Facebook--}}
                                                         <div class="sm:col-span-1">
@@ -220,16 +233,18 @@
                                                                 Enlace de Facebook de la Organizacion
                                                             </dt>
                                                             <dd class="mt-1 text-sm text-gray-900 hover:text-cyan-600 hover:text-base hover:font-medium hover:underline">
-                                                                <a>https://sitio.web</a>
+                                                                <a :href="organization.facebookProfile"
+                                                                   v-text="organization.facebookProfile"
+                                                                ></a>
                                                             </dd>
                                                         </div>
                                                         {{--Site--}}
-                                                        <div class="sm:col-span-1">
+                                                        <div v-if="organization.site" class="sm:col-span-1">
                                                             <dt class="text-sm font-medium text-gray-500">
                                                                 Enlace de Sitio Web de la Organizacion
                                                             </dt>
                                                             <dd class="mt-1 text-sm text-gray-900 hover:text-cyan-600 hover:text-base hover:font-medium hover:underline">
-                                                                <a>https://sitio.web</a>
+                                                                <a :href="organization.site" v-text="organization.site"></a>
                                                             </dd>
                                                         </div>
                                                         {{--Capacity--}}
@@ -238,29 +253,36 @@
                                                                 Capacidad de la Organizacion
                                                             </dt>
                                                             <dd class="mt-1 text-sm text-gray-900">
-                                                                20 <i class="ml-2 fas fa-paw text-xl text-cyan-400"></i>
+                                                                <span v-text="organization.capacity"></span> <i class="ml-2 fas fa-paw text-xl text-cyan-400"></i>
                                                             </dd>
                                                         </div>
                                                         {{--Verified At--}}
                                                         <div class="sm:col-span-1">
                                                             <dt class="flex items-center text-sm font-medium text-gray-500">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1 text-cyan-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     :class="organization.meta.verifiedAt ? 'text-cyan-300' : 'text-gray-300'"
+                                                                     class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                 </svg>
                                                                 Fecha de Verificacion
                                                             </dt>
-                                                            <dd class="mt-1 text-sm text-gray-900 hover:text-cyan-600 hover:text-base hover:font-medium hover:underline">
-                                                                20/10/2021
+                                                            <dd v-if="organization.meta.verifiedAt"
+                                                                class="mt-1 text-sm text-gray-900"
+                                                                v-text="organization.meta.verifiedAt"
+                                                            ></dd>
+                                                            <dd v-else
+                                                                class="mt-1 text-sm text-gray-600">
+                                                                Esta Organizacion no ha sido Verificada.
                                                             </dd>
                                                         </div>
                                                         {{--PublishedAt--}}
-                                                        <div class="sm:col-span-1">
+                                                        <div v-if="organization.meta.publishedAt" class="sm:col-span-1">
                                                             <dt class="flex items-center text-sm font-medium text-gray-500">
-                                                                Miembro verificado desde hace
+                                                                Miembro desde hace
                                                             </dt>
-                                                            <dd class="mt-1 text-sm text-gray-900 hover:text-cyan-600 hover:text-base hover:font-medium hover:underline">
-                                                                20/10/2021
-                                                            </dd>
+                                                            <dd class="mt-1 text-sm text-gray-900 hover:text-cyan-600 hover:text-base hover:font-medium hover:underline"
+                                                                v-text="organization.meta.publishedAt"
+                                                            ></dd>
                                                         </div>
                                                         {{--About--}}
                                                         <div class="sm:col-span-2">
@@ -271,13 +293,13 @@
                                                         </div>
                                                     </dl>
                                                 </div>
-                                                {{--<div>
+<!--                                                <div>
                                                     <a href="#" class="block bg-gray-50 text-sm font-medium text-gray-500 text-center px-4 py-4 hover:text-gray-700 sm:rounded-b-lg">Read full application</a>
-                                                </div>--}}
+                                                </div>-->
                                             </div>
                                         </section>
 
-                                        <section aria-labelledby="veterinary-location">
+                                        <section aria-labelledby="organization-location">
                                         </section>
                                     </div>
 

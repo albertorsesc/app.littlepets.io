@@ -161,8 +161,8 @@
                                           class="lp-input"
                                 ></textarea>
                             </div>
-                            <p v-if="organizationForm.about" class="mt-2 text-sm text-gray-500">
-                                Cuéntanos mas {{ organizationForm.about }} para que la comunidad de LittlePets los conozcan.
+                            <p v-if="organizationForm.name" class="mt-2 text-sm text-gray-500">
+                                Cuéntanos mas {{ organizationForm.name }} para que la comunidad de LittlePets los conozcan.
                             </p>
                         </div>
                     </div>

@@ -11,6 +11,7 @@ class UserOrganizationController extends Controller
     public function __invoke ()
     {
         $organization = auth()->user()->currentTeam->load('owner:id,first_name,last_name,current_team_id');
+
         return response()->json([
             'data' => new OrganizationResource($organization)
         ]);

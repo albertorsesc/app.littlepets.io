@@ -13,6 +13,16 @@ class SweetAlert {
         })
     }
 
+    static info(title) {
+        Swal.fire({
+            position: 'bottom-end',
+            icon: 'info',
+            title: title,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
     static danger(title, onConfirmedText) {
         Swal.fire({
             title: title,

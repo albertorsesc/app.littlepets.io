@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HandlesBase64Images;
+use App\Models\Concerns\HandlesMedia;
 use App\Models\Concerns\Publishable;
-use App\Models\Concerns\SerializeTimestamps;
 use App\Models\Concerns\Sluggable;
+use App\Models\Concerns\SerializeTimestamps;
 use Laravel\Jetstream\Team as JetstreamTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Jetstream\Events\{TeamCreated, TeamDeleted, TeamUpdated};
@@ -14,6 +16,7 @@ class Team extends JetstreamTeam
     use HasFactory;
     use Sluggable;
     use Publishable;
+    use HandlesBase64Images;
     use SerializeTimestamps;
 
     /**

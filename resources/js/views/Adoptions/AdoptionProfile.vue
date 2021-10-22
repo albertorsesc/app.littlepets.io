@@ -220,9 +220,9 @@ export default {
         Modal: () => import(/* webpackChunkName: "modal" */ '../../components/Modal'),
         Report: () => import(/* webpackChunkName: "report" */ '../../components/Report'),
         Divider: () => import(/* webpackChunkName: "divider" */ '../../components/Divider'),
+        PetImages: () => import(/* webpackChunkName: "pet-images" */ '../../components/Pets/PetImages'),
         AdoptionLocation: () => import(/* webpackChunkName: "adoption-location" */ './AdoptionLocation'),
         CustomCarousel: () => import(/* webpackChunkName: "custom-carousel" */ '../../components/CustomCarousel'),
-        PetImages: () => import(/* webpackChunkName: "pet-images" */ '../../components/Pets/PetImages'),
     }
 }
 </script>

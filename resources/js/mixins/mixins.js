@@ -23,6 +23,9 @@ module.exports = {
         }
     },
     methods:{
+        redirectTo(url) {
+            window.location.href = url
+        },
         reload(timeToReload = 1500, path = null) {
             setTimeout(function() {
                 return path !== null ? path : window.location.reload()

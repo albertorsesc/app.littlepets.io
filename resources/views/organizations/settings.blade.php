@@ -1,16 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Configuracion de Mi Organizacion')
+@section('title', 'Configuraciones de mi Organizacion: ' . e($organization->name))
 
 @section('content')
-    <organization-settings inline-template>
+    <organization-settings :organization="{{ json_encode($organization) }}" inline-template>
         <div>
             <div class="relative bg-sky-700 pb-32 overflow-hidden">
                 <header class="relative py-10">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between">
                         <h1 class="text-3xl font-bold text-white" v-text="headerTitle"></h1>
 
-                        <button class="lp-btn">Regresar a mi Orgazanizacion</button>
+                        <button @click="redirectTo(organization.meta.profile)"
+                                class="lp-btn">
+                            Regresar a mi @{{ organization.type }}
+                        </button>
                     </div>
                 </header>
             </div>
@@ -36,9 +39,7 @@
                                              stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
                                         </svg>
-                                        <span class="truncate">
-                                          Perfil de Organizacion
-                                        </span>
+                                        <span class="truncate" v-text="organization.type"></span>
                                     </a>
 
                                     <a href="#"
@@ -53,7 +54,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                                         </svg>
                                         <span class="truncate">
-                                          Miembros de la Organizacion
+                                          Miembros de @{{ organization.type }}
                                         </span>
                                     </a>
                                 </nav>

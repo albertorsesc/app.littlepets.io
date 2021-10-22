@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="! currentTeam" class="items-center flex justify-start w-full" v-cloak>
+        <div v-if="! organization.hasOwnProperty('id')" class="items-center flex justify-start w-full" v-cloak>
             <button @click="showForm = ! showForm" class="lp-btn py-4">
                 <span v-if="! showForm">Registra tu Organizacion</span>
                 <span v-if="showForm">Regresar</span>

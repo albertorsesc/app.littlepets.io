@@ -306,7 +306,7 @@ class OrganizationRequestTest extends TestCase
     public function email_must_have_a_valid_format()
     {
         $validatedField = 'email';
-        $brokenRule = Str::random(10);
+        $brokenRule = Str::random(10) . '@';
         $organization = $this->make(Team::class, [
             $validatedField => $brokenRule
         ]);

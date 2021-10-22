@@ -11,6 +11,7 @@ use App\Models\Adoptions\Adoption;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use App\Policies\Organizations\OrganizationPolicy;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -22,7 +23,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Team::class => TeamPolicy::class,
+//        Team::class => TeamPolicy::class,
+        Team::class => OrganizationPolicy::class,
 
         Adoption::class => AdoptionPolicy::class,
         LostPet::class => LostPetPolicy::class,
