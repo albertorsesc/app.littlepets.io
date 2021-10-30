@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HandlesBase64Images;
-use App\Models\Concerns\HandlesMedia;
-use App\Models\Concerns\Publishable;
 use App\Models\Concerns\Sluggable;
+use App\Models\Concerns\Publishable;
+use App\Http\Resources\AdoptionResource;
 use App\Models\Concerns\SerializeTimestamps;
+use App\Models\Concerns\HandlesBase64Images;
 use Laravel\Jetstream\Team as JetstreamTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Laravel\Jetstream\Events\{TeamCreated, TeamDeleted, TeamUpdated};
 
 class Team extends JetstreamTeam
@@ -74,6 +75,15 @@ class Team extends JetstreamTeam
     public function getRouteKeyName() : string
     {
         return 'slug';
+    }
+
+    /* Relations */
+
+    public function adoptions() : AnonymousResourceCollection
+    {
+        $this->owner->load('adoptions.pet.media');
+
+        return AdoptionResource::collection($this->owner->adoptions);
     }
 
     /* Helpers */

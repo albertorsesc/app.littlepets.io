@@ -62,7 +62,11 @@ trait HandlesMedia
            );
          } else {
             self::attachImage(
-                $file->storePublicly('public')
+                $file->storePublicly(
+                    Str::kebab(
+                        Str::plural(strtolower(class_basename($this)))
+                    )
+                )
             );
         }
 

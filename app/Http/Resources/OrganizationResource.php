@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Adoptions\Adoption;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrganizationResource extends JsonResource
@@ -27,6 +28,7 @@ class OrganizationResource extends JsonResource
             'about' => $this->about,
             'owner' => $this->owner,
             'logo' => $this->logo,
+            'adoptions' => AdoptionResource::collection($this->adoptions()),
             'meta' => [
                 'profile' => $this->profile(),
                 'publishedAt' => optional($this->published_at)->diffForHumans(),

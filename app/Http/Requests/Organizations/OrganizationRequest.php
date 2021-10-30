@@ -29,8 +29,8 @@ class OrganizationRequest extends FormRequest
             'capacity' => ['required', 'integer', 'max:200'],
             'phone' => ['required', 'max:50'],
             'email' => ['nullable', 'email', 'max:150'],
-            'facebook_profile' => ['max:255', 'url'],
-            'site' => ['max:255', 'url'],
+            'facebook_profile' => ['nullable', 'max:255', 'url'],
+            'site' => ['nullable', 'max:255', 'url'],
         ];
     }
 }

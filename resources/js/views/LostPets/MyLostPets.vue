@@ -54,7 +54,7 @@ export default {
         })
     },
     components: {
-        PetCard: () => import(/* webpackChunkName: "pet-card" */ '../../components/PetCard'),
+        PetCard: () => import(/* webpackChunkName: "pet-card" */ '../../components/Pets/PetCard'),
         CreateLostPet: () => import(/* webpackChunkName: "create-lost-pet" */ '../../views/LostPets/CreateLostPet'),
     }
 }

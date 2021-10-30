@@ -76,18 +76,10 @@
             </div>
         </div>
 
-        <ul v-if="filteredAdoptions.length > 0"
-            role="list"
-            class="w-full lg:w-2/3 md:flex md:flex-wrap" v-cloak>
-            <li v-for="adoption in filteredAdoptions"
-                :key="adoption.id"
-                @click="openAdoptionSlider(adoption)"
-                class="relative py-4 w-full md:w-1/2 lg:px-3">
-                <pet-card :data="adoption"
-                          :meta="{ date: adoption.meta.publishedAt }"
-                ></pet-card>
-            </li>
-        </ul>
+        <div v-if="filteredAdoptions.length > 0" class="w-full lg:w-2/3">
+            <pet-list :data="filteredAdoptions"></pet-list>
+        </div>
+
         <!--Banner-->
         <div v-else class="w-full lg:w-2/3 my-4 lg:my-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,6 +95,7 @@
                 </div>
             </div>
         </div>
+
         <slider></slider>
     </div>
 </template>
@@ -111,7 +104,6 @@
 
 export default {
     name: "ExploreAdoptions",
-    emits: ['slider:open'],
     data() {
         return {
             adoptions: [],
@@ -127,13 +119,11 @@ export default {
                     this.adoptions = response.data.data
                     this.switchSpeciesTab('dog')
                 })
-                .catch(error => console.log(error))
-        },
-        openAdoptionSlider(adoption) {
-            window.Event.$emit('slider:open', adoption)
+                .catch(error => dd(error))
         },
         switchSpeciesTab(specie) {
             this.speciesTab = specie
+
             if (this.speciesTab === 'other') {
                 this.filteredAdoptions = this.adoptions.filter(adoption => {
                     return adoption.pet.specie.name !== 'dog' &&
@@ -141,9 +131,9 @@ export default {
                         adoption.pet.specie.name !== 'rodent'
                 })
             } else {
-                this.filteredAdoptions = this.adoptions.filter(
-                    adoption => adoption.pet.specie.name === this.speciesTab
-                )
+                this.filteredAdoptions = this.adoptions.filter(adoption => {
+                    return adoption.pet.specie.name === this.speciesTab
+                })
             }
         },
     },
@@ -157,7 +147,7 @@ export default {
     },
     components: {
         Slider: () => import(/* webpackChunkName: "slider" */ '../../components/Slider'),
-        PetCard: () => import(/* webpackChunkName: "pet-card" */ '../../components/PetCard'),
+        PetList: () => import(/* webpackChunkName: "pet-list" */ '../../components/Pets/PetList'),
     }
 }
 </script>

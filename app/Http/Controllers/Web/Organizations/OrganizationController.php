@@ -11,7 +11,10 @@ class OrganizationController extends Controller
 {
     public function show(Team $team)
     {
-        $team->load('owner:id');
+        $team->load([
+            'owner:id',
+            'owner.adoptions'
+        ]);
 
         return view('organizations.show', [
             'organization' => new OrganizationResource($team)

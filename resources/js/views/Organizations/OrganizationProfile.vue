@@ -11,8 +11,10 @@ export default {
     },
     data() {
         return {
-            activeTab: 'profile',
             localOrganization: this.organization,
+
+            activeTab: 'profile',
+            showForm: false,
         }
     },
     methods: {
@@ -30,6 +32,16 @@ export default {
                     dd(error)
                 })
         }
+    },
+    created() {
+        window.Event.$on('adoption-form:store', () => {
+            this.showForm = false
+        })
+    },
+    components: {
+        Slider: () => import(/* webpackChunkName: "slider" */ '../../components/Slider'),
+        PetList: () => import(/* webpackChunkName: "pet-list" */ '../../components/Pets/PetList'),
+        CreateAdoption: () => import(/* webpackChunkName: "create-adoption" */ '../../views/Adoptions/CreateAdoption'),
     }
 }
 </script>

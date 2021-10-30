@@ -182,7 +182,7 @@ export default {
         this.index()
     },
     components: {
-        PetCard: () => import(/* webpackChunkName: "pet-card" */ '../../components/PetCard'),
+        PetCard: () => import(/* webpackChunkName: "pet-card" */ '../../components/Pets/PetCard'),
     }
 }
 </script>

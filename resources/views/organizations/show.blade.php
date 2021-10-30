@@ -100,7 +100,8 @@
                             <div class="w-3/5 md:items-center sm:px-6">
                                 <div role="tablist"
                                      aria-orientation="horizontal"
-                                     class="flex justify-between p-1 space-x-1 rounded-xl bg-gradient-to-r from-cyan-600 items-center justify-center mb-12 mt-8 overflow-hidden relative rounded-xl to-cyan-500 transition hover:transform"
+                                     class="flex justify-between p-1 space-x-1 mt-8 rounded-xl bg-gradient-to-r from-cyan-600 items-center justify-center overflow-hidden relative rounded-xl to-cyan-500 transition hover:transform"
+                                     :class="activeTab === 'profile' ? ' mb-12' : 'mb-0'"
                                      v-cloak>
                                     <button @click="activeTab = 'profile'"
                                             class="w-full py-4 text-lg leading-5 rounded-lg focus:outline-none focus:ring-2 ring-offset-2 ring-offset-cyan-600 ring-white ring-opacity-60 hover:bg-white hover:text-cyan-600 hover:font-bold hover:opacity-90 transition hover:transform"
@@ -455,6 +456,32 @@
                                             </div>
                                         </div>
                                     </section>--}}
+                                </div>
+                            </main>
+                        </div>
+
+                        {{--Adoptions--}}
+                        <div v-show="activeTab === 'adoptions'"
+                             class="relative min-h-screen bg-gray-100">
+                            <main class="py-2">
+                                <!-- Page header -->
+                                <div class="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:space-x-5 lg:max-w-7xl lg:px-8"></div>
+
+                                <div class="mt-4 max-w-3xl lg:max-w-5xl sm:px-6 lg:grid-flow-col-dense lg:grid-cols-3">
+                                    <div class="items-center flex justify-start" v-cloak>
+                                        <button @click="showForm = ! showForm" class="lp-btn">
+                                            <span >Registra una nueva adopción</span>
+                                        </button>
+                                    </div>
+
+                                    <div v-if="showForm" class="mt-8">
+                                        <create-adoption></create-adoption>
+                                    </div>
+
+                                    <div v-else>
+                                        <pet-list :data="organization.adoptions"></pet-list>
+                                        <slider></slider>
+                                    </div>
                                 </div>
                             </main>
                         </div>
