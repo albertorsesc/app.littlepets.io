@@ -9,6 +9,8 @@
 
     <title>@yield('title') | {{ config('app.name') }} | Haciendo todo lo posible por encontrarle hogar a cada angelito perdido.</title>
 
+    @yield('meta')
+
     <script>
         window.me = @json(auth()->check() ? ['loggedIn' => auth()->check() ?? false, 'i' => auth()->id()] : false)
     </script>
