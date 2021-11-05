@@ -3,16 +3,24 @@
 @section('title', e($adoption->title))
 
 @section('meta')
+    <!-- Primary Meta Tags -->
     <meta name="title" content="{{ $adoption->title }}">
-    <meta name="description" content="{{ $adoption->bio ?? $adoption->pet->name }}">
+    <meta name="description" content="{{ $adoption->bio ?? $adoption->pet->name }} en {{ $adoption->location ? $adoption->location->first()->city : '' }}">
     <meta name="keywords" content="adopcion, animales en adopcion, mascotas en adopcion, {{ $adoption->location ? $adoption->location->first()->city : '' }}">
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:url" content="{{ $adoption->profile() }}">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $adoption->title }}">
     <meta property="og:description" content="{{ $adoption->bio ?? $adoption->pet->name }} en {{ $adoption->location ? $adoption->location->first()->city : '' }}">
     <meta property="og:image" content="{{ $adoption->pet->media->first()->file_name ?? '' }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="En LittlePets.io Unidos en la lucha contra del abandono animal">
+    <meta property="twitter:url" content="{{ $adoption->profile() }}">
+    <meta property="twitter:title" content="{{ $adoption->title }}">
+    <meta property="twitter:description" content="{{ $adoption->bio ?? $adoption->pet->name }} en {{ $adoption->location ? $adoption->location->first()->city : '' }}">
+    <meta property="twitter:image" content="{{ $adoption->pet->media->first()->file_name ?? '' }}">
 @endsection
 
 @section('styles')
