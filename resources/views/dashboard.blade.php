@@ -3,18 +3,24 @@
 @section('title', 'Inicio')
 
 @section('meta')
+    <!-- Primary Meta Tags -->
     <meta name="title" content="Bienvenid@s a la aplicación oficial de LittlePets">
-    <meta name="description" content="En LittlePets.io Unidos en la lucha contra del abandono animal">
+    <meta name="description" content="En LittlePets.io Unidos en la lucha contra del abandono animal...">
     <meta name="keywords" content="que es littlepets,mascotas,adopciones,mascotas extraviadas,rescate de mascotas,control animal">
-    <link rel="icon" href="/logos/favicon.png">
-    <meta property="canonical" content="{{ url()->current() }}">
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="Bienvenid@s a la aplicación oficial de LittlePets">
-    <meta property="og:description" content="En LittlePets.io Unidos en la lucha contra del abandono animal">
+    <meta property="og:description" content="En LittlePets.io Unidos en la lucha contra el abandono animal">
     <meta property="og:image" content="/logos/favicon.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="En LittlePets.io Unidos en la lucha contra del abandono animal">
+    <meta property="twitter:url" content="https://app.littlepets.io/inicio">
+    <meta property="twitter:title" content="Bienvenid@s a la aplicación oficial de LittlePets">
+    <meta property="twitter:description" content="Nuestro Objetivo es proveer una herramienta dedicada a unir comunidades en busca del bienestar de animales sin hogar. Depende de nosotros salvar a una pequeña mascota.">
+    <meta property="twitter:image" content="/logos/favicon.png">
 @endsection
 
 @section('content')
