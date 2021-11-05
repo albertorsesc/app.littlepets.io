@@ -3,9 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:site_name" content="LittlePets.io">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="/logos/favicon.png">
 
     <title>@yield('title') | {{ config('app.name') }} | Haciendo todo lo posible por encontrarle hogar a cada angelito perdido.</title>
 
