@@ -2,6 +2,26 @@
 
 @section('title', e($veterinary->name))
 
+@section('meta')
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="{{ $veterinary->name }}">
+    <meta name="description" content="{{ $veterinary->about ?? '' }} en {{ $veterinary->location ? $veterinary->location->first()->city : '' }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $veterinary->name }}">
+    <meta property="og:description" content="{{ $veterinary->about ?? '' }} en {{ $veterinary->location ? $veterinary->location->first()->city : '' }}">
+    <meta property="og:image" content="{{ $veterinary->logo }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="En LittlePets.io Unidos en la lucha contra del abandono animal">
+    <meta property="twitter:url" content="{{ $veterinary->profile() }}">
+    <meta property="twitter:title" content="{{ $veterinary->name }}">
+    <meta property="twitter:description" content="{{ $veterinary->about ?? '' }} en {{ $veterinary->location ? $veterinary->location->first()->city : '' }}">
+    <meta property="twitter:image" content="{{ $veterinary->logo ?? '' }}">
+@endsection
+
 @section('styles')
     <link rel="stylesheet" href="/css/vue-multiselect.min.css">
 @endsection
@@ -56,7 +76,7 @@
                                         <svg class="text-red-500 hover:text-red-600" width="25" height="25"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                     </button>
                                     {{--Report--}}
-                                    <report :model-id="localVeterinary.uuid" model-name="veterinaries" inline-template>
+                                    <report v-if="localVeterinary.user.id !== auth" :model-id="localVeterinary.uuid" model-name="veterinaries" inline-template>
                                         <div>
                                             <button @click="openModal('report')"
                                                     class="mx-2 md:mx-1 inline-flex items-center justify-center px-3 py-3 bg-white border border-gray-200 border border-gray-200 rounded-md shadow-sm font-medium text-base text-gray-700 transition ease-in-out duration-150"
@@ -135,10 +155,12 @@
                                 <!-- Page header -->
                                 <div class="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:space-x-5 lg:max-w-7xl lg:px-8">
                                     <div class="-mb-6 lg:-mb-6 flex items-center align-middle space-x-5">
-                                        <likes :endpoint="`/veterinaries/${localVeterinary.slug}`"
-                                               :model="localVeterinary"
-                                               :model-id="localVeterinary.slug"
-                                        ></likes>
+                                        @auth
+                                            <likes :endpoint="`/veterinaries/${localVeterinary.slug}`"
+                                                   :model="localVeterinary"
+                                                   :model-id="localVeterinary.slug"
+                                            ></likes>
+                                        @endauth
                                     </div>
                                 </div>
 

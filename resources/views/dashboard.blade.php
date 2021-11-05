@@ -6,21 +6,20 @@
     <!-- Primary Meta Tags -->
     <meta name="title" content="Bienvenid@s a la aplicación oficial de LittlePets">
     <meta name="description" content="En LittlePets.io Unidos en la lucha contra del abandono animal...">
-    <meta name="keywords" content="que es littlepets,mascotas,adopciones,mascotas extraviadas,rescate de mascotas,control animal">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="Bienvenid@s a la aplicación oficial de LittlePets">
     <meta property="og:description" content="En LittlePets.io Unidos en la lucha contra el abandono animal">
-    <meta property="og:image" content="/logos/favicon.png">
+    <meta property="og:image" content="/img/littlepets_profile.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="En LittlePets.io Unidos en la lucha contra del abandono animal">
-    <meta property="twitter:url" content="https://app.littlepets.io/inicio">
+    <meta property="twitter:url" content="https://app.littlepets.io">
     <meta property="twitter:title" content="Bienvenid@s a la aplicación oficial de LittlePets">
     <meta property="twitter:description" content="Nuestro Objetivo es proveer una herramienta dedicada a unir comunidades en busca del bienestar de animales sin hogar. Depende de nosotros salvar a una pequeña mascota.">
-    <meta property="twitter:image" content="/logos/favicon.png">
+    <meta property="twitter:image" content="/img/littlepets_profile.png">
 @endsection
 
 @section('content')

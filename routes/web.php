@@ -27,13 +27,10 @@
 //        Route::redirect('dashboard', 'adopciones');
 
         Route::get('adopciones', [AdoptionController::class, 'index'])->name('web.adoptions.index');
-        Route::get('adopciones/{adoption:uuid}', [AdoptionController::class, 'show'])->name('web.adoptions.show');
 
         Route::get('perdidos-y-encontrados', [LostPetController::class, 'index'])->name('web.lost-pets.index');
-        Route::get('perdidos-y-encontrados/{lostPet:uuid}', [LostPetController::class, 'show'])->name('web.lost-pets.show');
 
         Route::get('veterinarias', [VeterinaryController::class, 'index'])->name('web.veterinaries.index');
-        Route::get('veterinarias/{veterinary}', [VeterinaryController::class, 'show'])->name('web.veterinaries.show');
 
         Route::put(
             'veterinaries/{veterinary:slug}/image',
@@ -44,6 +41,11 @@
         Route::post('suggestions', SuggestionController::class)->name('suggestions.store');
 
     });
+
+    /* Public Routes */
+    Route::get('adopciones/{adoption:uuid}', [AdoptionController::class, 'show'])->name('web.adoptions.show');
+    Route::get('perdidos-y-encontrados/{lostPet:uuid}', [LostPetController::class, 'show'])->name('web.lost-pets.show');
+    Route::get('veterinarias/{veterinary}', [VeterinaryController::class, 'show'])->name('web.veterinaries.show');
 
     /*Route::get('resize', function () {
         \Intervention\Image\Facades\Image::make('img/lost-pets.png')
