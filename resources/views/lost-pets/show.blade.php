@@ -2,6 +2,26 @@
 
 @section('title', e($lostPet->title ?? 'Hola soy ' . $lostPet->pet->name))
 
+@section('meta')
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="{{ $lostPet->title ?? 'Mascota en Adopción' }}">
+    <meta name="description" content="{{ $lostPet->description ?? $lostPet->pet->name }} en {{ $lostPet->location ? $lostPet->location->first()->city : '' }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $lostPet->title ?? 'Mascota en Adopción' }}">
+    <meta property="og:description" content="{{ $lostPet->description ?? $lostPet->pet->name }} en {{ $lostPet->location ? $lostPet->location->first()->city : '' }}">
+    <meta property="og:image" content="{{ $lostPet->pet->media->first()->file_name ?? '' }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="Mascota en Adopción; En LittlePets.io Unidos en la lucha contra del abandono animal">
+    <meta property="twitter:url" content="{{ $lostPet->profile() }}">
+    <meta property="twitter:title" content="{{ $lostPet->title ?? 'Mascota en Adopción' }}">
+    <meta property="twitter:description" content="{{ $lostPet->description ?? $lostPet->pet->name }} en {{ $lostPet->location ? $lostPet->location->first()->city : '' }}">
+    <meta property="twitter:image" content="{{ $lostPet->pet->media->first()->file_name ?? '' }}">
+@endsection
+
 @section('styles')
     <link rel="stylesheet" href="/css/vue-multiselect.min.css">
     <link rel="stylesheet" href="/css/vue-datetime.css">
@@ -458,102 +478,106 @@
                         <section aria-labelledby="notes-title" class="mt-6">
                             <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
                                 <div class="bg-gray-50 px-4 py-4 sm:px-6">
-                                    <div v-if="auth"
-                                         class="flex space-x-3">
-                                        <div class="hidden md:flex-shrink-0">
-                                            <img class="h-14 w-14 rounded-full"
-                                                 src="{{ auth()->user()->getAvatar() }}"
-                                                 alt="{{ auth()->user()->fullName() }} avatar">
-                                        </div>
-                                        <div class="min-w-0 flex-1">
-                                            <form @submit.prevent>
-                                                <div>
-                                                    <label for="comment" class="sr-only">Comments</label>
-                                                    <textarea id="comment"
-                                                              v-model="selectedComment.body"
-                                                              rows="4"
-                                                              class="lp-input"
-                                                              placeholder="Añade un comentario"
-                                                    ></textarea>
-                                                    <p v-if="errors.body"
-                                                       v-text="errors.body[0]"
-                                                       class="text-red-500 font-medium"
-                                                    ></p>
-                                                </div>
-                                                <div class="mt-1 md:mt-3 md:flex items-center justify-between">
+                                    @auth
+                                        <div class="flex space-x-3">
+                                            <div class="hidden md:flex-shrink-0">
+                                                <img class="h-14 w-14 rounded-full"
+                                                     src="{{ auth()->user()->getAvatar() }}"
+                                                     alt="{{ auth()->user()->fullName() }} avatar">
+                                            </div>
+                                            <div class="min-w-0 flex-1">
+                                                <form @submit.prevent>
+                                                    <div>
+                                                        <label for="comment" class="sr-only">Comments</label>
+                                                        <textarea id="comment"
+                                                                  v-model="selectedComment.body"
+                                                                  rows="4"
+                                                                  class="lp-input"
+                                                                  placeholder="Añade un comentario"
+                                                        ></textarea>
+                                                        <p v-if="errors.body"
+                                                           v-text="errors.body[0]"
+                                                           class="text-red-500 font-medium"
+                                                        ></p>
+                                                    </div>
+                                                    <div class="mt-1 md:mt-3 md:flex items-center justify-between">
                                                     <span class="md:-mt-8 group inline-flex items-start text-sm space-x-2 text-gray-500 hover:text-gray-900">
                                                         Seamos respetuosos con los demás, todos queremos lo mejor para estos angelitos.
                                                     </span>
-                                                    <button v-if="updatingComment"
-                                                            @click="updateComment"
-                                                            type="submit"
-                                                            class="lp-btn-success mt-2 w-full md:w-auto">
-                                                        Actualizar
-                                                    </button>
-                                                    <button v-else
-                                                            @click="comment"
-                                                            type="submit"
-                                                            class="lp-btn-success mt-2 w-full md:w-auto">
-                                                        Comentar
-                                                    </button>
-                                                </div>
-                                            </form>
+                                                        <button v-if="updatingComment"
+                                                                @click="updateComment"
+                                                                type="submit"
+                                                                class="lp-btn-success mt-2 w-full md:w-auto">
+                                                            Actualizar
+                                                        </button>
+                                                        <button v-else
+                                                                @click="comment"
+                                                                type="submit"
+                                                                class="lp-btn-success mt-2 w-full md:w-auto">
+                                                            Comentar
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div v-else
-                                         class="flex-space-x-3">
+                                    @endauth
+                                    @guest
+                                    <div class="flex-space-x-3">
                                         <span>
                                             Debes <a href="{{ route('login') }}">iniciar sesión</a> para comentar en esta publicación.
                                         </span>
                                     </div>
+                                    @endguest
                                 </div>
-                                <div class="divide-y divide-gray-200">
-                                    <div class="px-4 py-6 sm:px-6">
-                                        <ul id="comment-list"
-                                            class="space-y-4 h-auto overflow-y-auto"
-                                            :class="localLostPet.comments.length > 5 ? 'h-96' : 'h-auto'">
-                                            <li v-if="! localLostPet.comments.length" class="text-center flex justify-center text-gray-400 font-semibold">
-                                                Dejanos tus comentarios
-                                            </li>
-                                            <li v-for="comment in localLostPet.comments"
-                                                :key="comment.id">
-                                                <div class="flex space-x-3 my-2">
-                                                    <div class="flex-shrink-0">
-                                                        <img class="h-14 w-14 rounded-full"
-                                                             src="{{ auth()->user()->getAvatar() }}"
-                                                             alt="{{ auth()->user()->fullName() }} avatar">
-                                                    </div>
-                                                    <div>
-                                                        <div class="text-sm">
-                                                            <a href="#" class="font-medium text-gray-900"
-                                                               v-text="comment.user.first_name"
-                                                            ></a>
+                                @auth
+                                    <div class="divide-y divide-gray-200">
+                                        <div class="px-4 py-6 sm:px-6">
+                                            <ul id="comment-list"
+                                                class="space-y-4 h-auto overflow-y-auto"
+                                                :class="localLostPet.comments.length > 5 ? 'h-96' : 'h-auto'">
+                                                <li v-if="! localLostPet.comments.length" class="text-center flex justify-center text-gray-400 font-semibold">
+                                                    Dejanos tus comentarios
+                                                </li>
+                                                <li v-for="comment in localLostPet.comments"
+                                                    :key="comment.id">
+                                                    <div class="flex space-x-3 my-2">
+                                                        <div class="flex-shrink-0">
+                                                            <img class="h-14 w-14 rounded-full"
+                                                                 src="{{ auth()->user()->getAvatar() }}"
+                                                                 alt="{{ auth()->user()->fullName() }} avatar">
                                                         </div>
-                                                        <div class="mt-1 text-sm text-gray-700">
-                                                            <p v-text="comment.body"></p>
-                                                        </div>
-                                                        <div class="mt-2 text-sm space-x-2">
+                                                        <div>
+                                                            <div class="text-sm">
+                                                                <a href="#" class="font-medium text-gray-900"
+                                                                   v-text="comment.user.first_name"
+                                                                ></a>
+                                                            </div>
+                                                            <div class="mt-1 text-sm text-gray-700">
+                                                                <p v-text="comment.body"></p>
+                                                            </div>
+                                                            <div class="mt-2 text-sm space-x-2">
                                                             <span class="text-gray-500 font-medium"
                                                                   v-text="comment.updatedAt"
                                                             ></span>
-                                                            <span class="text-gray-500 font-medium">&middot;</span>
-                                                            <span @click="onUpdateComment(comment)"
-                                                                  type="button"
-                                                                  class="text-gray-600 font-medium cursor-pointer">
+                                                                <span class="text-gray-500 font-medium">&middot;</span>
+                                                                <span @click="onUpdateComment(comment)"
+                                                                      type="button"
+                                                                      class="text-gray-600 font-medium cursor-pointer">
                                                                 Editar
                                                             </span>
-                                                            <span @click="onDeleteComment(comment)"
-                                                                  type="button"
-                                                                  class="text-gray-600 font-medium cursor-pointer">
+                                                                <span @click="onDeleteComment(comment)"
+                                                                      type="button"
+                                                                      class="text-gray-600 font-medium cursor-pointer">
                                                                 Eliminar
                                                             </span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
+                                @endauth
                             </div>
                         </section>
 
