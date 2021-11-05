@@ -69,7 +69,7 @@ export default {
             })
         },
         destroy() {
-            axios.delete(`/api/adoptions/${this.adoption.uuid}`)
+            axios.delete(`/adoptions/${this.adoption.uuid}`)
             .then(() => {
                 setTimeout( () => {
                         window.location.href = `/adopciones`
