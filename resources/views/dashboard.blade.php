@@ -2,6 +2,21 @@
 
 @section('title', 'Inicio')
 
+@section('meta')
+    <meta name="title" content="Bienvenid@s a la aplicación oficial de LittlePets">
+    <meta name="description" content="En LittlePets.io Unidos en la lucha contra del abandono animal">
+    <meta name="keywords" content="que es littlepets,mascotas,adopciones,mascotas extraviadas,rescate de mascotas,control animal">
+    <link rel="icon" href="/logos/favicon.png">
+    <meta property="canonical" content="{{ url()->current() }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bienvenid@s a la aplicación oficial de LittlePets">
+    <meta property="og:description" content="En LittlePets.io Unidos en la lucha contra del abandono animal">
+    <meta property="og:image" content="/logos/favicon.png">
+@endsection
+
 @section('content')
 
     <div class="pt-12">
