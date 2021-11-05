@@ -2,6 +2,19 @@
 
 @section('title', e($adoption->title))
 
+@section('meta')
+    <meta name="title" content="{{ $adoption->title }}">
+    <meta name="description" content="{{ $adoption->bio ?? $adoption->pet->name }}">
+    <meta name="keywords" content="adopcion, animales en adopcion, mascotas en adopcion, {{ $adoption->location ? $adoption->location->first()->city : '' }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:url" content="{{ $adoption->profile() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $adoption->title }}">
+    <meta property="og:description" content="{{ $adoption->bio ?? $adoption->pet->name }} en {{ $adoption->location ? $adoption->location->first()->city : '' }}">
+    <meta property="og:image" content="{{ $adoption->pet->media->first()->file_name ?? '' }}">
+@endsection
+
 @section('styles')
     <link rel="stylesheet" href="/css/vue-multiselect.min.css">
 @endsection
