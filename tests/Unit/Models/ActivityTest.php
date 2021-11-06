@@ -2,8 +2,10 @@
 
 namespace Tests\Unit\Models;
 
+use Carbon\Carbon;
 use Tests\TestCase;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Activity;
+use App\Models\Veterinaries\Veterinary;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ActivityTest extends TestCase
@@ -14,29 +16,20 @@ class ActivityTest extends TestCase
      * @test
      * @throws \Throwable
      */
-    public function records_activity_when_a_model_is_created()
+    public function records_activity_when_a_veterinary_is_created()
     {
         $this->signIn();
 
-        $fakeModel = new FakeModel(['id' => 1]);
+        $veterinary = $this->create(Veterinary::class);
 
         $this->assertDatabaseHas('activities', [
-            'type' =>'created_adoption',
+            'type' =>'created_veterinary',
             'user_id' =>auth()->id(),
-            'subject_id' => $fakeModel->id,
-            'subject_type'=> get_class($fakeModel)
+            'subject_id' => $veterinary->id,
+            'subject_type'=> get_class($veterinary)
         ]);
-    }
-}
 
-class FakeModel extends Model
-{
-    protected int $id;
-    protected $fillable = ['id'];
-
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->id = $attributes['id'];
+        $activity = Activity::first();
+        $this->assertEquals($activity->subject->id, $veterinary->id);
     }
 }
