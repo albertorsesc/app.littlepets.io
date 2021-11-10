@@ -20,13 +20,14 @@ class Article extends Model
     use HandlesMedia;
     use SerializeTimestamps;
 
+    protected $casts = ['published_at' => 'datetime:Y-m-d H:i:s'];
     protected $fillable = ['title', 'slug', 'excerpt', 'body', 'image', 'published_at'];
 
     protected static function boot ()
     {
         parent::boot();
-        static::saving(function ($article) {
-
+        static::creating(function ($article) {
+            $article->user_id = auth()->id();
         });
     }
 
@@ -48,6 +49,15 @@ class Article extends Model
     }
 
     /* Helpers */
+
+    public function publish()
+    {
+        if (! request('is_published')) {
+            $this->update(['published_at' => null]);
+        } elseif (is_null($this->published_at)) {
+            $this->update(['published_at' => now()->toDateTimeString()]);
+        }
+    }
 
     public function profile() : string
     {

@@ -37,61 +37,37 @@
         </div>
     @endforeach
 
-    <div class="hidden w-full flex flex-col gap-y-8 lg:w-1/3">
-        <div class="lg:border-b-2 lg:border-gray-200 lg:h-72">
-            <div class="h-full flex flex-1 flex-col flex-grow place-content-between">
-                <div class="break-words">
+    <div class="w-full flex flex-col gap-y-8 lg:w-1/3">
+        @foreach($articles->skip(2)->take(2) as $article)
+            <div class="lg:border-b-2 lg:border-gray-200 lg:h-52">
+                <div class="h-full flex flex-1 flex-col flex-grow place-content-between">
+                    <div class="break-words">
                     <span class="font-mono text-gray-700 leading-6 mb-2 block">
-                        May 19th 2021
+                        {{ $article->published_at->diffForHumans() }}
                     </span>
 
-                    <h4 class="text-gray-900 text-2xl font-bold leading-8 mb-3">
-                        <a href="https://laravel.io/articles/automatically-generate-a-sitemap-for-your-website-in-laravel" class="hover:underline">
-                            Automatically Generate a Sitemap for Your Website in Laravel
-                        </a>
-                    </h4>
+                        <h4 class="text-gray-900 text-2xl font-bold leading-8 mb-3">
+                            <a href="https://laravel.io/articles/automatically-generate-a-sitemap-for-your-website-in-laravel" class="hover:underline">
+                                {{ $article->title }}
+                            </a>
+                        </h4>
 
-                    <p class="text-gray-800 leading-7 mb-3">
-                        Hello today I have a short tutorial for you. I was working on this blog to optimize for SEO. I wante...
-                    </p>
+                        <p class="text-gray-800 leading-7 mb-3">
+                            Hello today I have a short tutorial for you. I was working on this blog to optimize for SEO. I wante...
+                        </p>
+                    </div>
+
+                    <a class="flex items-center text-base text-gray-300 items-end py-2" href="{{ $article->profile() }}">
+                        <span class="text-gray-700 mr-1 hover:text-gray-500">Leer Articulo</span>
+                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
                 </div>
-
-                <a class="flex items-center text-base text-gray-300 items-end py-2" href="https://laravel.io/articles/automatically-generate-a-sitemap-for-your-website-in-laravel">
-                    <span class="text-gray-700 mr-1 hover:text-gray-500">Read article</span>
-                    <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                </a>
             </div>
-        </div>
-
-        <div class="lg:pt-6 flex-1">
-            <div class="h-full flex flex-1 flex-col flex-grow place-content-between">
-                <div class="break-words">
-
-    <span class="font-mono text-gray-700 leading-6 mb-2 block">
-        March 2nd 2021
-    </span>
-
-                    <h4 class="text-gray-900 text-2xl font-bold leading-8 mb-3">
-                        <a href="https://laravel.io/articles/how-to-use-spaties-commonmark-highlighter-laravel-package" class="hover:underline">
-                            How to use spatie's commonmark-highlighter Laravel package
-                        </a>
-                    </h4>
-
-                    <p class="text-gray-800 leading-7 mb-3">
-                        Welcome to this tutorial, today we are going to create a Laravel application with the new Laravel Sa...
-                    </p>
-                </div>
-
-                <a class="flex items-center text-base text-gray-300 items-end py-2" href="https://laravel.io/articles/how-to-use-spaties-commonmark-highlighter-laravel-package">
-                    <span class="text-gray-700 mr-1 hover:text-gray-500">Read article</span>
-                    <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>    </a>
-            </div>
-        </div>
+        @endforeach
     </div>
+
 @endsection
 
 @section('blog.content.bottom')
@@ -118,7 +94,7 @@
                         <a href="#" target="_blank" rel="noopener noreferrer">
                             <img class="my-4 mx-auto w-full" style="max-width:300px"
                                  src="/logos/little_pets.png"
-                                 alt="Full Stack Europe">
+                                 alt="LittlePets.io logo">
                         </a>
 
                         <p class="text-center px-4 mt-4 md:mt-6">

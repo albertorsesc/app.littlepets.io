@@ -63,14 +63,14 @@ trait HandlesMedia
     public function uploadImage(UploadedFile $file)
     {
         if (app()->environment('production')) {
-            $path = Str::slug(class_basename($this)) . '/' . Str::random(40)  . '.' . $file->extension();
+            $path = Str::slug(Str::plural(class_basename($this))) . '/' . Str::random(40)  . '.' . $file->extension();
             $img = Image::make($file)->filter(new MediumFilter)->stream()->__toString();
             Storage::disk('s3')->put($path, $img, 'public');
             self::attachImage(
                 Storage::disk('s3')->url($path)
            );
          } else {
-            $path = Str::slug(class_basename($this)) . '/' . Str::random(40)  . '.' . $file->extension();
+            $path = Str::slug(Str::plural(class_basename($this))) . '/' . Str::random(40)  . '.' . $file->extension();
             $img = Image::make($file)->filter(new MediumFilter)->stream()->__toString();
             Storage::put($path, $img, 'public');
             self::attachImage(

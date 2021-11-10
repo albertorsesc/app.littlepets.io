@@ -43,7 +43,7 @@ class AdminArticlesTest extends TestCase
      * @test
      * @throws \Throwable
      */
-    public function authenticated_user_can_visit_blog_article_create()
+    public function authorized_user_can_visit_blog_article_create()
     {
         $response = $this->get(route($this->routePrefix . 'create'));
         $response->assertViewIs('blog.articles.admin.create');
@@ -54,9 +54,11 @@ class AdminArticlesTest extends TestCase
      * @test
      * @throws \Throwable
      */
-    public function authenticated_user_can_create_a_blog_article()
+    public function authorized_user_can_create_a_blog_article()
     {
-        $article = $this->make(Article::class);
+        $article = $this->make(Article::class, [
+            'user_id' => auth()->id()
+        ]);
 
         $response = $this->post(
             route($this->routePrefix . 'store'),
@@ -74,7 +76,7 @@ class AdminArticlesTest extends TestCase
      * @test
      * @throws \Throwable
      */
-    public function authenticated_user_can_visit_edit_blog_article()
+    public function authorized_user_can_visit_edit_blog_article()
     {
         $article = $this->create(Article::class);
 
@@ -87,7 +89,7 @@ class AdminArticlesTest extends TestCase
      * @test
      * @throws \Throwable
      */
-    public function authenticated_user_can_update_a_blog_article()
+    public function authorized_user_can_update_a_blog_article()
     {
         $existingArticle = $this->create(Article::class);
         $newArticle = $this->make(Article::class);
@@ -114,7 +116,7 @@ class AdminArticlesTest extends TestCase
      * @test
      * @throws \Throwable
      */
-    public function authenticated_user_can_delete_a_blog_article()
+    public function authorized_user_can_delete_a_blog_article()
     {
         $existingArticle = $this->create(Article::class);
         $existingArticle->categories()->sync($this->categories);

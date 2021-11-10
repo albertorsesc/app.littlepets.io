@@ -30,7 +30,10 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request)
     {
-        $article = Article::create($request->all());
+
+        $article = Article::create($request->except('is_published'));
+        $article->publish();
+
         $article->categories()->sync($request->categories);
 
         if ($request->hasFile('image')) {
@@ -50,11 +53,7 @@ class ArticleController extends Controller
 
     public function update(ArticleRequest $request, Article $article)
     {
-        if (! $request->is_published) {
-            $article->update(['published_at' => null]);
-        } elseif (is_null($article->published_at)) {
-            $article->update(['published_at' => now()->toDateTimeString()]);
-        }
+        $article->publish();
 
         $article->update($request->all());
 

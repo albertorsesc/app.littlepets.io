@@ -18,6 +18,7 @@ class ArticleTest extends TestCase
      */
     public function article_belongs_to_many_blog_categories()
     {
+        $this->fakeEvent();
         $this->loadSeeders([BlogCategorySeeder::class]);
 
         $article = $this->create(Article::class);

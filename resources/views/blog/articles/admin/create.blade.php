@@ -105,17 +105,17 @@
                     <div class="col-span-6">
                         <div class="relative flex items-end items-center mt-2">
                             <div class="flex items-center h-5">
-                                <input id="published_at"
-                                       name="published_at"
+                                <input id="is_published"
+                                       name="is_published"
                                        aria-describedby="published"
                                        type="checkbox"
                                        value="1"
                                        class="focus:ring-cyan-500 h-6 w-6 text-cyan-600 border-gray-300 rounded">
                             </div>
                             <div class="ml-3 text-sm">
-                                <label for="published_at" class="font-medium text-gray-700">
+                                <label for="is_published" class="font-medium text-gray-700">
                                     Publicar?
-                                    <p id="published_at" class="text-gray-500">
+                                    <p id="is_published" class="text-gray-500">
                                         Seleccione la casilla si deseas publicar este articulo.
                                     </p>
                                 </label>
