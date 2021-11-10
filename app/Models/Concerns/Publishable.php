@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait Publishable
 {
-
     /**
      * @param Builder $query
      *

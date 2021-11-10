@@ -2,12 +2,16 @@
 
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\SuggestionController;
+    use App\Http\Controllers\Web\Blog\BlogController;
     use App\Http\Controllers\Auth\SocialLoginController;
-    use Illuminate\Foundation\Auth\EmailVerificationRequest;
     use App\Http\Controllers\Web\LostPets\LostPetController;
+    use Illuminate\Foundation\Auth\EmailVerificationRequest;
+    use App\Http\Controllers\Web\Blog\BlogCategoryController;
     use App\Http\Controllers\Web\Adoptions\AdoptionController;
     use App\Http\Controllers\Web\Veterinaries\VeterinaryController;
+    use App\Http\Controllers\Web\Blog\Articles\Admin\ArticleController;
     use App\Http\Controllers\Api\Veterinaries\Actions\UploadLogoController;
+    use App\Http\Controllers\Web\Blog\Articles\ArticleController as PublicArticleController;
 
     Route::get('/', function () {
         return redirect()->route('home');
@@ -40,6 +44,24 @@
         Route::view('sugerencias', 'suggestions')->name('web.suggestions.index');
         Route::post('suggestions', SuggestionController::class)->name('suggestions.store');
 
+        /* Blog */
+        Route::get('blog', [BlogController::class, 'index'])->name('web.blog.index');
+
+        // Blog::Admin
+        Route::get('blog/editor/articulos', [ArticleController::class, 'index'])->name('web.blog.admin.articles.index');
+        Route::get('blog/editor/articulos/crear', [ArticleController::class, 'create'])->name('web.blog.admin.articles.create');
+        Route::post('blog/editor/articulos', [ArticleController::class, 'store'])->name('web.blog.admin.articles.store');
+        Route::get('blog/editor/articulos/{article}/editar', [ArticleController::class, 'edit'])->name('web.blog.admin.articles.edit');
+        Route::put('blog/editor/articulos/{article}', [ArticleController::class, 'update'])->name('web.blog.admin.articles.update');
+        Route::delete('blog/editor/articulos/{article}', [ArticleController::class, 'destroy'])->name('web.blog.admin.articles.destroy');
+
+        // Blog::Categories
+        Route::get('blog/editor/categorias', [BlogCategoryController::class, 'index'])->name('web.blog.admin.categories.index');
+        Route::post('blog/editor/categorias', [BlogCategoryController::class, 'store'])->name('web.blog.admin.categories.store');
+        Route::get('blog/editor/categorias/crear', [BlogCategoryController::class, 'create'])->name('web.blog.admin.categories.create');
+
+        // Blog::Articles
+        Route::get('blog/articulos/{article}', [PublicArticleController::class, 'show'])->name('web.blog.articles.show');
     });
 
     /* Public Routes */
