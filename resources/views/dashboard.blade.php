@@ -2,117 +2,142 @@
 
 @section('title', 'Inicio')
 
-@section('meta')
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="Bienvenid@s a la aplicación oficial de LittlePets">
-    <meta name="description" content="En LittlePets.io Unidos en la lucha contra del abandono animal...">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Bienvenid@s a la aplicación oficial de LittlePets">
-    <meta property="og:description" content="En LittlePets.io Unidos en la lucha contra el abandono animal">
-    <meta property="og:image" content="/img/littlepets_profile.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="En LittlePets.io Unidos en la lucha contra del abandono animal">
-    <meta property="twitter:url" content="https://app.littlepets.io">
-    <meta property="twitter:title" content="Bienvenid@s a la aplicación oficial de LittlePets">
-    <meta property="twitter:description" content="Nuestro Objetivo es proveer una herramienta dedicada a unir comunidades en busca del bienestar de animales sin hogar. Depende de nosotros salvar a una pequeña mascota.">
-    <meta property="twitter:image" content="/img/littlepets_profile.png">
-@endsection
-
 @section('content')
 
     <div class="pt-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="relative">
-                <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-5xl">
-                    <h2 class="text-base font-semibold tracking-wider text-cyan-600 uppercase">en Little Pets</h2>
-                    <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
-                        Unidos en la lucha contra el abandono animal
-                    </p>
-                    <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">
-                        Cada sección nos permite concentrar esfuerzos en una solución especifica.
-                    </p>
+        <div class="max-w-full mx-auto sm:px-6 lg:px-8">
+            <div class="min-h-screen w-full flex-1 flex items-stretch overflow-hidden">
+                <main class="md:w-2/3 flex-1 overflow-y-auto">
+                    <section aria-labelledby="primary-heading"
+                             class="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last">
+                        <div class="mt-8">
+                            <div class="px-4 sm:px-6 lg:px-8">
+                                <activities :activities="{{ json_encode($activities) }}" inline-template>
+                                    <div class="flow-root px-4 h-auto py-12">
+                                        <ul role="list" class="-mb-8">
+                                            <li v-for="activity in localActivities" :key="activity.id" >
+                                                <div v-if="activity.type.includes('veterinary')" class="relative pb-8 w-2/5">
+                                                    <span class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                                    <div class="relative flex items-start space-x-3">
+                                                        <div>
+                                                            <div class="relative px-1">
+                                                                <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                                                                    <i class="fas fa-clinic-medical text-cyan-500 flex-shrink-0"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="min-w-0 flex-1 pl-4">
+                                                            <div class="">
+                                                                <div class="text-sm">
+                                                                    <span class="text-xl font-semibold text-gray-500">
+                                                                        Nueva Veterinaria:
+                                                                    </span>
+                                                                </div>
+                                                                <p class="mt-2 text-sm text-gray-500">
+                                                                    Registrado @{{ activity.subject.meta.createdAt }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="mt-6 text-sm text-gray-700">
+                                                                <veterinary-card :veterinary="activity.subject"></veterinary-card>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div v-if="activity.type.includes('adoption')" class="relative pb-8 w-2/5">
+                                                    Adopcion
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </activities>
 
-                    <div class="mt-12">
-                        <div class="grid grid-cols-1 gap-8 sm:grid-cols-1 lg:grid-cols-3">
-                            {{--Adoptions--}}
-                            <div class="pt-6">
-                                <a href="{{ route('web.adoptions.index') }}">
-                                    <div class="card transform lp-transition flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
+                                <div class="hidden mt-12 relative">
+                                    <div class="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-5xl">
+                                        <h2 class="text-base font-semibold tracking-wider text-cyan-600 uppercase">en Little Pets</h2>
+                                        <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                                            Unidos en la lucha contra el abandono animal
+                                        </p>
+                                        <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">
+                                            Cada sección nos permite concentrar esfuerzos en una solución especifica.
+                                        </p>
 
-                                        <div class="-mt-6">
-                                            <div>
+                                        <div class="mt-12">
+                                            <div class="grid grid-cols-1 gap-8 sm:grid-cols-1 lg:grid-cols-3">
+                                                {{--Adoptions--}}
+                                                <div class="pt-6">
+                                                    <a href="{{ route('web.adoptions.index') }}">
+                                                        <div class="card transform lp-transition flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
+
+                                                            <div class="-mt-6">
+                                                                <div>
                                   <span class="animate-bounce inline-flex items-center justify-center p-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg">
                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                                         </svg>
                                   </span>
-                                            </div>
-                                            <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Adopciones</h3>
-                                            <p class="flex justify-center">
-                                                <i class="fas fa-globe-americas text-base text-blue-400"></i>
-                                            </p>
-                                            <p class="mt-5 text-base text-gray-500">
-                                                Entre más grande sea nuestra comunidad, más posibilidades tienen de encontrar el hogar que merecen.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            {{--LostPets--}}
-                            <div class="pt-6">
-                                <a href="{{ route('web.lost-pets.index') }}">
-                                    <div class="card transform lp-transition flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
-                                        <div class="-mt-6">
-                                            <div>
+                                                                </div>
+                                                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Adopciones</h3>
+                                                                <p class="flex justify-center">
+                                                                    <i class="fas fa-globe-americas text-base text-blue-400"></i>
+                                                                </p>
+                                                                <p class="mt-5 text-base text-gray-500">
+                                                                    Entre más grande sea nuestra comunidad, más posibilidades tienen de encontrar el hogar que merecen.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                {{--LostPets--}}
+                                                <div class="pt-6">
+                                                    <a href="{{ route('web.lost-pets.index') }}">
+                                                        <div class="card transform lp-transition flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
+                                                            <div class="-mt-6">
+                                                                <div>
                                               <span class="animate-bounce inline-flex items-center justify-center p-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg">
                                                 <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                                                 </svg>
                                             </span>
-                                            </div>
-                                            <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Perdidos y Encontrados</h3>
-                                            <p class="flex justify-center">
-                                                <i class="fas fa-globe-americas text-base text-blue-400"></i>
-                                            </p>
-                                            <p class="mt-5 text-base text-gray-500">
-                                                Aumenta las posibilidades de encontrar a tu mascota extraviada o
-                                                en caso de encontrar una mascota ayúdala a regresar a casa.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            {{--Vets--}}
-                            <div class="pt-6">
-                                <a href="/veterinarias">
-                                    <div class="card transform lp-transition flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
-                                        <div class="-mt-6">
-                                            <div>
+                                                                </div>
+                                                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Perdidos y Encontrados</h3>
+                                                                <p class="flex justify-center">
+                                                                    <i class="fas fa-globe-americas text-base text-blue-400"></i>
+                                                                </p>
+                                                                <p class="mt-5 text-base text-gray-500">
+                                                                    Aumenta las posibilidades de encontrar a tu mascota extraviada o
+                                                                    en caso de encontrar una mascota ayúdala a regresar a casa.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                {{--Vets--}}
+                                                <div class="pt-6">
+                                                    <a href="/veterinarias">
+                                                        <div class="card transform lp-transition flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
+                                                            <div class="-mt-6">
+                                                                <div>
                                               <span class="animate-bounce inline-flex items-center justify-center py-3 px-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg items-center align-middle">
                                                   <i class="fas fa-clinic-medical text-white text-xl"></i>
                                               </span>
-                                            </div>
-                                            <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Veterinarias</h3>
-                                            <p class="flex justify-center">
-                                                <i class="fas fa-globe-americas text-base text-blue-400"></i>
-                                            </p>
-                                            <p class="mt-5 text-base text-gray-500 pb-5">
-                                                Únete a la comunidad y deja que tus pacientes te encuentren en cualquier momento.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                                                                </div>
+                                                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Veterinarias</h3>
+                                                                <p class="flex justify-center">
+                                                                    <i class="fas fa-globe-americas text-base text-blue-400"></i>
+                                                                </p>
+                                                                <p class="mt-5 text-base text-gray-500 pb-5">
+                                                                    Únete a la comunidad y deja que tus pacientes te encuentren en cualquier momento.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
 
-                            {{--Organizations--}}
-                            <div class="pt-6">
-                                <div class="flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
-                                    <div class="-mt-6">
-                                        <div>
+                                                {{--Organizations--}}
+                                                <div class="pt-6">
+                                                    <div class="flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
+                                                        <div class="-mt-6">
+                                                            <div>
                           <span class="inline-flex items-center justify-center p-3 bg-gradient-to-r from-gray-300 to-gray-400 rounded-md shadow-lg">
                             <!-- Heroicon name: outline/cog -->
     {{--<svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -122,56 +147,60 @@
 
                               <i class="fas fa-university text-white text-xl"></i>
                           </span>
-                                        </div>
-                                        <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Organizaciones</h3>
-                                        <span class="text-xs text-cyan-500">Próximamente</span>
-                                        <p class="mt-5 text-base text-gray-500">
-                                            En Little Pets tenemos un lugar especial para Control Animal y Refugios del País.
-                                            Unidos logramos más.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            {{--Donations--}}
-                            <div class="pt-6">
-                                <div class="flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
-                                    <div class="-mt-6">
-                                        <div>
+                                                            </div>
+                                                            <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Organizaciones</h3>
+                                                            <span class="text-xs text-cyan-500">Próximamente</span>
+                                                            <p class="mt-5 text-base text-gray-500">
+                                                                En Little Pets tenemos un lugar especial para Control Animal y Refugios del País.
+                                                                Unidos logramos más.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{--Donations--}}
+                                                <div class="pt-6">
+                                                    <div class="flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-8">
+                                                        <div class="-mt-6">
+                                                            <div>
                                               <span class="inline-flex items-center justify-center p-3 bg-gradient-to-r from-gray-300 to-gray-400 rounded-md shadow-lg">
                                                 <i class="fas fa-hand-holding-heart text-white text-xl"></i>
                                               </span>
-                                        </div>
-                                        <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Donaciones</h3>
-                                        <span class="text-xs text-cyan-500">Próximamente</span>
-                                        <p class="mt-5 text-base text-gray-500">
-                                            Buscamos organizar esfuerzos de forma transparente y segura para que la mayor cantidad de
-                                            animales reciban lo que necesitan.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            {{--Other Businesses--}}
-                            <div class="pt-6">
-                                <div class="flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-14">
-                                    <div class="-mt-6">
-                                        <div>
+                                                            </div>
+                                                            <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Donaciones</h3>
+                                                            <span class="text-xs text-cyan-500">Próximamente</span>
+                                                            <p class="mt-5 text-base text-gray-500">
+                                                                Buscamos organizar esfuerzos de forma transparente y segura para que la mayor cantidad de
+                                                                animales reciban lo que necesitan.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{--Other Businesses--}}
+                                                <div class="pt-6">
+                                                    <div class="flow-root bg-gray-50 rounded-lg shadow-lg sm:px-28 md:px-6 pb-14">
+                                                        <div class="-mt-6">
+                                                            <div>
                           <span class="inline-flex items-center justify-center p-3 bg-gradient-to-r from-gray-300 to-gray-400 rounded-md shadow-lg">
                                 <i class="fas fa-store text-white text-xl"></i>
                           </span>
+                                                            </div>
+                                                            <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Invitamos a</h3>
+                                                            <span class="text-xs text-cyan-500">Próximamente</span>
+                                                            <p class="mt-5 text-base text-gray-500">
+                                                                Estéticas, Entrenadores, Tienda de accesorios y cualquier negocio que mejore la vida de los animales...
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Invitamos a</h3>
-                                        <span class="text-xs text-cyan-500">Próximamente</span>
-                                        <p class="mt-5 text-base text-gray-500">
-                                            Estéticas, Entrenadores, Tienda de accesorios y cualquier negocio que mejore la vida de los animales...
-                                        </p>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-                    </div>
-                </div>
+                    </section>
+                </main>
+                <aside class="md:w-1/3 my-8 border-l border-gray-200 overflow-y-auto lg:block"></aside>
             </div>
         </div>
     </div>

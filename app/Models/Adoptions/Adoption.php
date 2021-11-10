@@ -3,10 +3,18 @@
 namespace App\Models\Adoptions;
 
 use App\Models\Pet;
+use App\Models\Concerns\{
+    HasUuid,
+    HasLocation,
+    Commentable,
+    Publishable,
+    CanBeReported,
+    RecordsActivity,
+    SerializeTimestamps
+};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Concerns\{CanBeReported, Commentable, HasLocation, HasUuid, Publishable, SerializeTimestamps};
 
 class Adoption extends Model
 {
@@ -16,6 +24,7 @@ class Adoption extends Model
     use Commentable;
     use Publishable;
     use CanBeReported;
+    use RecordsActivity;
     use SerializeTimestamps;
 
     protected $fillable = ['title', 'phone', 'bio', 'story', 'published_at', 'adopted_at'];

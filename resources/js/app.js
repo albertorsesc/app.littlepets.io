@@ -14,6 +14,8 @@ if (process.env.MIX_NODE_ENV === 'production') {
 
 Vue.component('app', require('./views/App').default);
 
+Vue.component('activities', require('./views/Activities/Activities').default);
+
 Vue.component('adoptions', require('./views/Adoptions/Adoptions').default);
 Vue.component('my-adoptions', require('./views/Adoptions/MyAdoptions').default);
 Vue.component('adoption-profile', require('./views/Adoptions/AdoptionProfile').default);

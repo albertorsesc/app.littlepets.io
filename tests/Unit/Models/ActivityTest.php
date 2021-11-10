@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Models;
 
-use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Activity;
 use App\Models\Veterinaries\Veterinary;
@@ -23,8 +22,8 @@ class ActivityTest extends TestCase
         $veterinary = $this->create(Veterinary::class);
 
         $this->assertDatabaseHas('activities', [
-            'type' =>'created_veterinary',
-            'user_id' =>auth()->id(),
+            'type' =>'veterinary_created',
+            'user_id' => auth()->id(),
             'subject_id' => $veterinary->id,
             'subject_type'=> get_class($veterinary)
         ]);

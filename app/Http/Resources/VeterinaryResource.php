@@ -33,6 +33,7 @@ class VeterinaryResource extends JsonResource
             'likes' => $this->whenLoaded('likes'),
             'meta' => [
                 'profile' => $this->profile(),
+                'createdAt' => $this->created_at->diffForHumans(),
                 'updatedAt' => $this->updated_at->diffForHumans(),
                 'publishedAt' => optional($this->published_at)->diffForHumans(),
             ]

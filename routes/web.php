@@ -2,6 +2,7 @@
 
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\SuggestionController;
+    use App\Http\Controllers\Web\DashboardController;
     use App\Http\Controllers\Auth\SocialLoginController;
     use Illuminate\Foundation\Auth\EmailVerificationRequest;
     use App\Http\Controllers\Web\LostPets\LostPetController;
@@ -23,7 +24,7 @@
     })->middleware(['auth', 'signed'])->name('verification.verify');
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-        Route::view('/inicio', 'dashboard')->name('home');
+        Route::get('/inicio', [DashboardController::class, 'index'])->name('home');
 //        Route::redirect('dashboard', 'adopciones');
 
         Route::get('adopciones', [AdoptionController::class, 'index'])->name('web.adoptions.index');

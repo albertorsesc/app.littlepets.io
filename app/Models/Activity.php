@@ -1,29 +1,27 @@
 <?php
 
-namespace App\Models;
+    namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+    use App\Http\Resources\ActivityResource;
+    use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\Factories\HasFactory;
+    use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Activity extends Model
-{
-    use HasFactory;
-    protected $guarded = [];
-
-    public function subject()
+    class Activity extends Model
     {
-        return $this->morphTo();
-    }
+        use HasFactory;
+        protected $guarded = [];
 
-    public static function feed($user, $take=50)
-    {
-            return static::where('user_id', $user->id)
-                ->latest()
-                ->with('subject')
-                ->take()
-                ->get()
-                ->groupBy(function ($activity){
-                    return $activity->created_at->format('Y-m-d');
-                });
+        public function subject() : MorphTo
+        {
+            return $this->morphTo();
+        }
+
+        public static function feed()
+        {
+            return static::query()
+                         ->latest()
+                         ->with('subject')
+                         ->paginate(50);
+        }
     }
-}

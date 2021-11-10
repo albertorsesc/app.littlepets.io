@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Concerns\{Likeable, HasLocation, Publishable, CanBeReported, SerializeTimestamps};
+use App\Models\Concerns\{Likeable, HasLocation, Publishable, CanBeReported, RecordsActivity, SerializeTimestamps};
 
 class Veterinary extends Model
 {
@@ -17,6 +17,7 @@ class Veterinary extends Model
     use Publishable;
     use HasLocation;
     use CanBeReported;
+    use RecordsActivity;
     use SerializeTimestamps;
 
     protected $casts = [
