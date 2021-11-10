@@ -43,6 +43,11 @@
                                    value="{{ old('title', $article->title) }}"
                                    class="lp-input">
                         </div>
+                        @error('title')
+                        <p class="text-red-500 font-medium">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6">
@@ -52,13 +57,18 @@
                         <div class="mt-1">
                             <select id="categories" name="categories[]" autocomplete="categories" multiple class="lp-select">
                                 @foreach($article->categories as $category)
-                                    <option value="{{ $category->id }}" selected disabled>{{ $category->display_name }}</option>
+                                    <option value="{{ $category->id }}" selected>{{ $category->display_name }}</option>
                                 @endforeach
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->display_name }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        @error('categories')
+                        <p class="text-red-500 font-medium">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6">
@@ -72,6 +82,11 @@
                                       rows="2"
                             >{{ old('excerpt', $article->excerpt) }}</textarea>
                         </div>
+                        @error('excerpt')
+                        <p class="text-red-500 font-medium">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6">
@@ -79,13 +94,17 @@
                             Contenido
                         </label>
                         <div class="mt-1">
-
                             <textarea name="body"
                                       class="lp-input"
                                       id="body"
                                       rows="10"
                             >{!! old('body', $article->body) !!}</textarea>
                         </div>
+                        @error('body')
+                        <p class="text-red-500 font-medium">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
 
                     <div class="relative">
@@ -95,14 +114,19 @@
                             </svg>
                             <input class="cursor-pointer absolute block opacity-0 pin-r pin-t" type="file" name="image" accept="image/*">
                         </button>
+                        @error('image')
+                        <p class="text-red-500 font-medium">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6">
                         <div class="relative flex items-end items-center mt-2">
                             <div class="flex items-center h-5">
-                                <input id="published_at"
-                                       name="published_at"
-                                       aria-describedby="published_at"
+                                <input id="is_published"
+                                       name="is_published"
+                                       aria-describedby="is_published"
                                        type="checkbox"
                                        value="1"
                                        @isset($article->published_at) checked @endisset
@@ -116,6 +140,11 @@
                                     </p>
                                 </label>
                             </div>
+                            @error('is_published')
+                            <p class="text-red-500 font-medium">
+                                {{ $message }}
+                            </p>
+                            @enderror
                         </div>
                     </div>
                 </div>

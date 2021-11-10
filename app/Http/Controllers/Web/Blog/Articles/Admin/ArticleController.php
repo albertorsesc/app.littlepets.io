@@ -50,6 +50,12 @@ class ArticleController extends Controller
 
     public function update(ArticleRequest $request, Article $article)
     {
+        if (! $request->is_published) {
+            $article->update(['published_at' => null]);
+        } elseif (is_null($article->published_at)) {
+            $article->update(['published_at' => now()->toDateTimeString()]);
+        }
+
         $article->update($request->all());
 
         if ($request->hasFile('image') && $article->media()->count()) {

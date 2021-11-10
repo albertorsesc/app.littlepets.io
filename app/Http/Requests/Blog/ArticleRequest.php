@@ -29,6 +29,7 @@ class ArticleRequest extends FormRequest
             'categories' => ['required'],
             'excerpt' => ['required', 'max:255'],
             'body' => ['required'],
+            'is_published' => ['boolean'],
         ];
     }
 }

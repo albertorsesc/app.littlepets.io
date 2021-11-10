@@ -5,6 +5,7 @@ namespace App\Models\Blog;
 use App\Models\Concerns\Blog\Sluggable;
 use App\Models\Concerns\HandlesMedia;
 use App\Models\Concerns\Publishable;
+use App\Models\Concerns\SerializeTimestamps;
 use App\Models\Concerns\Shareable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,15 +18,15 @@ class Article extends Model
     use HasFactory;
     use Publishable;
     use HandlesMedia;
+    use SerializeTimestamps;
 
-    protected $casts = ['published_at' => 'datetime:Y-m-d H:i:s'];
     protected $fillable = ['title', 'slug', 'excerpt', 'body', 'image', 'published_at'];
 
     protected static function boot ()
     {
         parent::boot();
         static::saving(function ($article) {
-            $article->published_at = request('published_at') ? now()->toDateTimeString() : null;
+
         });
     }
 
