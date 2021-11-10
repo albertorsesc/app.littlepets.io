@@ -52,6 +52,15 @@
                 </div>
                 <div class="mt-6 pt-6">
                     <div class="px-2 space-y-1">
+                        @if(auth()->user()->canEditBlog() || \App\Models\Blog\Article::isPublished()->count() > 0)
+                            <a href="{{ route('web.blog.index') }}"
+                               class="@if(request()->routeIs('web.blog.index') || request()->segment(1) === 'blog')) bg-cyan-800 @endif text-white group flex items-center px-2 py-2 text-base font-medium rounded-md" aria-current="page">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 flex-shrink-0 text-cyan-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                                </svg>
+                                Blog
+                            </a>
+                        @endif
                         <a href="{{ route('web.suggestions.index') }}"
                            class="@if(request()->routeIs('web.suggestions.index') || request()->segment(1) === 'sugerencias')) bg-cyan-800 @endif text-white group flex items-center px-2 py-2 text-base font-medium rounded-md" aria-current="page">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 flex-shrink-0 text-cyan-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -205,6 +214,15 @@
                 </div>
                 <div class="mt-6 pt-6">
                     <div class="px-2 space-y-1">
+                        @if(auth()->user()->canEditBlog() || \App\Models\Blog\Article::isPublished()->count() > 0)
+                        <a href="{{ route('web.blog.index') }}"
+                           class="@if(request()->routeIs('web.blog.index') || request()->segment(1) === 'blog') bg-cyan-800 @endif text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 flex-shrink-0 text-cyan-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                            </svg>
+                            Blog
+                        </a>
+                        @endif
                         <a href="{{ route('web.suggestions.index') }}"
                            class="@if(request()->routeIs('web.suggestions.index') || request()->segment(1) === 'sugerencias') bg-cyan-800 @endif text-white hover:text-white hover:bg-cyan-800 group flex items-center px-2 py-2 text-base leading-6 font-medium rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 flex-shrink-0 text-cyan-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">

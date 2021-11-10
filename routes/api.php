@@ -5,6 +5,7 @@
     use App\Http\Controllers\Api\CountryController;
     use App\Http\Controllers\Api\Pets\PetImageController;
     use App\Http\Controllers\Api\LostPets\LostPetController;
+    use App\Http\Controllers\Api\Blog\BlogCategoryController;
     use App\Http\Controllers\Api\Adoptions\AdoptionController;
     use App\Http\Controllers\Api\Sepomex\CityByStateController;
     use App\Http\Controllers\Api\LostPets\UserLostPetController;

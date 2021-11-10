@@ -12,6 +12,15 @@ use Intervention\Image\Facades\Image;
 
 trait HandlesMedia
 {
+
+    public static function bootHandlesMedia ()
+    {
+        static::deleting(function ($model) {
+            foreach ($model->getMedia() as $media) {
+                $model->deleteMedia($media->id);
+            }
+        });
+    }
     // Relationship
 
     public function media () : MorphMany
@@ -23,7 +32,7 @@ trait HandlesMedia
 
     public function getMedia($size = null)
     {
-        return $this->media()->get(['file_name']);
+        return $this->media()->get(['id', 'file_name']);
         /*return collect($this->media->pluck('file_name'))->map(function ($image) use ($size) {
             return 'img/' . $size . '/' . Str::after($image, 'public/');
         })->toArray();*/
@@ -54,15 +63,18 @@ trait HandlesMedia
     public function uploadImage(UploadedFile $file)
     {
         if (app()->environment('production')) {
-            $path = Str::slug(class_basename($this)) . '/' . Str::random(40)  . '.' . $file->extension();
+            $path = Str::slug(Str::plural(class_basename($this))) . '/' . Str::random(40)  . '.' . $file->extension();
             $img = Image::make($file)->filter(new MediumFilter)->stream()->__toString();
             Storage::disk('s3')->put($path, $img, 'public');
             self::attachImage(
                 Storage::disk('s3')->url($path)
            );
          } else {
+            $path = Str::slug(Str::plural(class_basename($this))) . '/' . Str::random(40)  . '.' . $file->extension();
+            $img = Image::make($file)->filter(new MediumFilter)->stream()->__toString();
+            Storage::put($path, $img, 'public');
             self::attachImage(
-                $file->storePublicly('public')
+                Storage::url($path)
             );
         }
 
@@ -77,7 +89,9 @@ trait HandlesMedia
                 Str::after($media->file_name, '.com')
             );
         } else {
-            Storage::delete($media->file_name);
+            Storage::delete(
+                Str::after($media->file_name, 'storage/')
+            );
         }
         $media->delete();
     }
