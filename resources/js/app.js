@@ -13,6 +13,7 @@ if (process.env.MIX_NODE_ENV === 'production') {
 }
 
 Vue.component('app', require('./views/App').default);
+Vue.component('blog-app', require('./views/Blog/BlogApp').default);
 
 Vue.component('adoptions', require('./views/Adoptions/Adoptions').default);
 Vue.component('my-adoptions', require('./views/Adoptions/MyAdoptions').default);

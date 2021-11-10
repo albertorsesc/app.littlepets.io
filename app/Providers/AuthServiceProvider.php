@@ -2,17 +2,16 @@
 
 namespace App\Providers;
 
-use App\Models\Team;
-use App\Policies\TeamPolicy;
-use App\Policies\LostPetPolicy;
-use App\Models\LostPets\LostPet;
-use App\Policies\AdoptionPolicy;
-use App\Models\Adoptions\Adoption;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\{URL, Gate};
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Policies\{Blog\Articles\ArticlePolicy,
+    Blog\Articles\BlogCategoryPolicy,
+    TeamPolicy,
+    LostPetPolicy,
+    AdoptionPolicy};
+use App\Models\{Blog\Article, Blog\BlogCategory, Team, LostPets\LostPet, Adoptions\Adoption};
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
 
         Adoption::class => AdoptionPolicy::class,
         LostPet::class => LostPetPolicy::class,
+        Article::class => ArticlePolicy::class,
+        BlogCategory::class => BlogCategoryPolicy::class,
     ];
 
     /**

@@ -6,25 +6,24 @@ use Laravel\Jetstream\HasTeams;
 use App\Models\LostPets\LostPet;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Adoptions\Adoption;
-use App\Models\Concerns\HasAvatar;
 use Laravel\Jetstream\HasProfilePhoto;
 use App\Models\Veterinaries\Veterinary;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Concerns\SerializeTimestamps;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\ResetPasswordNotification;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\{HasMany, HasManyThrough};
+use App\Models\Concerns\{HasAvatar, Blog\CanEditBlog, SerializeTimestamps};
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasAvatar;
     use HasFactory;
     use Notifiable;
+    use CanEditBlog;
     use SoftDeletes;
     use HasApiTokens;
     use HasProfilePhoto;
